@@ -2,18 +2,52 @@
 % Please edit documentation in R/api.R
 \name{list_md_user_tokens}
 \alias{list_md_user_tokens}
-\title{List a motherduck user's tokens}
+\title{List a MotherDuck user's tokens}
 \usage{
 list_md_user_tokens(user_name, motherduck_token = "MOTHERDUCK_TOKEN")
 }
 \arguments{
-\item{user_name}{motherduck user name}
+\item{user_name}{A character string specifying the MotherDuck user name whose
+tokens should be listed.}
 
-\item{motherduck_token}{motherduck token or environment nick name}
+\item{motherduck_token}{Character. Either the name of an environment variable containing your
+MotherDuck access token (default \code{"MOTHERDUCK_TOKEN"}) or the token itself.}
 }
 \value{
-tibble
+A tibble with two columns:
+\itemize{
+\item \code{token_settings}: metadata fields associated with each token.
+\item \code{token_values}: corresponding values for those fields.
+}
 }
 \description{
-List a motherduck user's tokens
+Retrieves all active authentication tokens associated with a specific
+MotherDuck user account, returning them as a tidy tibble.
+}
+\details{
+This function queries the MotherDuck REST API endpoint
+\verb{https://api.motherduck.com/v1/users/\{user_name\}/tokens} to list the tokens
+available for the specified user.
+
+It uses the provided or environment-resolved \code{motherduck_token} for
+authorization. If \code{motherduck_token} is not explicitly provided, the function
+attempts to resolve it from the \code{MOTHERDUCK_TOKEN} environment variable via
+\code{\link[=validate_motherduck_token_env]{validate_motherduck_token_env()}}.
+The current authenticated user is displayed via \code{\link[=show_current_user]{show_current_user()}} for
+verification.
+The resulting JSON response is validated and tidied into a two-column tibble
+using \code{\link[=check_resp_status_and_tidy_response]{check_resp_status_and_tidy_response()}}, with token attributes and their
+corresponding values.
+}
+\examples{
+\dontrun{
+# List tokens for a specific user
+tokens_tbl <- list_md_user_tokens(user_name = "alejandro_hagan")
+print(tokens_tbl)
+}
+
+}
+\seealso{
+\code{\link[=list_md_active_accounts]{list_md_active_accounts()}}, \code{\link[=validate_motherduck_token_env]{validate_motherduck_token_env()}},
+\code{\link[=check_resp_status_and_tidy_response]{check_resp_status_and_tidy_response()}}, \code{\link[=show_current_user]{show_current_user()}}
 }

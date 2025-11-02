@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{create_md_access_token}
 \alias{create_md_access_token}
-\title{Create a motherduck access token}
+\title{Create a MotherDuck access token}
 \usage{
 create_md_access_token(
   user_name,
@@ -14,21 +14,53 @@ create_md_access_token(
 )
 }
 \arguments{
-\item{user_name}{new users name}
+\item{user_name}{A character string specifying the MotherDuck user name whose
+tokens should be listed.}
 
-\item{token_type}{the token type}
+\item{token_type}{Character. The type of token to create. Must be one of:
+\code{"read_write"} or \code{"read_scaling"}.}
 
-\item{token_name}{the token name}
+\item{token_name}{Character. A descriptive name for the token.}
 
-\item{token_expiration_number}{the token expiration number - minimum 300 seconds}
+\item{token_expiration_number}{Numeric. The duration of the token’s validity,
+in the units specified by \code{token_expiration_unit}. Minimum value is 300 seconds.}
 
-\item{token_expiration_unit}{the token expiration unit (\code{seconds},\code{minutes},\code{days},\code{weeks},\code{months},\code{years},\code{never})}
+\item{token_expiration_unit}{Character. The unit of time for the token expiration.
+One of \code{"seconds"}, \code{"minutes"}, \code{"days"}, \code{"weeks"}, \code{"months"}, \code{"years"}, or \code{"never"}.}
 
-\item{motherduck_token}{admin user's token}
+\item{motherduck_token}{Character. Either the name of an environment variable containing your
+MotherDuck access token (default \code{"MOTHERDUCK_TOKEN"}) or the token itself.}
 }
 \value{
-tibble
+A tibble containing the API response, including the username and the token
+attributes.
 }
 \description{
-Create a motherduck access token
+Creates a new access token for a specified MotherDuck user using the REST API.
+Tokens can be configured with a specific type, name, and expiration time.
+}
+\details{
+This function calls the MotherDuck REST API endpoint
+\verb{https://api.motherduck.com/v1/users/\{user_name\}/tokens} to create a new token
+for the specified user. The token’s time-to-live (TTL) is calculated in seconds
+from \code{token_expiration_number} and \code{token_expiration_unit}.
+The authenticated user must have administrative privileges to create tokens.
+}
+\examples{
+\dontrun{
+# Create a temporary read/write token for user "alejandro_hagan" valid for 1 hour
+create_md_access_token(
+  user_name = "alejandro_hagan",
+  token_type = "read_write",
+  token_name = "temp_token",
+  token_expiration_number = 1,
+  token_expiration_unit = "hours",
+  motherduck_token = "MOTHERDUCK_TOKEN"
+)
+}
+
+}
+\seealso{
+\code{\link[=list_md_user_tokens]{list_md_user_tokens()}} for retrieving tokens of a user, and
+\code{\link[=list_md_active_accounts]{list_md_active_accounts()}} for listing available accounts.
 }

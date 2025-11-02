@@ -2,16 +2,46 @@
 % Please edit documentation in R/api.R
 \name{list_md_active_accounts}
 \alias{list_md_active_accounts}
-\title{List active motherduck accounts}
+\title{List active MotherDuck accounts}
 \usage{
 list_md_active_accounts(motherduck_token = "MOTHERDUCK_TOKEN")
 }
 \arguments{
-\item{motherduck_token}{admin user's token}
+\item{motherduck_token}{Character. Either the name of an environment variable containing your
+MotherDuck access token (default \code{"MOTHERDUCK_TOKEN"}) or the token itself.}
 }
 \value{
-tibble
+A tibble with two columns:
+\itemize{
+\item \code{account_settings}: configuration keys for the active accounts.
+\item \code{account_values}: corresponding configuration values.
+}
 }
 \description{
-List active motherduck accounts
+Retrieves a list of active MotherDuck accounts available to the authenticated
+user, returning the results as a tidy tibble.
+}
+\details{
+This function queries the MotherDuck REST API endpoint
+(\verb{https://api.motherduck.com/v1/active_accounts}) using the provided or
+environment-resolved authentication token.
+The API response is validated and converted into a two-column tibble using
+\code{\link[=check_resp_status_and_tidy_response]{check_resp_status_and_tidy_response()}}, where:
+\itemize{
+\item \code{account_settings} contains the configuration keys.
+\item \code{account_values} contains their corresponding values.
+}
+
+If \code{motherduck_token} is not explicitly provided, the function attempts to
+resolve it from the \code{MOTHERDUCK_TOKEN} environment variable using
+\code{\link[=validate_motherduck_token_env]{validate_motherduck_token_env()}}.
+The current user name is also displayed via \code{\link[=show_current_user]{show_current_user()}}.
+}
+\examples{
+\dontrun{
+# Retrieve active accounts for the authenticated user
+accounts_tbl <- list_md_active_accounts()
+print(accounts_tbl)
+}
+
 }

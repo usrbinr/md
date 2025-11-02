@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{show_current_user}
 \alias{show_current_user}
-\title{Show current user}
+\title{Show current database user}
 \usage{
 show_current_user(.con, motherduck_token, return = "msg")
 }
@@ -12,11 +12,33 @@ show_current_user(.con, motherduck_token, return = "msg")
 \item{motherduck_token}{Character. Either the name of an environment variable containing your
 MotherDuck access token (default \code{"MOTHERDUCK_TOKEN"}) or the token itself.}
 
-\item{return}{msg or arg}
-}
-\value{
-tibble or print statement
+\item{return}{Character scalar, one of \code{"msg"} or \code{"arg"}. Default: \code{"msg"}.}
 }
 \description{
-Show current user
+Return or print the current database user for a MotherDuck / DuckDB connection.
+}
+\details{
+This helper queries the active DB connection for the current user (via
+\verb{SELECT current_user}). You may either provide an existing DBI connection
+via \code{.con} or provide a \code{motherduck_token} and let the function open a
+short-lived connection for you. When the function opens a connection it
+will close it before returning.
+
+The function supports two output modes:
+\itemize{
+\item \code{"msg"} — prints a small informative message and returns the result
+invisibly (useful for interactive use),
+\item \code{"arg"} — returns a tibble containing the \code{current_user} column.
+}
+}
+\examples{
+\dontrun{
+# Using an existing connection
+con <- connect_to_motherduck("my_token")
+show_current_user(.con = con, return = "msg")
+
+# Let the function open a connection from a token
+tbl <- show_current_user(motherduck_token = "my_token", return = "arg")
+}
+
 }
