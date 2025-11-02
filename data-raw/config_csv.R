@@ -2,7 +2,7 @@
 
 
 config_csv <- tibble::tribble(
-    ~Name, ~Description, ~Type, ~Default,
+    ~name, ~description, ~type, ~default,
     "all_varchar", "Skip type detection and assume all columns are of type VARCHAR. This option is only supported by the read_csv function.", "BOOL", "false",
     "allow_quoted_nulls", "Allow the conversion of quoted values to NULL values", "BOOL", "true",
     "auto_detect", "Auto detect CSV parameters.", "BOOL", "true",

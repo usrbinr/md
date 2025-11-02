@@ -10,8 +10,6 @@ install_extensions(.con, extension_names)
 \item{.con}{duckdb connection}
 
 \item{extension_names}{DuckDB extension names}
-
-\item{silent_msg}{indicate if you want a success / failure report after installation and loading}
 }
 \value{
 message

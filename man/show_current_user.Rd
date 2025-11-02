@@ -4,12 +4,13 @@
 \alias{show_current_user}
 \title{Show current user}
 \usage{
-show_current_user(.con, motherduck_token = "MOTHERDUCK_TOKEN", return = "msg")
+show_current_user(.con, motherduck_token, return = "msg")
 }
 \arguments{
-\item{.con}{connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
-\item{motherduck_token}{motherduck token}
+\item{motherduck_token}{Character. Either the name of an environment variable containing your
+MotherDuck access token (default \code{"MOTHERDUCK_TOKEN"}) or the token itself.}
 
 \item{return}{msg or arg}
 }

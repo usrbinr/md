@@ -7,19 +7,19 @@
 list_databases(.con)
 }
 \arguments{
-\item{.con}{A valid `DBI` connection (DuckDB / MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-A `dbplyr` lazy tibble with one column: `table_catalog`.
+A \code{dbplyr} lazy tibble with one column: \code{table_catalog}.
 }
 \description{
 Returns a lazy tibble of distinct database (catalog) names visible through
-the current connection, using `information_schema.tables`.
+the current connection, using \code{information_schema.tables}.
 }
 \details{
-The result is a `dbplyr` lazy table (`tbl_dbi`). Use `collect()` to bring
+The result is a \code{dbplyr} lazy table (\code{tbl_dbi}). Use \code{dplyr::collect()} to bring
 results into R as a local tibble.
 }
 \seealso{
-[dbplyr::tbl()], [DBI::dbConnect()]
+\code{\link[dplyr:tbl]{dplyr::tbl()}}, \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 }

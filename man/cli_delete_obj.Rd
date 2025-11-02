@@ -17,8 +17,8 @@ cli_delete_obj(.con, database_name, schema_name, table_name)
 }
 \value{
 This function does not return any values. It prints a message indicating
-         the deleted objects (database, schema, or table) and the number of schemas/tables
-         affected by the deletion.
+the deleted objects (database, schema, or table) and the number of schemas/tables
+affected by the deletion.
 }
 \description{
 This function allows you to delete specified objects (database, schema, or table) from the connected

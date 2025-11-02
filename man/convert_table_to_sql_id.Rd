@@ -8,19 +8,21 @@ convert_table_to_sql_id(x)
 }
 \arguments{
 \item{x}{A tibble or data frame containing the columns:
-* `table_catalog` — database/catalog name
-* `table_schema` — schema name
-* `table_name` — table name}
+\itemize{
+\item \code{table_catalog} — database/catalog name
+\item \code{table_schema} — schema name
+\item \code{table_name} — table name
+}}
 }
 \value{
-A list of `DBI::Id` objects, each representing a fully-qualified table.
+A list of \code{DBI::Id} objects, each representing a fully-qualified table.
 }
 \description{
-Converts a tibble of table metadata (`table_catalog`, `table_schema`,
-`table_name`) into a list of `DBI::Id` SQL identifiers.
+Converts a tibble of table metadata (\code{table_catalog}, \code{table_schema},
+\code{table_name}) into a list of \code{DBI::Id} SQL identifiers.
 Useful for safely quoting fully qualified table references in
-`DBI`/`dbplyr` workflows.
+\code{DBI}/\code{dbplyr} workflows.
 }
 \seealso{
-[DBI::Id()]
+\code{\link[DBI:Id]{DBI::Id()}}
 }

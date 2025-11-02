@@ -4,10 +4,12 @@
 \alias{summary.tbl_lazy}
 \title{Summarize for DBI objects}
 \usage{
-\method{summary}{tbl_lazy}(.data)
+\method{summary}{tbl_lazy}(object, ...)
 }
 \arguments{
-\item{.data}{dbi object}
+\item{object}{dbi object}
+
+\item{...}{addtional argments, unused}
 }
 \value{
 DBI object

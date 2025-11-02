@@ -7,29 +7,29 @@
 alter_table_schema(.con, from_table_names, new_schema)
 }
 \arguments{
-\item{.con}{A `DBI` connection (DuckDB / MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
+
+\item{from_table_names}{Character vector of table names to move.}
 
 \item{new_schema}{Target schema name (where the tables will be moved).}
-
-\item{old_schema}{Previous schema name (where the tables currently live).}
-
-\item{table_names}{Character vector of table names to move.}
 }
 \value{
 Invisibly returns a character vector of fully-qualified table names moved.
-Side effects: creates `new_schema` if needed and alters table schemas.
+Side effects: creates \code{new_schema} if needed and alters table schemas.
 }
 \description{
 Moves one or more tables from an existing schema to a new (target) schema
-using `ALTER TABLE ... SET SCHEMA`. If the target schema does not exist,
+using \verb{ALTER TABLE ... SET SCHEMA}. If the target schema does not exist,
 it is created first.
 }
 \details{
-- Ensures `new_schema` exists (`CREATE SCHEMA IF NOT EXISTS`).
-- For each table in `table_names`, runs:
-  `ALTER TABLE old_schema.table SET SCHEMA new_schema`.
-- Table and schema identifiers are safely quoted with `glue::glue_sql()`.
+\itemize{
+\item Ensures \code{new_schema} exists (\verb{CREATE SCHEMA IF NOT EXISTS}).
+\item For each table in \code{table_names}, runs:
+\verb{ALTER TABLE old_schema.table SET SCHEMA new_schema}.
+\item Table and schema identifiers are safely quoted with \code{glue::glue_sql()}.
+}
 }
 \seealso{
-[DBI::dbExecute()], [DBI::dbGetQuery()]
+\code{\link[DBI:dbExecute]{DBI::dbExecute()}}, \code{\link[DBI:dbGetQuery]{DBI::dbGetQuery()}}
 }

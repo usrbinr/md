@@ -4,12 +4,12 @@
 \alias{describe_share}
 \title{Describe share}
 \usage{
-describe_share(.con, share_path)
+describe_share(.con, share_name)
 }
 \arguments{
-\item{.con}{connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
-\item{share_path}{shared path name}
+\item{share_name}{shared path name}
 }
 \value{
 tibble

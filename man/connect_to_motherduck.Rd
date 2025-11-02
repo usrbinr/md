@@ -4,18 +4,53 @@
 \alias{connect_to_motherduck}
 \title{Create connection to motherduck}
 \usage{
-connect_to_motherduck(motherduck_token = "MOTHERDUCK_TOKEN", config)
+connect_to_motherduck(
+  motherduck_token = "MOTHERDUCK_TOKEN",
+  db_path = NULL,
+  config
+)
 }
 \arguments{
-\item{motherduck_token}{motherduck token saved in your environment file}
+\item{motherduck_token}{Character. Either the name of an environment variable containing your
+MotherDuck access token (default \code{"MOTHERDUCK_TOKEN"}) or the token itself.}
 
-\item{config}{list of configuration options}
+\item{db_path}{Character, optional. Path to a DuckDB database file or directory to use. If
+\code{NULL}, a temporary file is used.}
+
+\item{config}{List, optional. A list of DuckDB configuration options to be passed to
+\code{duckdb::duckdb()}.}
 }
 \value{
-connection
+A \code{DBIConnection} object connected to your MotherDuck account.
 }
 \description{
-creates a DuckDB connection, installs and loads the motherduck extension and finally
-executes  `DBI::dbExecute(con, "PRAGMA MD_CONNECT")` to connect to motherduck through your
-motherduck token
+Establishes a connection to a MotherDuck account using DuckDB and the MotherDuck extension.
+The function handles token validation, database file creation, extension loading, and executes
+\verb{PRAGMA MD_CONNECT} to authenticate the connection.
+}
+\details{
+This function provides a convenient interface for connecting to MotherDuck. It allows you to:
+\itemize{
+\item Use a token stored in an environment variable or supply the token directly.
+\item Optionally specify a persistent DuckDB database file or directory via \code{db_path}.
+\item Optionally Provide custom DuckDB configuration options via \code{config}.
+\item Automatically load the MotherDuck extension if not already loaded.
+}
+
+If \code{db_path} is not supplied, a temporary DuckDB database file will be created in the session's
+temporary directory. Use \code{config} to pass any DuckDB-specific options (e.g., memory limits or
+extensions).
+}
+\examples{
+\dontrun{
+# Connect using a token stored in your .Renviron
+con <- connect_to_motherduck()
+
+# Connect with a direct token
+con <- connect_to_motherduck(motherduck_token = "MY_DIRECT_TOKEN")
+
+# Connect and specify a persistent database file
+con <- connect_to_motherduck(db_path = "~/my_duckdb/md.duckdb")
+}
+
 }

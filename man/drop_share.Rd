@@ -7,7 +7,7 @@
 drop_share(.con, share_name)
 }
 \arguments{
-\item{.con}{MD connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{share_name}{Share name}
 }

@@ -14,10 +14,10 @@ create_table(
 )
 }
 \arguments{
-\item{.data}{Tibble/data frame (in-memory) or a `dbplyr`/DBI-backed lazy
-table (class `"tbl_dbi"`).}
+\item{.data}{Tibble/data frame (in-memory) or a \code{dbplyr}/DBI-backed lazy
+table (class \code{"tbl_dbi"}).}
 
-\item{.con}{A DuckDB or MotherDuck `DBI` connection.}
+\item{.con}{A DuckDB or MotherDuck \code{DBI} connection.}
 
 \item{database_name}{Database name to create/use.}
 
@@ -25,29 +25,31 @@ table (class `"tbl_dbi"`).}
 
 \item{table_name}{Target table name to create or append to.}
 
-\item{write_type}{Write strategy: `"overwrite"` (drop/create) or
-`"append"` (insert rows). Defaults to `"overwrite"`.}
+\item{write_type}{Write strategy: \code{"overwrite"} (drop/create) or
+\code{"append"} (insert rows). Defaults to \code{"overwrite"}.}
 }
 \value{
-Invisibly returns `NULL`. Side effect: writes a table to the database by
+Invisibly returns \code{NULL}. Side effect: writes a table to the database by
 delegating to the appropriate helper.
 }
 \description{
-A thin wrapper that routes to either [`create_table_dbi()`] (for
-`dbplyr`-backed lazy tables, class `"tbl_dbi"`) or
-[`create_table_tbl()`] (for in-memory tibbles / data frames), creating
-a physical table in the target database/schema. Supports **overwrite**
-and **append** write strategies and defers all heavy lifting to the
+A thin wrapper that routes to either \code{\link[=create_table_dbi]{create_table_dbi()}} (for
+\code{dbplyr}-backed lazy tables, class \code{"tbl_dbi"}) or
+\code{\link[=create_table_tbl]{create_table_tbl()}} (for in-memory tibbles / data frames), creating
+a physical table in the target database/schema. Supports \strong{overwrite}
+and \strong{append} write strategies and defers all heavy lifting to the
 specific implementation.
 }
 \details{
-- If `.data` is a `dbplyr` lazy table (class `"tbl_dbi"`), the call is
-  delegated to [`create_table_dbi()`].
-- If `.data` is an in-memory tibble/data frame (class including
-  `"data.frame"`), the call is delegated to [`create_table_tbl()`].
-- Any other input classes trigger an error.
+\itemize{
+\item If \code{.data} is a \code{dbplyr} lazy table (class \code{"tbl_dbi"}), the call is
+delegated to \code{\link[=create_table_dbi]{create_table_dbi()}}.
+\item If \code{.data} is an in-memory tibble/data frame (class including
+\code{"data.frame"}), the call is delegated to \code{\link[=create_table_tbl]{create_table_tbl()}}.
+\item Any other input classes trigger an error.
+}
 }
 \seealso{
-[create_table_dbi()], [create_table_tbl()], [DBI::dbWriteTable()],
-  [dbplyr::remote_query()]
+\code{\link[=create_table_dbi]{create_table_dbi()}}, \code{\link[=create_table_tbl]{create_table_tbl()}}, \code{\link[DBI:dbWriteTable]{DBI::dbWriteTable()}},
+\code{\link[dbplyr:remote_name]{dbplyr::remote_query()}}
 }

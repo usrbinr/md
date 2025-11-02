@@ -7,12 +7,12 @@
 delete_database(.con, database_name)
 }
 \arguments{
-\item{.con}{A valid `DBI` connection (DuckDB / MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{Name of the database to drop.}
 }
 \value{
-Invisibly returns `NULL`.
+Invisibly returns \code{NULL}.
 Side effect: drops the database and prints CLI status messages.
 }
 \description{
@@ -20,10 +20,12 @@ Drops a database from the current DuckDB or MotherDuck connection if it exists.
 Prints a CLI status report after performing the operation.
 }
 \details{
-- Executes `DROP DATABASE IF EXISTS <database_name>` to remove the database.
-- Intended for DuckDB or MotherDuck connections.
-- Prints user, database and action details using CLI helper functions.
+\itemize{
+\item Executes \verb{DROP DATABASE IF EXISTS <database_name>} to remove the database.
+\item Intended for DuckDB or MotherDuck connections.
+\item Prints user, database and action details using CLI helper functions.
+}
 }
 \seealso{
-[DBI::dbExecute()]
+\code{\link[DBI:dbExecute]{DBI::dbExecute()}}
 }

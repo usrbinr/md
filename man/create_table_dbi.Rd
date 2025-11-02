@@ -14,10 +14,10 @@ create_table_dbi(
 )
 }
 \arguments{
-\item{.data}{A `dbplyr` lazy table or other DBI-compatible object to be
+\item{.data}{A \code{dbplyr} lazy table or other DBI-compatible object to be
 materialized as a physical table.}
 
-\item{.con}{A valid `DBI` connection.}
+\item{.con}{A valid \code{DBI} connection.}
 
 \item{database_name}{Name of the database to create/use. If missing,
 the current database of the connection will be used.}
@@ -27,31 +27,33 @@ the current schema of the connection will be used.}
 
 \item{table_name}{Name of the table to create or append to.}
 
-\item{write_type}{Write strategy: either `"overwrite"` (drop/create)
-or `"append"` (insert rows). Defaults to `"overwrite"`.}
+\item{write_type}{Write strategy: either \code{"overwrite"} (drop/create)
+or \code{"append"} (insert rows). Defaults to \code{"overwrite"}.}
 }
 \value{
-A user-friendly message is returned invisibly (invisible `NULL`),
+A user-friendly message is returned invisibly (invisible \code{NULL}),
 indicating whether the table was created or appended to.
 Side effect: writes data to the database.
 }
 \description{
-Creates a physical table in a database from a `dbplyr`/`DBI`-backed
-lazy table or query. The function supports both **overwrite** and
-**append** write strategies, automatically creates the target
+Creates a physical table in a database from a \code{dbplyr}/\code{DBI}-backed
+lazy table or query. The function supports both \strong{overwrite} and
+\strong{append} write strategies, automatically creates the target
 database and schema if they do not exist, and adds audit fields
-(`upload_date`, `upload_time`) to the written table.
+(\code{upload_date}, \code{upload_time}) to the written table.
 }
 \details{
-- If the connection is a MotherDuck connection (detected by
-  `validate_md_connection_status()`), the function ensures the
-  database is created and switches to it before creating the schema.
-- Adds two audit columns: `upload_date` (date of run) and
-  `upload_time` (time and timezone of run).
-- Uses `DBI::Id()` to explicitly target the database/schema/table.
-- `write_type = "overwrite"` will drop and recreate the table.
-- `write_type = "append"` will insert rows into an existing table.
+\itemize{
+\item If the connection is a MotherDuck connection (detected by
+\code{validate_md_connection_status()}), the function ensures the
+database is created and switches to it before creating the schema.
+\item Adds two audit columns: \code{upload_date} (date of run) and
+\code{upload_time} (time and timezone of run).
+\item Uses \code{DBI::Id()} to explicitly target the database/schema/table.
+\item \code{write_type = "overwrite"} will drop and recreate the table.
+\item \code{write_type = "append"} will insert rows into an existing table.
+}
 }
 \seealso{
-[DBI::dbExecute()], [dbplyr::remote_query()]
+\code{\link[DBI:dbExecute]{DBI::dbExecute()}}, \code{\link[dbplyr:remote_name]{dbplyr::remote_query()}}
 }

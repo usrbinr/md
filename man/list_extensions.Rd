@@ -10,7 +10,7 @@ list_extensions(.con)
 \item{.con}{DuckDB connection}
 }
 \value{
-tbi
+tibble
 }
 \description{
 Lists available DuckDB extensions, their description, load / installed status and more

@@ -7,23 +7,25 @@
 list_all_tables(.con)
 }
 \arguments{
-\item{.con}{A valid `DBI` connection (DuckDB / MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-A `dbplyr` lazy tibble with columns:
-* `table_catalog` — database/catalog name
-* `table_schema`  — schema name
-* `table_name`    — table name
+A \code{dbplyr} lazy tibble with columns:
+\itemize{
+\item \code{table_catalog} — database/catalog name
+\item \code{table_schema}  — schema name
+\item \code{table_name}    — table name
+}
 }
 \description{
 Returns a lazy tibble of all tables visible to the current connection by
-querying `information_schema.tables` (across all catalogs/databases and
+querying \code{information_schema.tables} (across all catalogs/databases and
 schemas).
 }
 \details{
-The result is a `dbplyr` lazy table (`tbl_dbi`). Use `collect()` to bring
+The result is a \code{dbplyr} lazy table (\code{tbl_dbi}). Use \code{collect()} to bring
 results into R as a local tibble.
 }
 \seealso{
-[dbplyr::tbl()], [DBI::dbConnect()]
+\code{\link[dplyr:tbl]{dplyr::tbl()}}, \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 }

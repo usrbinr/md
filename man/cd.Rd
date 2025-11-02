@@ -4,14 +4,14 @@
 \alias{cd}
 \title{Change Database}
 \usage{
-cd(.con, database, schema)
+cd(.con, database_name, schema_name)
 }
 \arguments{
 \item{.con}{connection}
 
-\item{database}{database name}
+\item{database_name}{database name}
 
-\item{schema}{schema name}
+\item{schema_name}{schema name}
 }
 \value{
 message

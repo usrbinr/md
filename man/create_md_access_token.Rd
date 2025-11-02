@@ -22,7 +22,7 @@ create_md_access_token(
 
 \item{token_expiration_number}{the token expiration number - minimum 300 seconds}
 
-\item{token_expiration_unit}{the token expiration unit (`seconds`,`minutes`,`days`,`weeks`,`months`,`years`,`never`)}
+\item{token_expiration_unit}{the token expiration unit (\code{seconds},\code{minutes},\code{days},\code{weeks},\code{months},\code{years},\code{never})}
 
 \item{motherduck_token}{admin user's token}
 }

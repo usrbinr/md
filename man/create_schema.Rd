@@ -7,14 +7,14 @@
 create_schema(.con, database_name, schema_name)
 }
 \arguments{
-\item{.con}{A valid `DBI` connection (e.g., DuckDB or MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (e.g., DuckDB or MotherDuck).}
 
 \item{database_name}{Name of the database to create/use.}
 
 \item{schema_name}{Name of the schema to create if it does not exist.}
 }
 \value{
-Invisibly returns `NULL`.
+Invisibly returns \code{NULL}.
 Side effect: creates the schema if necessary and prints CLI messages.
 }
 \description{
@@ -25,13 +25,15 @@ It also prints helpful connection and environment information via
 CLI messages for transparency.
 }
 \details{
-- Uses `DBI::dbExecute()` with `CREATE SCHEMA IF NOT EXISTS` to create
-  the schema only when needed.
-- If connected to MotherDuck (determined by
-  `validate_md_connection_status()`), executes `USE <database>` before
-  creating the schema.
-- Displays connection/user/database information via internal CLI helpers.
+\itemize{
+\item Uses \code{DBI::dbExecute()} with \verb{CREATE SCHEMA IF NOT EXISTS} to create
+the schema only when needed.
+\item If connected to MotherDuck (determined by
+\code{validate_md_connection_status()}), executes \verb{USE <database>} before
+creating the schema.
+\item Displays connection/user/database information via internal CLI helpers.
+}
 }
 \seealso{
-[DBI::dbExecute()]
+\code{\link[DBI:dbExecute]{DBI::dbExecute()}}
 }

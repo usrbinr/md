@@ -7,27 +7,31 @@
 create_if_not_exists_database(.con, database_name)
 }
 \arguments{
-\item{.con}{A valid `DBI` connection (DuckDB / MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{Name of the database to create/ensure and switch to.}
 }
 \value{
-Invisibly returns `NULL`.
+Invisibly returns \code{NULL}.
 Side effect: may create a database and switches to it; prints CLI status.
 }
 \description{
 Ensures a database exists and sets it as the active database.
 If connected to MotherDuck, the function will run
-`CREATE DATABASE IF NOT EXISTS` followed by `USE <database>`.
+\verb{CREATE DATABASE IF NOT EXISTS} followed by \verb{USE <database>}.
 Prints CLI status information about the current user and database.
 }
 \details{
-- Connection type is checked via `validate_md_connection_status()`
-  (with `return_type = "arg"`).
-- On MotherDuck, executes:
-  - `CREATE DATABASE IF NOT EXISTS <database>`
-  - `USE <database>`
-- Displays status and environment info with CLI messages.
+\itemize{
+\item Connection type is checked via \code{validate_md_connection_status()}
+(with \code{return_type = "arg"}).
+\item On MotherDuck, executes:
+\itemize{
+\item \verb{CREATE DATABASE IF NOT EXISTS <database>}
+\item \verb{USE <database>}
+}
+\item Displays status and environment info with CLI messages.
+}
 }
 \examples{
 \dontrun{
@@ -37,5 +41,5 @@ create_if_not_exists_database(con, "analytics")
 
 }
 \seealso{
-[DBI::dbExecute()]
+\code{\link[DBI:dbExecute]{DBI::dbExecute()}}
 }

@@ -1,6 +1,5 @@
 ## code to prepare `config_parquet` dataset goes here
 
-library(tibble)
 
 config_parquet <- tibble::tribble(
     ~Name, ~Description, ~Type, ~Default,

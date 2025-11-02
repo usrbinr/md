@@ -160,13 +160,13 @@ create_table_tbl <- function(.data,.con,database_name,schema_name,table_name,wri
 
     if(rlang::is_missing(database_name)){
 
-      database_name <- pwd(.con) |> dplyr::pull(current_database)
+      database_name <- pwd(.con)[["current_database"]]
 
     }
 
 
     if(rlang::is_missing(schema_name)){
-      schema_name <- pwd(.con) |> dplyr::pull(current_schema)
+      schema_name <- pwd(.con)[["current_schema"]]
     }
 
     database_name <- DBI::dbQuoteIdentifier(conn = .con,x = database_name)
@@ -267,11 +267,11 @@ create_table_dbi <- function(.data,.con,database_name,schema_name,table_name,wri
   md_con_indicator <- validate_md_connection_status(.con,return_type="arg")
 
   if(rlang::is_missing(database_name)){
-    database_name <- pwd(.con) |> dplyr::pull(current_database)
+    database_name <- pwd(.con)[["current_database"]]
   }
 
   if(rlang::is_missing(schema_name)){
-    schema_name <- pwd(.con) |> dplyr::pull(current_schema)
+    schema_name <- pwd(.con)[["current_schema"]]
   }
 
   if(md_con_indicator){
@@ -450,7 +450,6 @@ create_if_not_exists_database <- function(.con,database_name){
   validate_md_connection_status(.con)
   cli_show_user(.con)
   cli_show_db(.con)
-  cli_create_obj(.con,database_name = database_name,schema_name = schema_name,write_type = write_type)
 
 
 }
@@ -469,10 +468,9 @@ create_if_not_exists_database <- function(.con,database_name){
 #'   `ALTER TABLE old_schema.table SET SCHEMA new_schema`.
 #' - Table and schema identifiers are safely quoted with `glue::glue_sql()`.
 #'
-#' @param .con A `DBI` connection (DuckDB / MotherDuck).
-#' @param old_schema Previous schema name (where the tables currently live).
+#' @inheritParams validate_con
 #' @param new_schema Target schema name (where the tables will be moved).
-#' @param table_names Character vector of table names to move.
+#' @param from_table_names Character vector of table names to move.
 #' @export
 #' @return
 #' Invisibly returns a character vector of fully-qualified table names moved.
@@ -628,10 +626,8 @@ copy_tables_to_new_location <- function(.con, from_table_names, to_database_name
 
   # For local DuckDB, use the current database
   if (!md_con_indicator) {
-    to_database_name <- pwd(.con) |> pull(current_database)
+    to_database_name <- pwd(.con) |> dplyr::pull("current_database")
   }
-
-
 
   # Validate input
   assertthat::assert_that(any(class(from_table_names) %in% c("data.frame","tbl_dbi")))
@@ -648,7 +644,7 @@ copy_tables_to_new_location <- function(.con, from_table_names, to_database_name
     cli::cli_abort("`from_table_names` is missing required columns: {missing_cols}")
   }
 
-  table_names_vec <- unique(from_table_names |> dplyr::pull(table_name))
+  table_names_vec <- unique(from_table_names |> dplyr::pull("table_name"))
 
   # Build destination Ids
   to_ids <- purrr::map(
@@ -759,7 +755,7 @@ upload_database_to_md <- function(.con, from_db_name, to_db_name) {
 #' A `dbplyr` lazy tibble (`tbl_dbi`) with function metadata (e.g.,
 #' `function_name`, `schema`, `is_aggregate`, `is_alias`, etc.).
 #'
-#' @seealso [DBI::dbConnect()], [dbplyr::tbl()]
+#' @seealso [DBI::dbConnect()], [dplyr::tbl()]
 #'
 #' @export
 list_fns <- function(.con){
@@ -787,15 +783,14 @@ list_fns <- function(.con){
 #' the current connection, using `information_schema.tables`.
 #'
 #' @details
-#' The result is a `dbplyr` lazy table (`tbl_dbi`). Use `collect()` to bring
+#' The result is a `dbplyr` lazy table (`tbl_dbi`). Use `dplyr::collect()` to bring
 #' results into R as a local tibble.
 #'
-#' @param .con A valid `DBI` connection (DuckDB / MotherDuck).
-#'
+#' @inheritParams validate_con
 #' @return
 #' A `dbplyr` lazy tibble with one column: `table_catalog`.
 #'
-#' @seealso [dbplyr::tbl()], [DBI::dbConnect()]
+#' @seealso [dplyr::tbl()], [DBI::dbConnect()]
 #' @export
 list_databases <- function(.con){
 
@@ -836,7 +831,7 @@ list_databases <- function(.con){
 #' * `catalog_name` — the current database name.
 #' * `schema_name` — each schema within that database.
 #'
-#' @seealso [dbplyr::tbl()], [DBI::dbConnect()]
+#' @seealso [dplyr::tbl()], [DBI::dbConnect()]
 #' @export
 list_schemas <- function(.con) {
 
@@ -856,7 +851,6 @@ list_schemas <- function(.con) {
   return(schema_dbi)
 
 }
-
 
 
 #' @title List Tables in the Current Database and Schema
@@ -881,7 +875,7 @@ list_schemas <- function(.con) {
 #' * `table_schema`  — the current schema.
 #' * `table_name`    — each table name.
 #'
-#' @seealso [dbplyr::tbl()], [DBI::dbConnect()]
+#' @seealso [dplyr::tbl()], [DBI::dbConnect()]
 #'
 #' @export
 list_current_tables <- function(.con) {
@@ -926,7 +920,7 @@ list_current_tables <- function(.con) {
 #' * `table_schema`  — schema name
 #' * `table_name`    — table name
 #'
-#' @seealso [dbplyr::tbl()], [DBI::dbConnect()]
+#' @seealso [dplyr::tbl()], [DBI::dbConnect()]
 #' @export
 list_all_tables <- function(.con) {
 
@@ -1002,6 +996,7 @@ delete_database <- function(.con,database_name) {
 #' - Accepts one or more table names and returns their associated
 #'   `table_catalog`, `table_schema`, and `table_name` if found.
 #' - Uses `information_schema.tables` to look up metadata.
+#' see [information_schema](https://duckdb.org/docs/stable/sql/meta/information_schema) for more information
 #'
 #' @param .con A valid `DBI` connection (DuckDB / MotherDuck).
 #' @param table_name Character vector of one or more table names to look up.
@@ -1011,8 +1006,8 @@ delete_database <- function(.con,database_name) {
 #' * `table_catalog` — database/catalog name
 #' * `table_schema`  — schema name
 #' * `table_name`    — the matching table names
-#'
-#' @seealso [DBI::dbGetQuery()], [information_schema.tables]
+
+#' @seealso [DBI::dbGetQuery],
 #' @export
 return_table_attributes <- function(.con, table_name) {
 
@@ -1114,3 +1109,7 @@ delete_table <- function(.con, database_name, schema_name, table_name, cascade =
   cli::cli_ul("Deleted {.val {table_name}} from {.val [database_name]} in {.val {schema_name}}")
 
 }
+
+utils::globalVariables(
+  c("table_catalog", "table_schema", "table_name")
+)

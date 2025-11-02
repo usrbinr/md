@@ -7,25 +7,29 @@
 list_current_tables(.con)
 }
 \arguments{
-\item{.con}{A valid `DBI` connection (DuckDB / MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-A `dbplyr` lazy tibble with columns:
-* `table_catalog` — the current database.
-* `table_schema`  — the current schema.
-* `table_name`    — each table name.
+A \code{dbplyr} lazy tibble with columns:
+\itemize{
+\item \code{table_catalog} — the current database.
+\item \code{table_schema}  — the current schema.
+\item \code{table_name}    — each table name.
+}
 }
 \description{
-Returns a lazy tibble of all tables that exist in the **current database**
-and **current schema** of the active connection.
-Queries the standard `information_schema.tables` view and filters to
-`current_database()` and `current_schema()`.
+Returns a lazy tibble of all tables that exist in the \strong{current database}
+and \strong{current schema} of the active connection.
+Queries the standard \code{information_schema.tables} view and filters to
+\code{current_database()} and \code{current_schema()}.
 }
 \details{
-- This function validates that the connection is valid with `validate_con()`.
-- Result is a `dbplyr` lazy table (`tbl_dbi`); call `collect()` to bring it
-  into R.
+\itemize{
+\item This function validates that the connection is valid with \code{validate_con()}.
+\item Result is a \code{dbplyr} lazy table (\code{tbl_dbi}); call \code{collect()} to bring it
+into R.
+}
 }
 \seealso{
-[dbplyr::tbl()], [DBI::dbConnect()]
+\code{\link[dplyr:tbl]{dplyr::tbl()}}, \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
 }

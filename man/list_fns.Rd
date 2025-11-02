@@ -8,21 +8,21 @@
 list_fns(.con)
 }
 \arguments{
-\item{.con}{A valid `DBI` connection (DuckDB or MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB or MotherDuck).}
 }
 \value{
-A `dbplyr` lazy tibble (`tbl_dbi`) with function metadata (e.g.,
-`function_name`, `schema`, `is_aggregate`, `is_alias`, etc.).
+A \code{dbplyr} lazy tibble (\code{tbl_dbi}) with function metadata (e.g.,
+\code{function_name}, \code{schema}, \code{is_aggregate}, \code{is_alias}, etc.).
 }
 \description{
 Returns a lazy table listing available SQL functions from the current
-DuckDB/MotherDuck connection using `duckdb_functions()`.
+DuckDB/MotherDuck connection using \code{duckdb_functions()}.
 }
 \details{
 This wrapper validates the connection and then queries
-`duckdb_functions()` to enumerate function metadata. The result is a
-`dbplyr` lazy tibble (`tbl_dbi`); call `collect()` to materialize it in R.
+\code{duckdb_functions()} to enumerate function metadata. The result is a
+\code{dbplyr} lazy tibble (\code{tbl_dbi}); call \code{collect()} to materialize it in R.
 }
 \seealso{
-[DBI::dbConnect()], [dbplyr::tbl()]
+\code{\link[DBI:dbConnect]{DBI::dbConnect()}}, \code{\link[dplyr:tbl]{dplyr::tbl()}}
 }

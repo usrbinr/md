@@ -21,7 +21,7 @@ is retrieved.}
 }
 \value{
 This function doesn't return any value. It generates a formatted report showing whether a new database, schema,
-         or table was created or if existing ones were used.
+or table was created or if existing ones were used.
 }
 \description{
 This function creates or inserts data into a specified database, schema, and table. If no database,

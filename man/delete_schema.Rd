@@ -7,18 +7,18 @@
 delete_schema(.con, database_name, schema_name, cascade = FALSE)
 }
 \arguments{
-\item{.con}{A valid `DBI` connection (DuckDB / MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{Name of the database containing the schema.}
 
 \item{schema_name}{Name of the schema to drop.}
 
-\item{cascade}{Logical; if `TRUE` (default), use `CASCADE` to drop
-all dependent objects in the schema. If `FALSE`, drop only if empty.}
+\item{cascade}{Logical; if \code{TRUE} (default), use \code{CASCADE} to drop
+all dependent objects in the schema. If \code{FALSE}, drop only if empty.}
 }
 \value{
-Invisibly returns `NULL`.
-Side effect: drops the schema (and contained objects if `cascade = TRUE`)
+Invisibly returns \code{NULL}.
+Side effect: drops the schema (and contained objects if \code{cascade = TRUE})
 and prints CLI status.
 }
 \description{
@@ -27,7 +27,9 @@ Optionally cascades the deletion to all objects within the schema.
 Prints helpful CLI information about the current connection and action.
 }
 \details{
-- Runs `DROP SCHEMA IF EXISTS <db>.<schema>` with optional `CASCADE`.
-- Intended for DuckDB or MotherDuck connections.
-- Uses CLI helpers to show current connection and report the deletion.
+\itemize{
+\item Runs \verb{DROP SCHEMA IF EXISTS <db>.<schema>} with optional \code{CASCADE}.
+\item Intended for DuckDB or MotherDuck connections.
+\item Uses CLI helpers to show current connection and report the deletion.
+}
 }

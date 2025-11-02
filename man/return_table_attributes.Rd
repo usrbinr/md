@@ -7,25 +7,30 @@
 return_table_attributes(.con, table_name)
 }
 \arguments{
-\item{.con}{A valid `DBI` connection (DuckDB / MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{table_name}{Character vector of one or more table names to look up.}
 }
 \value{
 A local tibble (data frame) with columns:
-* `table_catalog` — database/catalog name
-* `table_schema`  — schema name
-* `table_name`    — the matching table names
+\itemize{
+\item \code{table_catalog} — database/catalog name
+\item \code{table_schema}  — schema name
+\item \code{table_name}    — the matching table names
+}
 }
 \description{
 Returns catalog (database), schema, and table information for one or more
-tables visible to the connection by querying `information_schema.tables`.
+tables visible to the connection by querying \code{information_schema.tables}.
 }
 \details{
-- Accepts one or more table names and returns their associated
-  `table_catalog`, `table_schema`, and `table_name` if found.
-- Uses `information_schema.tables` to look up metadata.
+\itemize{
+\item Accepts one or more table names and returns their associated
+\code{table_catalog}, \code{table_schema}, and \code{table_name} if found.
+\item Uses \code{information_schema.tables} to look up metadata.
+see \href{https://duckdb.org/docs/stable/sql/meta/information_schema}{information_schema} for more information
+}
 }
 \seealso{
-[DBI::dbGetQuery()], [information_schema.tables]
+\link[DBI:dbGetQuery]{DBI::dbGetQuery},
 }

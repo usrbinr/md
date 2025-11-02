@@ -5,7 +5,7 @@
 #' @description
 #' Lists available DuckDB extensions, their description, load / installed status and more
 #'
-#' @returns tbi
+#' @returns tibble
 #' @export
 #'
 #' @examples
@@ -175,7 +175,7 @@ validate_extension_install_status <- function(.con,extension_names,return_type="
     return_type
     ,values = c("msg","ext","arg")
     ,multiple = FALSE
-    ,error_arg = "Please only select 'msg', 'ext' or 'arg'"
+    ,error_arg = "return_type"
   )
 
   validate_con(.con)
@@ -225,10 +225,12 @@ validate_extension_install_status <- function(.con,extension_names,return_type="
   cli_ext_status_msg <- function() {
     cli::cli_par()
     cli::cli_h1("Extension install status")
+
     purrr::map(
       msg_lst
       ,.f = \(x) cli::cli_text(x)
     )
+
     cli::cli_end()
     cli::cli_par()
     cli::cli_text("Use {.fn list_extensions} to list extensions and their descriptions")
@@ -272,7 +274,6 @@ validate_extension_install_status <- function(.con,extension_names,return_type="
 #'
 #' @param .con duckdb connection
 #' @param extension_names DuckDB extension names
-#' @param silent_msg indicate if you want a success / failure report after installation and loading
 #'
 #' @returns message
 #' @export
@@ -332,10 +333,12 @@ install_extensions <- function(.con,extension_names){
   cli_ext_status_msg <- function() {
     cli::cli_par()
     cli::cli_h1("Extension Install Report")
+
     purrr::map(
       msg_lst
       ,.f = \(x) cli::cli_text(x)
     )
+
     cli::cli_end()
     cli::cli_par()
     cli::cli_text("Use {.fn list_extensions} to list extensions, status and their descriptions")
@@ -357,7 +360,6 @@ install_extensions <- function(.con,extension_names){
 #'
 #' @param .con duckdb connection
 #' @param extension_names DuckDB extension names
-#' @param silent_msg indicate if you want a success / failure report after installation and loading
 #'
 #' @returns message
 #' @export
@@ -423,6 +425,7 @@ load_extensions <- function(.con,extension_names){
 
 
   cli_ext_status_msg <- function() {
+
     cli::cli_par()
     cli::cli_h1("Extension Load & Install Report")
     purrr::map(
@@ -457,7 +460,6 @@ load_extensions <- function(.con,extension_names){
 show_motherduck_token <- function(.con){
 
   validate_con(.con)
-  validate_connection_status(.con)
 
   DBI::dbGetQuery(.con, 'PRAGMA print_md_token;')
 
@@ -492,92 +494,6 @@ show_duckdb_settings <- function(.con){
 
 }
 
-#' @title read httpfs files
-#' @name read_httpfs
-#' @description
-#' Enables reading of httpfs files
-#'
-#' @param .con DuckDB connection
-#' @param file_path to httpfs files
-#'
-#' @returns message
-#' @export
-#'
-read_csv_auto <- function(.con,file_path,...){
-
-  assertthat::assert_that(
-  validate_md_connection_status(.con,return_type = "arg")
-  )
-
-
-  out <- dplyr::tbl(
-    .con,
-    sql(
-      "
-     SELECT *
-     FROM read_csv_auto('",file_path,"')"
-    )
-  )
-  return(out)
-
-}
-
-
-#' @title read httpfs files
-#' @name read_httpfs
-#' @description
-#' Enables reading of httpfs files
-#'
-#' @param .con DuckDB connection
-#' @param file_path to httpfs files
-#'
-#' @returns message
-#' @export
-#'
-read_httpfs <- function(.con,file_path){
-
-  validate_con(.con)
-
-  validate_md_connection_status(.con)
-
-.con <- con
-  DBI::dbGetQuery(
-    .con,
-    paste0(
-    "INSTALL httpfs;
-     LOAD httpfs;
-
-     SELECT *
-     FROM read_parquet('",file_path,"');"
-    )
-  )
-
-}
-
-#' @title read httpfs files
-#'
-#' @param .con connection
-#' @param file_path file path to parquet files
-#'
-#' @returns message
-#' @export
-#'
-read_parquet <- function(.con,file_path){
-
-  validate_con(.con)
-  validate_md_connection_status(.con)
-
-  DBI::dbExecute(
-    .con,
-    paste0(
-      "
-CREATE OR REPLACE VIEW my_parquet_view AS
-SELECT * FROM read_parquet('",file_path,"');"
-    )
-  )
-
-}
-
 
 
 
@@ -609,7 +525,7 @@ pwd <- function(.con){
 
   role_vec <- DBI::dbGetQuery(.con,"select current_role();") |>
     tibble::as_tibble(.name_repair = janitor::make_clean_names) |>
-    dplyr::pull(current_role)
+    dplyr::pull("current_role")
 
 
   out <- dplyr::bind_cols(database_tbl,schema_tbl)
@@ -623,29 +539,22 @@ pwd <- function(.con){
 #' Change Database
 #'
 #' @param .con connection
-#' @param database database name
-#' @param schema schema name
+#' @param database_name database name
+#' @param schema_name schema name
 #'
 #' @returns message
 #' @export
 #'
-cd <- function(.con,database,schema){
+cd <- function(.con,database_name,schema_name){
 
   validate_con(.con)
 
   database_valid_vec <- list_databases(.con) |>
-    dplyr::pull(database_name)
+    dplyr::pull("database_name")
 
-  if(database %in% database_valid_vec){
+  if(database_name %in% database_valid_vec){
 
-    DBI::dbExecute(.con,glue::glue("USE {database};"))
-
-# suppressMessages(
-#     current_database_vec <- pwd(.con) |>
-#       dplyr::pull(current_database)
-# )
-#
-#     cli::cli_text("Current database: {.pkg {current_database_vec}}")
+    DBI::dbExecute(.con,glue::glue("USE {database_name};"))
 
   }else{
 
@@ -656,18 +565,15 @@ cd <- function(.con,database,schema){
                    ")
   }
 
-  if(!missing(schema)){
+  if(!missing(schema_name)){
 
   schema_valid_vec <- list_schemas(.con) |>
-    dplyr::pull(schema_name)
+    dplyr::pull("schema_name")
 
 
+  if(any(schema_name %in% schema_valid_vec)){
 
-
-
-  if(any(schema %in% schema_valid_vec)){
-
-    DBI::dbExecute(.con,glue::glue("USE {schema};"))
+    DBI::dbExecute(.con,glue::glue("USE {schema_name};"))
 
     # current_schema_vec <-   suppressMessages(
     #   pwd(.con) |>
@@ -679,9 +585,9 @@ cd <- function(.con,database,schema){
   }else{
 
     cli::cli_abort("
-                   {.pkg {schema}} is not valid,
+                   {.pkg {schema_name}} is not valid,
                    Use {.fn list_schemas} to list valid schemas.
-                   Valid Schemas in  {.pkg {database}} are {.val {schema_valid_vec}}
+                   Valid Schemas in  {.pkg {database_name}} are {.val {schema_valid_vec}}
                    ")
   }
   }
@@ -698,28 +604,28 @@ cd <- function(.con,database,schema){
 
 
 
-
 #' Summarize for DBI objects
 #'
-#' @param .data dbi object
+#' @param object dbi object
+#' @param ... addtional argments, unused
 #'
 #' @returns DBI object
 #' @export
 
-summary.tbl_lazy <- function(.data){
+summary.tbl_lazy <- function(object, ...){
 
-  con <- dbplyr::remote_con(.data)
+  con <- dbplyr::remote_con(object)
 
   ## assert connection
 
-  assertthat::assert_that(
   validate_con(con)
-  )
 
-  query <- dbplyr::remote_query(.data)
+  query <- dbplyr::remote_query(object)
+
   summary_query <- paste0("summarize (",query,")")
 
   out <- dplyr::tbl(con,dplyr::sql(summary_query))
+
   return(out)
 }
 

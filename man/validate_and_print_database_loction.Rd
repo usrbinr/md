@@ -2,16 +2,16 @@
 % Please edit documentation in R/connection_fns.R
 \name{validate_and_print_database_loction}
 \alias{validate_and_print_database_loction}
-\title{Title}
+\title{validate and Pprint your database location}
 \usage{
 validate_and_print_database_loction(.con)
 }
 \arguments{
-\item{.con}{connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
 print message
 }
 \description{
-Title
+Internal function to help validate your local database location
 }

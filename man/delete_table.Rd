@@ -7,7 +7,7 @@
 delete_table(.con, database_name, schema_name, table_name, cascade = TRUE)
 }
 \arguments{
-\item{.con}{A valid `DBI` connection (DuckDB / MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{Name of the database containing the table.}
 
@@ -15,17 +15,17 @@ delete_table(.con, database_name, schema_name, table_name, cascade = TRUE)
 
 \item{table_name}{Name of the table to drop.}
 
-\item{cascade}{Logical; if `TRUE` (default), drop dependent objects as well
-using `CASCADE`. If `FALSE`, the drop will fail if there are dependencies.}
+\item{cascade}{Logical; if \code{TRUE} (default), drop dependent objects as well
+using \code{CASCADE}. If \code{FALSE}, the drop will fail if there are dependencies.}
 }
 \value{
-Invisibly returns `NULL`.
+Invisibly returns \code{NULL}.
 Side effect: drops the table and prints CLI status messages.
 }
 \description{
 Drops a table from the specified database and schema if it exists.
-Uses `DROP TABLE IF EXISTS` for safety and prints a CLI status report.
+Uses \verb{DROP TABLE IF EXISTS} for safety and prints a CLI status report.
 }
 \seealso{
-[DBI::dbExecute()], [delete_schema()], [delete_database()]
+\code{\link[DBI:dbExecute]{DBI::dbExecute()}}, \code{\link[=delete_schema]{delete_schema()}}, \code{\link[=delete_database]{delete_database()}}
 }

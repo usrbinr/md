@@ -16,7 +16,7 @@ create_table_tbl(
 \arguments{
 \item{.data}{A tibble or data frame to be written to the database.}
 
-\item{.con}{A valid `DBI` connection (e.g., DuckDB or MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (e.g., DuckDB or MotherDuck).}
 
 \item{database_name}{Name of the database to create/use. If missing,
 the current database of the connection will be used.}
@@ -26,30 +26,32 @@ the current schema of the connection will be used.}
 
 \item{table_name}{Name of the table to create or append to.}
 
-\item{write_type}{Write strategy: either `"overwrite"` (drop/create)
-or `"append"` (insert rows). Defaults to `"overwrite"`.}
+\item{write_type}{Write strategy: either \code{"overwrite"} (drop/create)
+or \code{"append"} (insert rows). Defaults to \code{"overwrite"}.}
 }
 \value{
-Invisibly returns `NULL`.
+Invisibly returns \code{NULL}.
 Side effect: writes the tibble to the specified database table.
 }
 \description{
 Takes an in-memory tibble (or data frame) and writes it to a database table
-using a `DBI` connection. The function supports both **overwrite** and
-**append** modes, automatically creates the target database and schema if
-they do not exist, and adds audit fields (`upload_date`, `upload_time`) to
+using a \code{DBI} connection. The function supports both \strong{overwrite} and
+\strong{append} modes, automatically creates the target database and schema if
+they do not exist, and adds audit fields (\code{upload_date}, \code{upload_time}) to
 the written table.
 }
 \details{
-- If the connection is a MotherDuck connection (detected by
-  `validate_md_connection_status()`), the function ensures the
-  database is created and switches to it before creating the schema.
-- Two audit columns are added to the data before writing:
-  `upload_date` (date of run) and `upload_time` (time and timezone of run).
-- Uses `DBI::Id()` to explicitly target the database/schema/table.
-- `write_type = "overwrite"` will drop and recreate the table.
-- `write_type = "append"` will insert rows into an existing table.
+\itemize{
+\item If the connection is a MotherDuck connection (detected by
+\code{validate_md_connection_status()}), the function ensures the
+database is created and switches to it before creating the schema.
+\item Two audit columns are added to the data before writing:
+\code{upload_date} (date of run) and \code{upload_time} (time and timezone of run).
+\item Uses \code{DBI::Id()} to explicitly target the database/schema/table.
+\item \code{write_type = "overwrite"} will drop and recreate the table.
+\item \code{write_type = "append"} will insert rows into an existing table.
+}
 }
 \seealso{
-[DBI::dbWriteTable()], [DBI::Id()]
+\code{\link[DBI:dbWriteTable]{DBI::dbWriteTable()}}, \code{\link[DBI:Id]{DBI::Id()}}
 }

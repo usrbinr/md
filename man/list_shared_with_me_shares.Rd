@@ -7,7 +7,7 @@
 list_shared_with_me_shares(.con)
 }
 \arguments{
-\item{.con}{motherduck connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
 tibble

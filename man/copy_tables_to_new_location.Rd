@@ -12,10 +12,10 @@ copy_tables_to_new_location(
 )
 }
 \arguments{
-\item{.con}{A `DBI` connection (DuckDB / MotherDuck).}
+\item{.con}{A \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{from_table_names}{A tibble/data frame listing source tables, with
-columns `database_name`, `schema_name`, and `table_name`.}
+columns \code{database_name}, \code{schema_name}, and \code{table_name}.}
 
 \item{to_database_name}{Target database name.}
 
@@ -28,18 +28,20 @@ writes new tables.
 }
 \description{
 Copies one or more tables to a new location (database/schema) by creating
-new tables via `CREATE TABLE ... AS SELECT * FROM ...`.
+new tables via \verb{CREATE TABLE ... AS SELECT * FROM ...}.
 If connected to MotherDuck, the target database is created if missing, and
 the target schema is created if missing on any connection.
 }
 \details{
-- Input `from_table_names` must contain columns:
-  `database_name`, `schema_name`, and `table_name`.
-- For each source table, the function issues:
-  `CREATE TABLE <to_db>.<to_schema>.<table> AS SELECT * FROM <src_db>.<src_schema>.<table>`.
-- On local DuckDB (non-MotherDuck), the target database name is ignored and
-  defaults to the current database of the connection.
+\itemize{
+\item Input \code{from_table_names} must contain columns:
+\code{database_name}, \code{schema_name}, and \code{table_name}.
+\item For each source table, the function issues:
+\verb{CREATE TABLE <to_db>.<to_schema>.<table> AS SELECT * FROM <src_db>.<src_schema>.<table>}.
+\item On local DuckDB (non-MotherDuck), the target database name is ignored and
+defaults to the current database of the connection.
+}
 }
 \seealso{
-[DBI::dbExecute()], [DBI::Id()]
+\code{\link[DBI:dbExecute]{DBI::dbExecute()}}, \code{\link[DBI:Id]{DBI::Id()}}
 }

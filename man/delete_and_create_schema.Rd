@@ -15,7 +15,7 @@ dropped and recreated.}
 \item{schema_name}{The name of the schema to drop and recreate.}
 }
 \value{
-Invisibly returns `NULL`.
+Invisibly returns \code{NULL}.
 Side effect: drops and recreates the schema and prints CLI status messages.
 }
 \description{
@@ -26,14 +26,16 @@ given database first, then drops and recreates the schema.
 Displays helpful CLI output about the current connection, user, and database.
 }
 \details{
-- Executes `DROP SCHEMA IF EXISTS ... CASCADE` to remove an existing schema
-  and all contained objects.
-- Executes `CREATE SCHEMA IF NOT EXISTS` to recreate it.
-- If connected to MotherDuck (detected by
-  `validate_md_connection_status()`), performs a `USE <database>` first.
-- Prints a summary of the current connection and schema creation status
-  using internal CLI helpers.
+\itemize{
+\item Executes \verb{DROP SCHEMA IF EXISTS ... CASCADE} to remove an existing schema
+and all contained objects.
+\item Executes \verb{CREATE SCHEMA IF NOT EXISTS} to recreate it.
+\item If connected to MotherDuck (detected by
+\code{validate_md_connection_status()}), performs a \verb{USE <database>} first.
+\item Prints a summary of the current connection and schema creation status
+using internal CLI helpers.
+}
 }
 \seealso{
-[DBI::dbExecute()]
+\code{\link[DBI:dbExecute]{DBI::dbExecute()}}
 }

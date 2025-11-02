@@ -7,19 +7,22 @@
 validate_md_connection_status(.con, return_type = "msg")
 }
 \arguments{
-\item{.con}{connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{return_type}{return message or logical value of connection status}
 }
 \value{
-confirmation or warning message
+logical value or warning message
 }
 \description{
-Validate Mother Duck Connection Status
+Validates if you are successfully connected to motherduck database and will return either a logical value or print a message
 }
 \examples{
 \dontrun{
 con <- DBI::dbConnect(duckdb::duckdb())
 validate_md_connection_status(con)
 }
+}
+\seealso{
+\code{\link[=validate_con]{validate_con()}} and \code{\link[=connect_to_motherduck]{connect_to_motherduck()}}
 }

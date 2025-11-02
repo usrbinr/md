@@ -17,6 +17,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.3
+Roxygen: list(markdown = TRUE)
 Imports:
     DBI,
     assertthat,
@@ -27,6 +28,9 @@ Imports:
     glue,
     purrr,
     stringr,
+    httr2,
+    rlang,
+    janitor,
     tibble
 Suggests: 
     testthat (>= 3.0.0),

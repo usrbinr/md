@@ -10,8 +10,6 @@ list_md_user_tokens(user_name, motherduck_token = "MOTHERDUCK_TOKEN")
 \item{user_name}{motherduck user name}
 
 \item{motherduck_token}{motherduck token or environment nick name}
-
-\item{.con}{duckdb connection}
 }
 \value{
 tibble

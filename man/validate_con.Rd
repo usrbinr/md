@@ -7,7 +7,7 @@
 validate_con(.con)
 }
 \arguments{
-\item{.con}{connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
 logical value or error message

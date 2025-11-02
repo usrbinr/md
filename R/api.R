@@ -1,18 +1,17 @@
 
 #' @title Show current user
 #' @name show_current_user
-#'
-#' @param motherduck_token motherduck token
+#' @inheritParams validate_con
+#' @inheritParams connect_to_motherduck
 #'
 #' @param return msg or arg
 #'
-#' @param .con connection
 #'
 #' @returns tibble or print statement
 #' @export
 #'
 
-show_current_user <- function(.con,motherduck_token="MOTHERDUCK_TOKEN",return="msg"){
+show_current_user <- function(.con,motherduck_token,return="msg"){
 
     return_valid_vec <- c("msg","arg")
 
@@ -23,11 +22,12 @@ show_current_user <- function(.con,motherduck_token="MOTHERDUCK_TOKEN",return="m
         ,error_arg ="return"
     )
 
-    if(missing(.con)){
+    if(!missing(motherduck_token)){
 
-   .con<-  suppressMessages(connect_to_motherduck(motherduck_token))
+    .con <-   connect_to_motherduck(motherduck_token=motherduck_token)
 
     }
+
 
     current_user_tbl <- DBI::dbGetQuery(.con,"select current_user") |>
     tibble::as_tibble()
@@ -79,8 +79,6 @@ check_resp_status_and_tidy_response <- function(resp,json_response,column_name1,
                 !!column_name1:= ind,
                 !!column_name2:= values
             )
-
-
 
         # Return the formatted output
         return(out)
@@ -157,7 +155,6 @@ list_md_active_accounts <- function(motherduck_token="MOTHERDUCK_TOKEN"){
 
 #' @title List a motherduck user's tokens
 #' @name list_md_user_tokens
-#' @param .con duckdb connection
 #' @param user_name motherduck user name
 #' @param motherduck_token motherduck token or environment nick name
 #'
@@ -173,7 +170,7 @@ list_md_user_tokens <- function(user_name,motherduck_token="MOTHERDUCK_TOKEN"){
     # user_name="alejandro_hagan"
     # motherduck_token="MOTHERDUCK_TOKEN"
 
-    show_current_user(user_name = user_name,motherduck_token = motherduck_token)
+    show_current_user(motherduck_token = motherduck_token,return = "msg")
 
     motherduck_token <- validate_motherduck_token_env(motherduck_token)
 
@@ -212,7 +209,7 @@ list_md_user_instance <- function(user_name,motherduck_token="MOTHERDUCK_TOKEN")
 
     show_current_user(motherduck_token_env)
 
-    resp <- httr2::request(paste0("https://api.motherduck.com/v1/users/",user_name, "/instances")) |>
+    resp <- httr2::request(paste0("https://api.motherduck.com/v1/users/",user_name,"/instances")) |>
         httr2::req_headers(
             "Accept" = "application/json",
             "Authorization" = paste("Bearer", motherduck_token)
@@ -513,7 +510,7 @@ configure_md_user_settings <- function(
         httr2::req_perform()
 
 
-    json_response <- httr::resp_body_json(resp)
+    json_response <- httr2::resp_body_json(resp)
 
     out <- check_resp_status_and_tidy_response(
         resp = resp
@@ -591,12 +588,10 @@ convert_to_seconds <- function(number,units){
 #'
 validate_token_type <- function(token_type){
 
-    valid_token_type_vec <- c("read_write", "read_scaling")
-
 
     token_type_vec <- rlang::arg_match(
         token_type
-        ,valid_token_type_vec
+        ,values = c("read_write", "read_scaling")
         ,multiple = FALSE
         ,error_arg = "token_type"
     )
@@ -613,11 +608,10 @@ validate_token_type <- function(token_type){
 #'
 validate_instance_size <- function(instance_size){
 
-    valid_instance_size <- c("pulse", "standard", "jumbo", "mega", "giga")
 
     instance_size_vec <- rlang::arg_match(
         tolower(instance_size)
-        ,valid_instance_size
+        ,values = c("pulse", "standard", "jumbo", "mega", "giga")
         ,multiple = FALSE
         ,error_arg = "instance_size"
     )
@@ -634,14 +628,13 @@ validate_instance_size <- function(instance_size){
 #'
 validate_flock_size <- function(flock_size){
 
-    valid_flock_size <- 0:60
 
-    flock_size_int <- as_integer(flock_size)
+    flock_size_int <- rlang::as_integer(flock_size)
 
     assertthat::assert_that(
         length(flock_size_int)==1
         ,is.integer(flock_size_int)
-        ,flock_size_int %in% valid_flock_size
+        ,flock_size_int %in% c(0:60)
         ,env = cli::cli_abort("Enter a single whole number between 0-60. You entered {flock_size}")
     )
 
@@ -740,9 +733,9 @@ create_if_not_exists_share <- function(.con,
                          update        =  "AUTOMATIC") {
     # Validate arguments
 
-    valid_access_vec = c("RESTRICTED", "PUBLIC")
+    valid_access_vec     = c("RESTRICTED", "PUBLIC")
     valid_visibility_vec = c("HIDDEN", "LISTED")
-    valid_update_vec = c("AUTOMATIC", "MANUAL")
+    valid_update_vec     = c("AUTOMATIC", "MANUAL")
 
     assertthat::assert_that(
         is.character(share_name)
@@ -792,13 +785,13 @@ create_if_not_exists_share <- function(.con,
 
 #' @title Describe share
 #' @name describe_share
-#' @param .con connection
-#' @param share_path shared path name
+#' @inheritParams validate_con
+#' @param share_name shared path name
 #'
 #' @returns tibble
 #' @export
 #'
-describe_share <- function(.con, share_path) {
+describe_share <- function(.con, share_name) {
 
     assertthat::assert_that(
         is.character(share_name)
@@ -806,7 +799,7 @@ describe_share <- function(.con, share_path) {
 
 
     # Build and run the query
-    out <-DBI::dbGetQuery(.con,glue::glue_sql("SELECT * FROM md_describe_database_share('{share_path}');",.con=.con)) |>
+    out <-DBI::dbGetQuery(.con,glue::glue_sql("SELECT * FROM md_describe_database_share('{share_name}');",.con=.con)) |>
       tibble::as_tibble()
 
     # Return the result as a data frame
@@ -818,7 +811,7 @@ describe_share <- function(.con, share_path) {
 #' @title Drop a MD share name
 #' @name drop_share
 #'
-#' @param .con MD connection
+#' @inheritParams validate_con
 #' @param share_name Share name
 #'
 #' @returns message
@@ -872,14 +865,15 @@ list_owned_shares <- function(.con) {
 
 #' @title List all shares that are shared with you
 #' @name list_shared_with_me_shares
-#' @param .con motherduck connection
+#' @inheritParams validate_con
 #'
 #' @returns tibble
 #' @export
 #'
 list_shared_with_me_shares <- function(.con) {
 
-    DBI::dbGetQuery(.con, "select * from MD_INFORMATION_SCHEMA.SHARED_WITH_ME;") |>
+    dplyr::tbl(.con, dplyr::sql("select * from MD_INFORMATION_SCHEMA.SHARED_WITH_ME;")) |>
         tibble::as_tibble()
 }
 
+utils::globalVariables(c(":=","ind","values"))
