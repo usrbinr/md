@@ -11,11 +11,10 @@ title: "My Project"
 #| message: false
 #| include: true
 
-
+library(md)
 library(tidyverse)
 library(DBI)
 library(duckdb)
-library(md)
 
 
 ```
@@ -132,7 +131,6 @@ Once completed, you can simply use the `connect_to_motherduck()` function and pa
 #| message: true
 #| include: true
 
-load_all()
 
 con_md <- connect_to_motherduck("MOTHERDUCK_TOKEN")
 
