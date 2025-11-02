@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{create_if_not_exists_share}
 \alias{create_if_not_exists_share}
-\title{Create a MD share of a database}
+\title{Create a MotherDuck database share if it does not exist}
 \usage{
 create_if_not_exists_share(
   .con,
@@ -14,21 +14,46 @@ create_if_not_exists_share(
 )
 }
 \arguments{
-\item{.con}{MD connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
-\item{share_name}{new share name}
+\item{share_name}{Character. The name of the new share to create.}
 
-\item{database_name}{target database}
+\item{database_name}{Character. The name of the target database to share.}
 
-\item{access}{"RESTRICTED" or "PUBLIC"}
+\item{access}{Character. Access level for the share; either \code{"RESTRICTED"} or \code{"PUBLIC"} (default: \code{"PUBLIC"}).}
 
-\item{visibility}{"HIDDEN" or "LISTED"}
+\item{visibility}{Character. Visibility of the share; either \code{"HIDDEN"} or \code{"LISTED"} (default: \code{"LISTED"}).}
 
-\item{update}{"AUTOMATIC" or "MANUAL"}
+\item{update}{Character. Update policy for the share; either \code{"AUTOMATIC"} or \code{"MANUAL"} (default: \code{"AUTOMATIC"}).}
 }
 \value{
-message
+A message confirming that the share has been created, if it did not already exist.
 }
 \description{
-Create a MD share of a database
+Creates a new share for a specified database in MotherDuck if it does not already exist.
+Allows you to configure access, visibility, and update settings for the share.
+}
+\details{
+This function executes a \verb{CREATE IF NOT EXISTS} SQL statement on the connected
+MotherDuck database to create a share for the specified database.
+\itemize{
+\item \code{access} controls who can access the share.
+\item \code{visibility} controls whether the share is listed publicly or hidden.
+\item \code{update} controls whether changes to the source database are automatically reflected in the share.
+After creation, the current user is displayed for confirmation.
+}
+}
+\examples{
+\dontrun{
+con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+create_if_not_exists_share(
+  .con = con,
+  share_name = "analytics_share",
+  database_name = "sales_db",
+  access = "PUBLIC",
+  visibility = "LISTED",
+  update = "AUTOMATIC"
+)
+}
+
 }

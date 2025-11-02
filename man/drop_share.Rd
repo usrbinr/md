@@ -2,18 +2,32 @@
 % Please edit documentation in R/api.R
 \name{drop_share}
 \alias{drop_share}
-\title{Drop a MD share name}
+\title{Drop a MotherDuck share}
 \usage{
 drop_share(.con, share_name)
 }
 \arguments{
 \item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
-\item{share_name}{Share name}
+\item{share_name}{Character. The name of the share to be dropped.}
 }
 \value{
-message
+Invisibly returns \code{NULL}. Side effect: the specified share is removed if it exists.
 }
 \description{
-Drop a MD share name
+Drops (deletes) a specified share from your MotherDuck account. If the share
+does not exist, a warning is displayed. This function safely validates the
+connection and share name before executing the operation.
+}
+\details{
+The function first validates that the connection is active. It then checks
+whether the specified share exists in the account. If it does, the share is
+dropped using a \verb{DROP SHARE IF EXISTS} SQL command. If the share does not
+exist, a warning is shown. After the operation, the current user is displayed.
+}
+\examples{
+\dontrun{
+drop_share(con_md, "test_share")
+}
+
 }

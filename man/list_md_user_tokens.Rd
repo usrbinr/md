@@ -31,13 +31,9 @@ available for the specified user.
 
 It uses the provided or environment-resolved \code{motherduck_token} for
 authorization. If \code{motherduck_token} is not explicitly provided, the function
-attempts to resolve it from the \code{MOTHERDUCK_TOKEN} environment variable via
-\code{\link[=validate_motherduck_token_env]{validate_motherduck_token_env()}}.
+attempts to resolve it from the \code{MOTHERDUCK_TOKEN} environment variable
 The current authenticated user is displayed via \code{\link[=show_current_user]{show_current_user()}} for
 verification.
-The resulting JSON response is validated and tidied into a two-column tibble
-using \code{\link[=check_resp_status_and_tidy_response]{check_resp_status_and_tidy_response()}}, with token attributes and their
-corresponding values.
 }
 \examples{
 \dontrun{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{list_shared_with_me_shares}
 \alias{list_shared_with_me_shares}
-\title{List all shares that are shared with you}
+\title{List all shares shared with the current user}
 \usage{
 list_shared_with_me_shares(.con)
 }
@@ -10,8 +10,24 @@ list_shared_with_me_shares(.con)
 \item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-tibble
+A tibble containing one row per shared object, with columns describing
+the owner, object type, object name, and granted privileges.
 }
 \description{
-List all shares that are shared with you
+Retrieves all database objects that have been shared with the current
+authenticated user in MotherDuck.
+}
+\details{
+This function queries the \code{MD_INFORMATION_SCHEMA.SHARED_WITH_ME} view to
+return metadata about all shares granted to the current user, including
+the owner, object name, type, and privileges.
+The result is returned as a tidy tibble for easy manipulation in R.
+}
+\examples{
+\dontrun{
+con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+shared_tbl <- list_shared_with_me_shares(con)
+print(shared_tbl)
+}
+
 }

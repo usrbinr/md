@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{create_or_replace_share}
 \alias{create_or_replace_share}
-\title{@title Create or replace a motherduck share}
+\title{Create or replace a MotherDuck database share}
 \usage{
 create_or_replace_share(
   .con,
@@ -14,21 +14,47 @@ create_or_replace_share(
 )
 }
 \arguments{
-\item{.con}{md connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
-\item{share_name}{shame name}
+\item{share_name}{Character. The name of the share to create or replace.}
 
-\item{database_name}{database name to be shared}
+\item{database_name}{Character. The name of the database to be shared.}
 
-\item{access}{either "RESTRICTED" or "PUBLIC"}
+\item{access}{Character. Access level for the share; either \code{"RESTRICTED"} or \code{"PUBLIC"} (default: \code{"PUBLIC"}).}
 
-\item{visibility}{either "HIDDEN"or  "LISTED"}
+\item{visibility}{Character. Visibility of the share; either \code{"HIDDEN"} or \code{"LISTED"} (default: \code{"LISTED"}).}
 
-\item{update}{either "AUTOMATIC" or "MANUAL"}
+\item{update}{Character. Update policy for the share; either \code{"AUTOMATIC"} or \code{"MANUAL"} (default: \code{"AUTOMATIC"}).}
 }
 \value{
-message
+A message indicating that the share has been created or replaced.
 }
 \description{
-@title Create or replace a motherduck share
+Creates a new share or replaces an existing share for a specified database
+in MotherDuck. This allows you to update the configuration of an existing
+share or create a new one if it does not exist.
+}
+\details{
+This function executes a \verb{CREATE OR REPLACE SHARE} SQL statement to create
+a new share or update an existing one.
+\itemize{
+\item \code{access} controls who can access the share.
+\item \code{visibility} controls whether the share is listed publicly or hidden.
+\item \code{update} controls whether changes to the source database are automatically reflected in the share.
+The current user is displayed for confirmation before execution.
+}
+}
+\examples{
+\dontrun{
+con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+create_or_replace_share(
+  .con = con,
+  share_name = "analytics_share",
+  database_name = "sales_db",
+  access = "PUBLIC",
+  visibility = "LISTED",
+  update = "AUTOMATIC"
+)
+}
+
 }

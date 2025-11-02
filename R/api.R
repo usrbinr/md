@@ -73,6 +73,8 @@ show_current_user <- function(.con,motherduck_token,return="msg"){
 }
 
 
+
+
 #' @title Check HTTP response status and format JSON output
 #' @name check_resp_status_and_tidy_response
 #'
@@ -146,6 +148,9 @@ check_resp_status_and_tidy_response <- function(resp,json_response,column_name1,
 }
 
 
+
+
+
 #' @title Validate MotherDuck token from environment
 #' @name validate_motherduck_token_env
 #'
@@ -185,6 +190,9 @@ validate_motherduck_token_env <- function(motherduck_token="MOTHERDUCK_TOKEN"){
 }
 
 
+
+
+
 #' @title List active MotherDuck accounts
 #' @name list_md_active_accounts
 #'
@@ -196,14 +204,7 @@ validate_motherduck_token_env <- function(motherduck_token="MOTHERDUCK_TOKEN"){
 #' This function queries the MotherDuck REST API endpoint
 #' (`https://api.motherduck.com/v1/active_accounts`) using the provided or
 #' environment-resolved authentication token.
-#' The API response is validated and converted into a two-column tibble using
-#' [check_resp_status_and_tidy_response()], where:
-#' - `account_settings` contains the configuration keys.
-#' - `account_values` contains their corresponding values.
-#'
-#' If `motherduck_token` is not explicitly provided, the function attempts to
-#' resolve it from the `MOTHERDUCK_TOKEN` environment variable using
-#' [validate_motherduck_token_env()].
+
 #' The current user name is also displayed via [show_current_user()].
 #'
 #' @inheritParams connect_to_motherduck
@@ -270,13 +271,9 @@ list_md_active_accounts <- function(motherduck_token="MOTHERDUCK_TOKEN"){
 #'
 #' It uses the provided or environment-resolved `motherduck_token` for
 #' authorization. If `motherduck_token` is not explicitly provided, the function
-#' attempts to resolve it from the `MOTHERDUCK_TOKEN` environment variable via
-#' [validate_motherduck_token_env()].
+#' attempts to resolve it from the `MOTHERDUCK_TOKEN` environment variable
 #' The current authenticated user is displayed via [show_current_user()] for
 #' verification.
-#' The resulting JSON response is validated and tidied into a two-column tibble
-#' using [check_resp_status_and_tidy_response()], with token attributes and their
-#' corresponding values.
 #'
 #' @param user_name A character string specifying the MotherDuck user name whose
 #'   tokens should be listed.
@@ -466,6 +463,7 @@ delete_md_user <- function(user_name, motherduck_token = "MOTHERDUCK_TOKEN") {
 
 
 
+
 #' @title Create a new MotherDuck user
 #'
 #' @name create_md_user
@@ -537,6 +535,10 @@ create_md_user <- function(user_name, motherduck_token = "MOTHERDUCK_TOKEN") {
 
   return(out)
 }
+
+
+
+
 
 
 #' @title Create a MotherDuck access token
@@ -667,6 +669,8 @@ create_md_access_token <- function(user_name,token_type,token_name,token_expirat
 
 
 
+
+
 #' @title Delete a MotherDuck user's access token
 #'
 #' @name delete_md_access_token
@@ -730,17 +734,54 @@ delete_md_access_token <- function(user_name,token_name,motherduck_token="MOTHER
 }
 
 
-#' @title Configure motherduck user's settings
+
+
+
+
+
+
+#' @title Configure a MotherDuck user's settings
+#'
 #' @name configure_md_user_settings
-#' @param user_name motherduck user name
-#' @param motherduck_token user's access token
-#' @param token_type the to be token type
-#' @param instance_size the to be instance size
-#' @param flock_size the to be flock size
 #'
-#' @returns tibble
+#' @description
+#' Updates a MotherDuck user's configuration settings, including token type,
+#' instance size, and flock size. This function uses the MotherDuck REST API
+#' to apply the changes for the specified user.
+#'
+#' @param user_name Character. The username of the MotherDuck user to configure.
+#' @param motherduck_token Character. The admin user's MotherDuck token or environment variable name
+#'   (default: `"MOTHERDUCK_TOKEN"`).
+#' @param token_type Character. The type of access token for the user; must be
+#'   `"read_write"` or `"read_scaling"` (default: `"read_write"`).
+#' @param instance_size Character. The instance size for the user; must be one of
+#'   `"pulse"`, `"standard"`, `"jumbo"`, `"mega"`, `"giga"` (default: `"pulse"`).
+#' @param flock_size Numeric. The flock size for the user; must be a whole number
+#'   between 0 and 60 (default: 0).
+#'
+#' @details
+#' This function validates each parameter before making a `PUT` request to the
+#' MotherDuck API. It ensures that:
+#' - `token_type` is valid using `validate_token_type()`.
+#' - `instance_size` is valid using `validate_instance_size()`.
+#' - `flock_size` is a valid integer using `validate_flock_size()`.
+#' The API response is returned as a tibble for easy inspection.
+#'
+#' @return
+#' A tibble containing the API response, including the updated settings for the user.
+#'
+#' @examples
+#' \dontrun{
+#' configure_md_user_settings(
+#'   user_name = "alice",
+#'   motherduck_token = "MOTHERDUCK_TOKEN",
+#'   token_type = "read_write",
+#'   instance_size = "pulse",
+#'   flock_size = 10
+#' )
+#' }
+#'
 #' @export
-#'
 configure_md_user_settings <- function(
         user_name
         ,motherduck_token="MOTHERDUCK_TOKEN"
@@ -794,17 +835,38 @@ configure_md_user_settings <- function(
     )
 }
 
-#' @title Convert units to seconds
-#' @name convert_to_seconds
-#' @param number numeriv value
-#' @param units second, minute, day, month, year or never
+#' @title Convert a time duration to seconds
 #'
-#' @returns number
+#' @name convert_to_seconds
+#'
+#' @description
+#' Converts a numeric duration in various time units into the equivalent number
+#' of seconds. Useful for specifying token TTLs or other time-based parameters
+#' in MotherDuck or other APIs.
+#'
+#' @param number Numeric. The quantity of time units to convert.
+#' @param units Character. The unit of time. Valid values are:
+#'   `"second"`, `"seconds"`, `"minute"`, `"minutes"`, `"day"`, `"days"`,
+#'   `"month"`, `"months"`, `"year"`, `"years"`, or `"never"`.
+#'
+#' @details
+#' The function multiplies the numeric value by the corresponding conversion factor
+#' to obtain the total number of seconds. If `units` is `"never"`, the function
+#' returns `NA`.
+#'
+#' @return
+#' Numeric. The equivalent number of seconds for the given `number` and `units`.
+#' Returns `NA` if `units = "never"`.
 #'
 #' @examples
 #' \dontrun{
-#' convert_to_seconds(300,"days")
+#' convert_to_seconds(5, "minutes")   # returns 300
+#' convert_to_seconds(2, "days")      # returns 172800
+#' convert_to_seconds(1, "never")     # returns NA
 #' }
+#'
+#' @keywords internal
+#' @noRd
 convert_to_seconds <- function(number,units){
 
     # units <- "day"
@@ -854,12 +916,34 @@ convert_to_seconds <- function(number,units){
 }
 
 
-#' @title Validate MD token type args
+#' @title Validate a MotherDuck token type
+#'
 #' @name validate_token_type
-#' @param token_type character vector either read_write or read_scaling
 #'
-#' @returns vector
+#' @description
+#' Validates that the input `token_type` is one of the allowed MotherDuck token
+#' types. Ensures a single valid value is provided and throws an error otherwise.
 #'
+#' @param token_type Character. The type of token to validate. Must be either
+#'   `"read_write"` or `"read_scaling"`.
+#'
+#' @details
+#' This function is useful for validating token type inputs when creating or
+#' managing MotherDuck access tokens. It ensures that only allowed token types
+#' are used and prevents accidental invalid values from being passed to API calls.
+#'
+#' @return
+#' A character vector of length 1 corresponding to the validated token type.
+#'
+#' @examples
+#' \dontrun{
+#' validate_token_type("read_write")   # returns "read_write"
+#' validate_token_type("read_scaling") # returns "read_scaling"
+#' validate_token_type("admin")        # throws an error
+#' }
+#'
+#'@keywords internal
+#'@noRd
 validate_token_type <- function(token_type){
 
 
@@ -874,12 +958,35 @@ validate_token_type <- function(token_type){
 
 }
 
-#' @title Validate instance size args
+#' @title Validate a MotherDuck instance size
+#'
 #' @name validate_instance_size
-#' @param instance_size select either "pulse", "standard", "jumbo", "mega", "giga"
 #'
-#' @returns character vector
+#' @description
+#' Validates that the input `instance_size` is one of the allowed instance types
+#' for a MotherDuck database. Converts the input to lowercase and ensures it
+#' matches one of the valid options.
 #'
+#' @param instance_size Character. The instance size to validate. Must be one of:
+#'   `"pulse"`, `"standard"`, `"jumbo"`, `"mega"`, or `"giga"`.
+#'
+#' @details
+#' This function checks that the provided `instance_size` is a single value and
+#' matches one of the allowed options. If the input is invalid, it throws an
+#' informative error message indicating the allowed values.
+#'
+#' @return
+#' A character vector of length 1 corresponding to the validated instance size
+#' (in lowercase).
+#'
+#' @examples
+#' \dontrun{
+#' validate_instance_size("Standard")  # returns "standard"
+#' validate_instance_size("mega")      # returns "mega"
+#' validate_instance_size("tiny")      # throws an error
+#' }
+#'@keywords internal
+#' @noRd
 validate_instance_size <- function(instance_size){
 
 
@@ -894,12 +1001,37 @@ validate_instance_size <- function(instance_size){
 
 }
 
-#' @title Validate flock size args
+#' @title Validate a flock size input
+#'
 #' @name validate_flock_size
-#' @param flock_size whole number between 0-60
 #'
-#' @returns integer
+#' @description
+#' Validates that the input `flock_size` is a single whole number between 0 and 60.
+#' Converts the input to an integer and throws an informative error if the input
+#' is invalid.
 #'
+#' @param flock_size Numeric or integer. A single value representing the flock size.
+#'   Must be between 0 and 60 (inclusive).
+#'
+#' @details
+#' This function ensures that the provided `flock_size` is:
+#' - A single value.
+#' - An integer.
+#' - Within the allowed range (0–60).
+#' If the input does not meet these criteria, the function raises an error
+#' with a descriptive message.
+#'
+#' @return
+#' An integer value corresponding to the validated flock size.
+#'
+#' @examples
+#' \dontrun{
+#' validate_flock_size(15)  # returns 15L
+#' validate_flock_size(0)   # returns 0L
+#' validate_flock_size(61)  # throws an error
+#' }
+#' @keywords internal
+#' @noRd
 validate_flock_size <- function(flock_size){
 
 
@@ -919,18 +1051,47 @@ validate_flock_size <- function(flock_size){
 
 
 
-#' @@title Create or replace a motherduck share
+#' @title Create or replace a MotherDuck database share
 #'
-#' @param .con md connection
-#' @param share_name shame name
-#' @param database_name database name to be shared
-#' @param access either "RESTRICTED" or "PUBLIC"
-#' @param visibility either "HIDDEN"or  "LISTED"
-#' @param update either "AUTOMATIC" or "MANUAL"
+#' @name create_or_replace_share
 #'
-#' @returns message
+#' @description
+#' Creates a new share or replaces an existing share for a specified database
+#' in MotherDuck. This allows you to update the configuration of an existing
+#' share or create a new one if it does not exist.
+#'
+#' @inheritParams validate_con
+#' @param share_name Character. The name of the share to create or replace.
+#' @param database_name Character. The name of the database to be shared.
+#' @param access Character. Access level for the share; either `"RESTRICTED"` or `"PUBLIC"` (default: `"PUBLIC"`).
+#' @param visibility Character. Visibility of the share; either `"HIDDEN"` or `"LISTED"` (default: `"LISTED"`).
+#' @param update Character. Update policy for the share; either `"AUTOMATIC"` or `"MANUAL"` (default: `"AUTOMATIC"`).
+#'
+#' @details
+#' This function executes a `CREATE OR REPLACE SHARE` SQL statement to create
+#' a new share or update an existing one.
+#' - `access` controls who can access the share.
+#' - `visibility` controls whether the share is listed publicly or hidden.
+#' - `update` controls whether changes to the source database are automatically reflected in the share.
+#' The current user is displayed for confirmation before execution.
+#'
+#' @return
+#' A message indicating that the share has been created or replaced.
+#'
+#' @examples
+#' \dontrun{
+#' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+#' create_or_replace_share(
+#'   .con = con,
+#'   share_name = "analytics_share",
+#'   database_name = "sales_db",
+#'   access = "PUBLIC",
+#'   visibility = "LISTED",
+#'   update = "AUTOMATIC"
+#' )
+#' }
+#'
 #' @export
-#'
 create_or_replace_share <- function(.con,
                                     share_name,
                                     database_name,
@@ -987,18 +1148,45 @@ create_or_replace_share <- function(.con,
 
 
 
-#' Create a MD share of a database
+#' @title Create a MotherDuck database share if it does not exist
+#'
 #' @name create_if_not_exists_share
-#' @param .con MD connection
-#' @param share_name new share name
-#' @param database_name target database
-#' @param access "RESTRICTED" or "PUBLIC"
-#' @param visibility "HIDDEN" or "LISTED"
-#' @param update "AUTOMATIC" or "MANUAL"
 #'
-#' @returns message
+#' @description
+#' Creates a new share for a specified database in MotherDuck if it does not already exist.
+#' Allows you to configure access, visibility, and update settings for the share.
+#' @inheritParams validate_con
+#' @param share_name Character. The name of the new share to create.
+#' @param database_name Character. The name of the target database to share.
+#' @param access Character. Access level for the share; either `"RESTRICTED"` or `"PUBLIC"` (default: `"PUBLIC"`).
+#' @param visibility Character. Visibility of the share; either `"HIDDEN"` or `"LISTED"` (default: `"LISTED"`).
+#' @param update Character. Update policy for the share; either `"AUTOMATIC"` or `"MANUAL"` (default: `"AUTOMATIC"`).
+#'
+#' @details
+#' This function executes a `CREATE IF NOT EXISTS` SQL statement on the connected
+#' MotherDuck database to create a share for the specified database.
+#' - `access` controls who can access the share.
+#' - `visibility` controls whether the share is listed publicly or hidden.
+#' - `update` controls whether changes to the source database are automatically reflected in the share.
+#' After creation, the current user is displayed for confirmation.
+#'
+#' @return
+#' A message confirming that the share has been created, if it did not already exist.
+#'
+#' @examples
+#' \dontrun{
+#' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+#' create_if_not_exists_share(
+#'   .con = con,
+#'   share_name = "analytics_share",
+#'   database_name = "sales_db",
+#'   access = "PUBLIC",
+#'   visibility = "LISTED",
+#'   update = "AUTOMATIC"
+#' )
+#' }
+#'
 #' @export
-#'
 create_if_not_exists_share <- function(.con,
                          share_name,
                          database_name,
@@ -1030,7 +1218,6 @@ create_if_not_exists_share <- function(.con,
         ,error_arg = "visibility"
     )
 
-
     rlang::arg_match(
         update
         ,values = valid_visibility_vec
@@ -1057,14 +1244,34 @@ create_if_not_exists_share <- function(.con,
 
 
 
-#' @title Describe share
+#' @title Describe a MotherDuck share
+#'
 #' @name describe_share
+#'
+#' @description
+#' Retrieves detailed metadata about a specific share in MotherDuck, including
+#' the objects it contains, their types, and privileges granted.
 #' @inheritParams validate_con
-#' @param share_name shared path name
+#' @param share_name Character. The name of the shared path to describe.
 #'
-#' @returns tibble
+#' @details
+#' This function executes the `md_describe_database_share` system function
+#' to obtain comprehensive information about the specified share.
+#' The result is returned as a tibble for easy inspection and manipulation in R.
+#'
+#' @return
+#' A tibble containing metadata about the share, including object names, types,
+#' and privileges associated with the share.
+#'
+#' @examples
+#' \dontrun{
+#' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+#' share_info <- describe_share(con, "analytics.sales_share")
+#' print(share_info)
+#' }
+#'
 #' @export
-#'
+
 describe_share <- function(.con, share_name) {
 
     assertthat::assert_that(
@@ -1082,15 +1289,34 @@ describe_share <- function(.con, share_name) {
 
 
 
-#' @title Drop a MD share name
+#' @title Drop a MotherDuck share
+#'
 #' @name drop_share
 #'
+#' @description
+#' Drops (deletes) a specified share from your MotherDuck account. If the share
+#' does not exist, a warning is displayed. This function safely validates the
+#' connection and share name before executing the operation.
+#'
 #' @inheritParams validate_con
-#' @param share_name Share name
+#' @param share_name Character. The name of the share to be dropped.
 #'
-#' @returns message
+#' @details
+#' The function first validates that the connection is active. It then checks
+#' whether the specified share exists in the account. If it does, the share is
+#' dropped using a `DROP SHARE IF EXISTS` SQL command. If the share does not
+#' exist, a warning is shown. After the operation, the current user is displayed.
+#'
+#' @return
+#' Invisibly returns `NULL`. Side effect: the specified share is removed if it exists.
+#'
+#' @examples
+#' \dontrun{
+#' drop_share(con_md, "test_share")
+#' }
+#'
 #' @export
-#'
+
 drop_share <- function(.con, share_name) {
 
   # .con <- con_md
@@ -1124,30 +1350,84 @@ drop_share <- function(.con, share_name) {
 }
 
 
-#' @title List all owned shares
+
+
+
+#' @title List all shares owned by the current user
+#'
 #' @name list_owned_shares
-#' @param .con motherduck connection
 #'
-#' @returns tibble
+#' @description
+#' Retrieves all database objects that are owned by the current authenticated
+#' user in MotherDuck.
+#'
+#' @inheritParams validate_con
+#'
+#' @details
+#' This function executes the `LIST SHARES;` command to return metadata about
+#' all shares created by the current user. The returned tibble includes details
+#' such as the share name, type of object shared, and privileges granted.
+#'
+#' @return
+#' A tibble with one row per share owned by the current user, including columns
+#' for share name, object type, and granted privileges.
+#'
+#' @examples
+#' \dontrun{
+#' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+#' owned_tbl <- list_owned_shares(con)
+#' print(owned_tbl)
+#' }
+#'
 #' @export
-#'
+
 list_owned_shares <- function(.con) {
 
     DBI::dbGetQuery(.con, "LIST SHARES;") |>
         tibble::as_tibble()
 }
 
-#' @title List all shares that are shared with you
+
+
+
+#' @title List all shares shared with the current user
+#'
 #' @name list_shared_with_me_shares
+#'
+#' @description
+#' Retrieves all database objects that have been shared with the current
+#' authenticated user in MotherDuck.
+#'
 #' @inheritParams validate_con
 #'
-#' @returns tibble
-#' @export
+#' @details
+#' This function queries the `MD_INFORMATION_SCHEMA.SHARED_WITH_ME` view to
+#' return metadata about all shares granted to the current user, including
+#' the owner, object name, type, and privileges.
+#' The result is returned as a tidy tibble for easy manipulation in R.
 #'
+#' @return
+#' A tibble containing one row per shared object, with columns describing
+#' the owner, object type, object name, and granted privileges.
+#'
+#' @examples
+#' \dontrun{
+#' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+#' shared_tbl <- list_shared_with_me_shares(con)
+#' print(shared_tbl)
+#' }
+#'
+#' @export
+
 list_shared_with_me_shares <- function(.con) {
+
+  validate_con(.con)
 
     dplyr::tbl(.con, dplyr::sql("select * from MD_INFORMATION_SCHEMA.SHARED_WITH_ME;")) |>
         tibble::as_tibble()
 }
+
+
+
 
 utils::globalVariables(c(":=","ind","values"))

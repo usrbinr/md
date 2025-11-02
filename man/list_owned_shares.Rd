@@ -2,16 +2,31 @@
 % Please edit documentation in R/api.R
 \name{list_owned_shares}
 \alias{list_owned_shares}
-\title{List all owned shares}
+\title{List all shares owned by the current user}
 \usage{
 list_owned_shares(.con)
 }
 \arguments{
-\item{.con}{motherduck connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-tibble
+A tibble with one row per share owned by the current user, including columns
+for share name, object type, and granted privileges.
 }
 \description{
-List all owned shares
+Retrieves all database objects that are owned by the current authenticated
+user in MotherDuck.
+}
+\details{
+This function executes the \verb{LIST SHARES;} command to return metadata about
+all shares created by the current user. The returned tibble includes details
+such as the share name, type of object shared, and privileges granted.
+}
+\examples{
+\dontrun{
+con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+owned_tbl <- list_owned_shares(con)
+print(owned_tbl)
+}
+
 }

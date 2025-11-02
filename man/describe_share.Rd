@@ -2,18 +2,33 @@
 % Please edit documentation in R/api.R
 \name{describe_share}
 \alias{describe_share}
-\title{Describe share}
+\title{Describe a MotherDuck share}
 \usage{
 describe_share(.con, share_name)
 }
 \arguments{
 \item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
-\item{share_name}{shared path name}
+\item{share_name}{Character. The name of the shared path to describe.}
 }
 \value{
-tibble
+A tibble containing metadata about the share, including object names, types,
+and privileges associated with the share.
 }
 \description{
-Describe share
+Retrieves detailed metadata about a specific share in MotherDuck, including
+the objects it contains, their types, and privileges granted.
+}
+\details{
+This function executes the \code{md_describe_database_share} system function
+to obtain comprehensive information about the specified share.
+The result is returned as a tibble for easy inspection and manipulation in R.
+}
+\examples{
+\dontrun{
+con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+share_info <- describe_share(con, "analytics.sales_share")
+print(share_info)
+}
+
 }

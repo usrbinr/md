@@ -25,16 +25,6 @@ user, returning the results as a tidy tibble.
 This function queries the MotherDuck REST API endpoint
 (\verb{https://api.motherduck.com/v1/active_accounts}) using the provided or
 environment-resolved authentication token.
-The API response is validated and converted into a two-column tibble using
-\code{\link[=check_resp_status_and_tidy_response]{check_resp_status_and_tidy_response()}}, where:
-\itemize{
-\item \code{account_settings} contains the configuration keys.
-\item \code{account_values} contains their corresponding values.
-}
-
-If \code{motherduck_token} is not explicitly provided, the function attempts to
-resolve it from the \code{MOTHERDUCK_TOKEN} environment variable using
-\code{\link[=validate_motherduck_token_env]{validate_motherduck_token_env()}}.
 The current user name is also displayed via \code{\link[=show_current_user]{show_current_user()}}.
 }
 \examples{
