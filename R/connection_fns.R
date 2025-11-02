@@ -188,7 +188,8 @@ connect_to_motherduck <- function(motherduck_token="MOTHERDUCK_TOKEN",db_path=NU
 
     if(!missing(config)){
 
-    .con <- DBI::dbConnect(duckdb::duckdb(dbdir = db_path,config=config))
+    .con <- DBI::dbConnect(duckdb::duckdb(dbdir = db_path))
+
 
     }else{
         .con <-DBI::dbConnect(duckdb::duckdb(dbdir = db_path))
@@ -200,11 +201,25 @@ connect_to_motherduck <- function(motherduck_token="MOTHERDUCK_TOKEN",db_path=NU
 
     }
 
+
+    sql_statements <- vapply(
+        names(config),
+        function(x) sprintf("SET %s='%s';", x, config[[x]]),
+        character(1)
+    )
+
+    for (stmt in sql_statements) {
+        DBI::dbExecute(.con, stmt)
+    }
+
     # connect to motherduck
 
     dbExectue_safe <- purrr::safely(DBI::dbExecute)
 
     dbExectue_safe(.con, "PRAGMA MD_CONNECT")
+
+
+
 
     validate_md_connection_status(.con,return_type = "msg")
 
