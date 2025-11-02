@@ -175,15 +175,12 @@ connect_to_motherduck <- function(motherduck_token="MOTHERDUCK_TOKEN",db_path=NU
     )
 
 
-
     # Use provided dbdir or fallback to temp file
     db_path <- if (!is.null(db_path)) {
         db_path <- db_path
     } else {
         db_path <-   tempfile(fileext = ".duckdb")
     }
-
-
 
 
     if(!missing(config)){
@@ -195,12 +192,19 @@ connect_to_motherduck <- function(motherduck_token="MOTHERDUCK_TOKEN",db_path=NU
         .con <-DBI::dbConnect(duckdb::duckdb(dbdir = db_path))
     }
 
+
+
     if(!validate_extension_load_status(.con,"motherduck",return_type="arg")){
 
         load_extensions(.con,"motherduck")
 
     }
 
+    if(!validate_md_connection_status(.con,return_type = "arg")){
+
+    DBI::dbExecute(.con, paste0("SET motherduck_token=", DBI::dbQuoteString(.con, motherduck_token_code), ";"))
+
+    }
 
     sql_statements <- vapply(
         names(config),
@@ -217,9 +221,6 @@ connect_to_motherduck <- function(motherduck_token="MOTHERDUCK_TOKEN",db_path=NU
     dbExectue_safe <- purrr::safely(DBI::dbExecute)
 
     dbExectue_safe(.con, "PRAGMA MD_CONNECT")
-
-
-
 
     validate_md_connection_status(.con,return_type = "msg")
 

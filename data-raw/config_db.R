@@ -4,7 +4,7 @@
 
 
 config_db <- list(
-    access_mode = "automatic",
+    # access_mode = "automatic",
     allocator_background_threads = "false",
     allocator_bulk_deallocation_flush_threshold = "512MB",
     allocator_flush_threshold = "128MB",
@@ -27,7 +27,7 @@ config_db <- list(
     checkpoint_threshold = "16MB",
     wal_autocheckpoint = "16MB",
     custom_extension_repository = "",
-    custom_user_agent = "",
+    # custom_user_agent = "",
     default_block_size = "262144",
     default_collation = "",
     default_null_order = "NULLS_LAST",
@@ -38,8 +38,8 @@ config_db <- list(
     disabled_compression_methods = "",
     # disabled_filesystems = "",
     # disabled_log_types = "",
-    duckdb_api = "cli",
-    enable_external_access = "true",
+    # duckdb_api = "cli",
+    # enable_external_access = "true",
     enable_external_file_cache = "true",
     enable_fsst_vectors = "false",
     # enable_geoparquet_conversion = "true",
