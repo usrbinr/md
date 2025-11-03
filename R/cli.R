@@ -30,7 +30,7 @@ cli_create_obj <- function(.con, database_name, schema_name, table_name, write_t
 
     # Step 2: If no database name is provided, get the current database from the connection
     if (missing(database_name)) {
-        database_name <- pwd(.con)[["current_database"]]
+        database_name <- pwd(.con) |> dplyr::pull(current_database)
     }
 
     # Step 3: Check how many tables are in the provided database by filtering
@@ -57,7 +57,7 @@ cli_create_obj <- function(.con, database_name, schema_name, table_name, write_t
 
     # Step 6: If no schema name is provided, get the current schema from the connection
     if (missing(schema_name)) {
-        schema_name <- pwd(.con)[["current_schema"]]
+        schema_name <- pwd(.con) |> dplyr::pull(current_schema)
     }
 
     # Step 7: If schema name is provided, check how many tables exist in the schema
@@ -72,8 +72,8 @@ cli_create_obj <- function(.con, database_name, schema_name, table_name, write_t
         schema_count <- list_schemas(.con) |>
             dplyr::collect() |>
             dplyr::filter(
-                rlang::.data$catalog_name %in% database_name   # Filter by database
-                ,rlang::.data$schema_name %in% schema_name_vec    # Filter by schema
+                catalog_name %in% database_name   # Filter by database
+                ,schema_name %in% schema_name_vec    # Filter by schema
             ) |>
             nrow()   # Count the rows (number of tables in the schema)
 
@@ -91,9 +91,9 @@ cli_create_obj <- function(.con, database_name, schema_name, table_name, write_t
 
         table_count <- all_table_tbl |>
             dplyr::filter(
-                rlang::.data$table_catalog %in% database_name  # Filter by database
-                ,rlang::.data$table_schema %in% schema_name   # Filter by schema
-                ,rlang::.data$table_name %in% table_name_vec  # Filter by table name
+                table_catalog %in% database_name  # Filter by database
+                ,table_schema %in% schema_name   # Filter by schema
+                ,table_name %in% table_name_vec  # Filter by table name
             ) |>
             nrow()   # Count the rows (number of matching tables)
 
@@ -126,12 +126,12 @@ cli_show_user <- function(.con) {
     # Step 1: Get the current user by querying the database
     # Uses `current_user()` to retrieve the current database user
     current_user <- dplyr::tbl(.con, dplyr::sql("select current_user() as user")) |>
-        dplyr::pull("user")  # Extract the user value from the result
+        dplyr::pull(user)  # Extract the user value from the result
 
     # Step 2: Get the current role by querying the database
     # Uses `current_role()` to retrieve the current role of the user
     current_role <- dplyr::tbl(.con, dplyr::sql("select current_role() as role")) |>
-        dplyr::pull("role")  # Extract the role value from the result
+        dplyr::pull(role)  # Extract the role value from the result
 
     # Step 3: Start the user report section with a header
     cli::cli_h2("User Report:")  # Adds a second-level header "User Report:"
@@ -184,15 +184,15 @@ cli_show_db <- function(.con) {
     )
     # Step 2: Get the current database (catalog) from the connection
     # Uses `current_catalog()` to get the current database name
-    current_db <- dplyr::tbl(.con, dplyr::sql("select current_catalog() as catalog"))[["catalog"]]
+    current_db <- dplyr::tbl(.con, dplyr::sql("select current_catalog() as catalog")) |> dplyr::pull(catalog)
 
     # Step 3: Get the current schema from the connection
     # Uses `current_schema()` to get the current schema name
-    current_schema <- dplyr::tbl(.con, dplyr::sql("select current_schema() as schema"))[["schema"]]
+    current_schema <- dplyr::tbl(.con, dplyr::sql("select current_schema() as schema")) |> dplyr::pull(schema)
 
     # Step 4: Get the number of catalogs (databases) the user has access to
     # Calls `md::list_databases` to list all databases and counts them
-    db_count <- length(list_databases(.con)[["database_name"]])
+    db_count <- length(list_databases(.con) |> dplyr::pull(database_name))
 
 
     # Step 5: Get the number of tables the user has access to
@@ -204,15 +204,15 @@ cli_show_db <- function(.con) {
     table_count_in_db <- list_all_tables(.con) |>
         dplyr::collect() |>
         dplyr::filter(
-            rlang::.data$table_catalog %in% c(current_db)
+            table_catalog %in% c(current_db)
         ) |> nrow()
 
 
     table_count_in_db_schema <- list_all_tables(.con) |>
         dplyr::collect() |>
         dplyr::filter(
-            rlang::.data$table_catalog %in% c(current_db)
-            ,rlang::.data$table_schema %in% c(current_schema)
+            table_catalog %in% c(current_db)
+            ,table_schema %in% c(current_schema)
         ) |> nrow()
 
     # Step 6: Start the Catalog Report section with a header
@@ -257,7 +257,7 @@ cli_delete_obj <- function(.con, database_name, schema_name, table_name) {
     all_table_tbl <- list_all_tables(.con) |> dplyr::collect()
 
     if (missing(database_name)) {
-        database_name <- pwd(.con) |> dplyr::pull("current_database")
+        database_name <- pwd(.con) |> dplyr::pull(current_database)
     }
 
     if(!missing(database_name)){
@@ -266,7 +266,7 @@ cli_delete_obj <- function(.con, database_name, schema_name, table_name) {
         db_tbl <-
             all_table_tbl |>
             dplyr::filter(
-                rlang::.data$table_catalog %in% database_name
+                table_catalog %in% database_name
             )
     }
 
@@ -275,8 +275,8 @@ cli_delete_obj <- function(.con, database_name, schema_name, table_name) {
         schema_tbl <-
             all_table_tbl |>
             dplyr::filter(
-                rlang::.data$table_catalog %in% database_name
-                ,rlang::.data$table_schema %in% schema_name
+                table_catalog %in% database_name
+                ,table_schema %in% schema_name
             )
 
     }
@@ -289,9 +289,9 @@ cli_delete_obj <- function(.con, database_name, schema_name, table_name) {
         table_tbl <-
             all_table_tbl |>
             dplyr::filter(
-                rlang::.data$table_catalog %in% database_name
-                ,rlang::.data$table_schema %in% schema_name
-                ,rlang::.data$table_name %in% table_name_vec
+                table_catalog %in% database_name
+                ,table_schema %in% schema_name
+                ,table_name %in% table_name_vec
             )
     }
 
@@ -300,9 +300,9 @@ cli_delete_obj <- function(.con, database_name, schema_name, table_name) {
     if(!missing(database_name)){
 
 
-            schema_count <- db_tbl |> dplyr::pull("table_schema") |> unique() |> length()
+            schema_count <- db_tbl |> dplyr::pull(table_schema) |> unique() |> length()
 
-            table_count <- db_tbl |> dplyr::pull("table_name") |> unique() |> length()
+            table_count <- db_tbl |> dplyr::pull(table_name) |> unique() |> length()
 
             cli::cli_li("Deleted {.val {database_name}} database with {.val {schema_count}} schemas and {.val {table_count}} tables")
     }

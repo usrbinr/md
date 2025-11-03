@@ -176,7 +176,7 @@ Now that we knwo how to navigate to our various databaes,  lets finally load dat
 ```{r}
 #| label: create-table
 #| echo: true
-#| eval: true
+#| eval: false
 #| warning: true
 #| message: true
 #| include: true
