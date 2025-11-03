@@ -16,7 +16,7 @@ create_table_tbl(
 \arguments{
 \item{.data}{A tibble or data frame to be written to the database.}
 
-\item{.con}{A valid \code{DBI} connection (e.g., DuckDB or MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{Name of the database to create/use. If missing,
 the current database of the connection will be used.}

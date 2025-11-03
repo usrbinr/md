@@ -76,7 +76,7 @@ delete_and_create_schema <- function(.con,database_name,schema_name){
 #'   creating the schema.
 #' - Displays connection/user/database information via internal CLI helpers.
 #'
-#' @param .con A valid `DBI` connection (e.g., DuckDB or MotherDuck).
+#' @inheritParams validate_con
 #' @param database_name Name of the database to create/use.
 #' @param schema_name Name of the schema to create if it does not exist.
 #' @export
@@ -135,7 +135,7 @@ create_schema <- function(.con,database_name,schema_name){
 #' - `write_type = "append"` will insert rows into an existing table.
 #'
 #' @param .data A tibble or data frame to be written to the database.
-#' @param .con A valid `DBI` connection (e.g., DuckDB or MotherDuck).
+#' @inheritParams validate_con
 #' @param database_name Name of the database to create/use. If missing,
 #'   the current database of the connection will be used.
 #' @param schema_name Name of the schema to create/use. If missing,
@@ -220,6 +220,10 @@ create_table_tbl <- function(.data,.con,database_name,schema_name,table_name,wri
 
 
 }
+
+
+
+
 
 #' @title Create a Database Table from a DBI Object
 #' @name create_table_dbi
@@ -397,6 +401,8 @@ create_table <- function(.data,.con,database_name,schema_name,table_name,write_t
 }
 
 
+
+
 #' @title Create (If Not Exists) and Switch to a Database
 #' @name create_if_not_exists_database
 #'
@@ -454,6 +460,10 @@ create_if_not_exists_database <- function(.con,database_name){
 
 }
 
+
+
+
+
 #' @title Move Tables from One Schema to Another
 #' @name alter_table_schema
 #'
@@ -503,6 +513,8 @@ alter_table_schema <- function(.con, from_table_names, new_schema) {
     cli::cli_li("Change {from_table_names} schema to {new_schema}")
 
 }
+
+
 
 
 
@@ -577,6 +589,9 @@ cd(.con,database_name)
 
 }
 
+
+
+
 #' @title Copy Tables to a New Database/Schema
 #' @name copy_tables_to_new_location
 #'
@@ -626,7 +641,7 @@ copy_tables_to_new_location <- function(.con, from_table_names, to_database_name
 
   # For local DuckDB, use the current database
   if (!md_con_indicator) {
-    to_database_name <- pwd(.con) |> dplyr::pull("current_database")
+    to_database_name <- pwd(.con) |> dplyr::pull(current_database)
   }
 
   # Validate input
@@ -644,7 +659,7 @@ copy_tables_to_new_location <- function(.con, from_table_names, to_database_name
     cli::cli_abort("`from_table_names` is missing required columns: {missing_cols}")
   }
 
-  table_names_vec <- unique(from_table_names |> dplyr::pull("table_name"))
+  table_names_vec <- unique(from_table_names |> dplyr::pull(table_name))
 
   # Build destination Ids
   to_ids <- purrr::map(
@@ -1111,5 +1126,5 @@ delete_table <- function(.con, database_name, schema_name, table_name, cascade =
 }
 
 utils::globalVariables(
-  c("table_catalog", "table_schema", "table_name")
+  c("table_catalog", "table_schema", "table_name","current_database")
 )

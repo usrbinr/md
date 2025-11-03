@@ -147,14 +147,6 @@ connect_to_motherduck <- function(motherduck_token="MOTHERDUCK_TOKEN",db_path=NU
     }
 
 
-    ## allows for user to either directly input their token if not available
-
-    if(nchar(Sys.getenv(motherduck_token))>1){
-
-    motherduck_token_code <- Sys.getenv(motherduck_token)
-
-    }
-
     cli_msg <- function() {
         cli::cli_par()
         cli::cli_h1("Motherduck token status")
@@ -169,10 +161,16 @@ connect_to_motherduck <- function(motherduck_token="MOTHERDUCK_TOKEN",db_path=NU
         cli::cli_end()
     }
 
-    assertthat::assert_that(
-        motherduck_token_code!=""
-        ,msg=cli_msg()
-    )
+
+    ## allows for user to either directly input their token if not available
+
+    if(nchar(Sys.getenv(motherduck_token))>1){
+
+    motherduck_token_code <- Sys.getenv(motherduck_token)
+
+    }else{
+        cli_msg()
+    }
 
 
     # Use provided dbdir or fallback to temp file
@@ -183,28 +181,16 @@ connect_to_motherduck <- function(motherduck_token="MOTHERDUCK_TOKEN",db_path=NU
     }
 
 
-    if(!missing(config)){
-
     .con <- DBI::dbConnect(duckdb::duckdb(dbdir = db_path))
 
 
-    }else{
-        .con <-DBI::dbConnect(duckdb::duckdb(dbdir = db_path))
-    }
-
-
-
     if(!validate_extension_load_status(.con,"motherduck",return_type="arg")){
-
         load_extensions(.con,"motherduck")
-
     }
 
-    if(!validate_md_connection_status(.con,return_type = "arg")){
+    dbExectue_safe <- purrr::safely(DBI::dbExecute)
 
-    DBI::dbExecute(.con, paste0("SET motherduck_token=", DBI::dbQuoteString(.con, motherduck_token_code), ";"))
-
-    }
+    if(!missing(config)){
 
     sql_statements <- vapply(
         names(config),
@@ -213,12 +199,11 @@ connect_to_motherduck <- function(motherduck_token="MOTHERDUCK_TOKEN",db_path=NU
     )
 
     for (stmt in sql_statements) {
-        DBI::dbExecute(.con, stmt)
+        dbExectue_safe(.con, stmt)
+    }
     }
 
     # connect to motherduck
-
-    dbExectue_safe <- purrr::safely(DBI::dbExecute)
 
     dbExectue_safe(.con, "PRAGMA MD_CONNECT")
 

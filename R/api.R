@@ -292,8 +292,7 @@ list_md_active_accounts <- function(motherduck_token="MOTHERDUCK_TOKEN"){
 #' }
 #'
 #' @seealso
-#' [list_md_active_accounts()], [validate_motherduck_token_env()],
-#' [check_resp_status_and_tidy_response()], [show_current_user()]
+#' [list_md_active_accounts()], [show_current_user()]
 #'
 #' @export
 list_md_user_tokens <- function(user_name,motherduck_token="MOTHERDUCK_TOKEN"){
@@ -340,14 +339,9 @@ list_md_user_tokens <- function(user_name,motherduck_token="MOTHERDUCK_TOKEN"){
 #' information about the user’s active DuckDB instances and their configuration
 #' parameters.
 #'
-#' It uses the provided `motherduck_token` or attempts to resolve it from the
-#' `MOTHERDUCK_TOKEN` environment variable via
-#' [validate_motherduck_token_env()].
 #' The current authenticated user is displayed with [show_current_user()] for
 #' verification.
-#' The API response is validated and tidied into a two-column tibble using
-#' [check_resp_status_and_tidy_response()], containing instance descriptions and
-#' their corresponding values.
+
 #'
 #' @inheritParams list_md_user_tokens
 #' @return
@@ -363,7 +357,6 @@ list_md_user_tokens <- function(user_name,motherduck_token="MOTHERDUCK_TOKEN"){
 #'
 #' @seealso
 #' [list_md_user_tokens()], [list_md_active_accounts()],
-#' [validate_motherduck_token_env()], [check_resp_status_and_tidy_response()],
 #' [show_current_user()]
 #'
 #' @export

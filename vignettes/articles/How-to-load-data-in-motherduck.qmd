@@ -20,9 +20,9 @@ vignette: >
 library(tidyverse)
 library(md)
 
-# hook <- fansi::set_knit_hooks(knitr::knit_hooks, which = c("output", "warning", "error", "message"))
+hook <- fansi::set_knit_hooks(knitr::knit_hooks, which = c("output", "warning", "error", "message"))
 
-# options(crayon.enabled = TRUE)
+options(crayon.enabled = TRUE)
 ```
 
 
@@ -30,12 +30,12 @@ library(md)
 
 Before we get into how to use the package, lets quickly review the three things you will need to load data into a database:
 
--   Database name (Catalog Name)
-    -   This is object that will hold your schemas, tables or views
-    -   Different databases have their own naming convention, in motherduck, this is called Catalog 
--   Schema name
-    -   This is fancy name for the location that classifies and organizes your tables, functions, procedures, etc
--   Table or view name
+**Database name (Catalog Name)**
+-   This is object that will hold your schemas, tables or views
+-   Different databases have their own naming convention, in motherduck, this is called Catalog 
+**Schema name**
+-   This is fancy name for the location that classifies and organizes your tables, functions, procedures, etc
+**Table or view name**
     -   This is the name of the actual table or view that holds your data
     -   Table can be a physical table of data that persists whereas a view is a stored procedures that queries underlying tables when needed
     
@@ -48,13 +48,13 @@ If you uploaded data without creating a table or schema first then duckdb will a
 
 While not technically correct explanation; motherduck is a cloud based deployment of duckdb where you can have multiple databases, control access / permissions, and scale compute / storage as needed
 
-Duckdb is a essentially a single database instance in your local computer where you can save the database to a file or create it in memory. You are limited to one database per connection. 
+Duckdb is a essentially a single database instance in your local computer where you can save the database to a file or create it in memory.
 
-Through out these write ups, I tend to use duckdb & motherduck interchangeably however all functions will work motherduck database but most will still work with a duckdb database.
+Through out these write ups, I tend to use duckdb & motherduck interchangeably however all functions will work motherduck database and most will still work with a duckdb database.
 
 If you are using a local duckdb database you can leave the database argument blank.
-
 :::
+
 ## Let's upload some data
 
 Later on we will show examples of how to read data from a source file, eg. csv, parquet, or even excel directly into motherduck without loading the data into memory but for now let's assume you want to upload some data that you already have loaded in your R environment.
@@ -63,10 +63,9 @@ First let us connect to our motherduck database. In order to connect, you will n
 
 - motherduck account
 - access token
-- motherduck extenstion for duckdb
+- motherduck extension for duckdb
 
-The `connect_to_motherduck()` function will take your access token that is your environment file^[Use `usethis::edit_r_environ()` to save your access token to a variable name], install and load the extensions if needed and connect to your motherduck instance.
-
+The `connect_to_motherduck()` function will take your access token that is your environment file^[Use `usethis::edit_r_environ()` to save your access token to a variable name], install and load the extensions and then finally connect to your motherduck instance.
 
 
 ::: {#cau-con .callout-caution collapse="true"}
@@ -95,38 +94,6 @@ con_md <- connect_to_motherduck(motherduck_token = "MOTHERDUCK_TOKEN") #<1>
 
 You will get a message that prints out that actions the package took and information about your connection
 
-We can check what all the  database, schemas or tables we have access to in our motherduck account with the `list_all_tables()` function
-
-```{r}
-#| label: list-all
-#| echo: true
-#| eval: false
-#| warning: false
-#| message: false
-#| include: true
-
-list_all_tables(con_md)
-```
-
-
-```{r}
-#| label: list-all-hidden
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-#| include: true
-
-  md::list_all_tables(con_md) |> 
-    gt::gt() |>
-    gt::tab_options(
-      ,ihtml.active = TRUE
-      ,ihtml.use_pagination = TRUE
-      ,ihtml.use_compact_mode = TRUE
-      ,ihtml.page_size_default = 5
-      )
-
-```
 
 Before uploading new data, it can be helpful to check "where" you are in your database
 
@@ -163,16 +130,53 @@ If we want to we can also navigate to your motherduck database with the `cd()` c
 cd(con_md,database = "contoso")
 ```
 
-I am now in my contoso database and if reference a schema or table it would be relative to this database.
+I am now in motherduck based [contoso](github.com/usrbinr/contoso) database and any reference to schema or table would be relative to this database.
 
-Next lets finally load data into a new database and schema location to upload some existing data.  `create_table()` function will create a new database and save the table under the schema.
 
+Let's verify that by list the all the tables in this database. We can do that with the `list_all_tables()` function.
+
+
+
+```{r}
+#| label: list-all
+#| echo: true
+#| eval: false
+#| warning: false
+#| message: false
+#| include: true
+
+list_all_tables(con_md)
+```
+
+
+```{r}
+#| label: list-all-hidden
+#| echo: false
+#| eval: true
+#| warning: false
+#| message: false
+#| include: true
+
+
+  md::list_all_tables(con_md) |> 
+    gt::gt() |>
+    gt::tab_options(
+      ,ihtml.active = TRUE
+      ,ihtml.use_pagination = TRUE
+      ,ihtml.use_compact_mode = TRUE
+      ,ihtml.page_size_default = 5
+      )
+
+```
+
+
+Now that we knwo how to navigate to our various databaes,  lets finally load data somee existing data into a new database and schema.  `create_table()` function will create a new database / schema and save then load the data into a table.
 
 
 ```{r}
 #| label: create-table
 #| echo: true
-#| eval: false
+#| eval: true
 #| warning: true
 #| message: true
 #| include: true

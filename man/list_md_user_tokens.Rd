@@ -44,6 +44,5 @@ print(tokens_tbl)
 
 }
 \seealso{
-\code{\link[=list_md_active_accounts]{list_md_active_accounts()}}, \code{\link[=validate_motherduck_token_env]{validate_motherduck_token_env()}},
-\code{\link[=check_resp_status_and_tidy_response]{check_resp_status_and_tidy_response()}}, \code{\link[=show_current_user]{show_current_user()}}
+\code{\link[=list_md_active_accounts]{list_md_active_accounts()}}, \code{\link[=show_current_user]{show_current_user()}}
 }

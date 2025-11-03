@@ -525,7 +525,7 @@ pwd <- function(.con){
 
   role_vec <- DBI::dbGetQuery(.con,"select current_role();") |>
     tibble::as_tibble(.name_repair = janitor::make_clean_names) |>
-    dplyr::pull("current_role")
+    dplyr::pull(current_role)
 
 
   out <- dplyr::bind_cols(database_tbl,schema_tbl)
@@ -550,7 +550,7 @@ cd <- function(.con,database_name,schema_name){
   validate_con(.con)
 
   database_valid_vec <- list_databases(.con) |>
-    dplyr::pull("database_name")
+    dplyr::pull(database_name)
 
   if(database_name %in% database_valid_vec){
 
@@ -568,7 +568,7 @@ cd <- function(.con,database_name,schema_name){
   if(!missing(schema_name)){
 
   schema_valid_vec <- list_schemas(.con) |>
-    dplyr::pull("schema_name")
+    dplyr::pull(schema_name)
 
 
   if(any(schema_name %in% schema_valid_vec)){
@@ -707,4 +707,4 @@ list_shares <- function(.con){
 
 
 
-utils::globalVariables(c("con", "extension_name", "installed", "loaded"))
+utils::globalVariables(c("con", "extension_name", "installed", "loaded","current_role"))

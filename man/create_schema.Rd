@@ -7,7 +7,7 @@
 create_schema(.con, database_name, schema_name)
 }
 \arguments{
-\item{.con}{A valid \code{DBI} connection (e.g., DuckDB or MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{Name of the database to create/use.}
 

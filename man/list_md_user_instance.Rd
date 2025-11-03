@@ -30,14 +30,8 @@ This function calls the MotherDuck REST API endpoint
 information about the user’s active DuckDB instances and their configuration
 parameters.
 
-It uses the provided \code{motherduck_token} or attempts to resolve it from the
-\code{MOTHERDUCK_TOKEN} environment variable via
-\code{\link[=validate_motherduck_token_env]{validate_motherduck_token_env()}}.
 The current authenticated user is displayed with \code{\link[=show_current_user]{show_current_user()}} for
 verification.
-The API response is validated and tidied into a two-column tibble using
-\code{\link[=check_resp_status_and_tidy_response]{check_resp_status_and_tidy_response()}}, containing instance descriptions and
-their corresponding values.
 }
 \examples{
 \dontrun{
@@ -48,6 +42,5 @@ instance_tbl <- list_md_user_instance(user_name ="Bob Smith")
 }
 \seealso{
 \code{\link[=list_md_user_tokens]{list_md_user_tokens()}}, \code{\link[=list_md_active_accounts]{list_md_active_accounts()}},
-\code{\link[=validate_motherduck_token_env]{validate_motherduck_token_env()}}, \code{\link[=check_resp_status_and_tidy_response]{check_resp_status_and_tidy_response()}},
 \code{\link[=show_current_user]{show_current_user()}}
 }
