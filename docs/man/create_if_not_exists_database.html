@@ -351,7 +351,7 @@ Name of the database to create/ensure and switch to.
 </tbody></table></section><section id="details" class="level3"><h3 class="anchored" data-anchor-id="details">Details</h3>
 <ul>
 <li>
-<p>Connection type is checked via <code><a href="https://alejandrohagan.github.io/md/reference/validate_md_connection_status.html">validate_md_connection_status()</a></code> (with <code>return_type = “arg”</code>).</p>
+<p>Connection type is checked via <code><a href="https://usrbinr.github.io/md/man/validate_md_connection_status.html">validate_md_connection_status()</a></code> (with <code>return_type = “arg”</code>).</p>
 </li>
 <li>
 <p>On MotherDuck, executes:</p>
@@ -376,7 +376,7 @@ Name of the database to create/ensure and switch to.
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://usrbinr.github.io/md/">"md"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://alejandrohagan.github.io/md/reference/create_if_not_exists_database.html">create_if_not_exists_database</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"analytics"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://usrbinr.github.io/md/man/create_if_not_exists_database.html">create_if_not_exists_database</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"analytics"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

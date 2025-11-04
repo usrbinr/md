@@ -31,11 +31,16 @@ options(crayon.enabled = TRUE)
 Before we get into how to use the package, lets quickly review the three things you will need to load data into a database:
 
 **Database name (Catalog Name)**
+
 -   This is object that will hold your schemas, tables or views
 -   Different databases have their own naming convention, in motherduck, this is called Catalog 
+
 **Schema name**
+
 -   This is fancy name for the location that classifies and organizes your tables, functions, procedures, etc
+
 **Table or view name**
+
     -   This is the name of the actual table or view that holds your data
     -   Table can be a physical table of data that persists whereas a view is a stored procedures that queries underlying tables when needed
     

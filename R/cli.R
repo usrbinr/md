@@ -327,3 +327,7 @@ cli_delete_obj <- function(.con, database_name, schema_name, table_name) {
     }
 
 }
+
+
+utils::globalVariables(c("current_schema", "catalog_name", "catalog", "schema","database_name","user","role"))
+

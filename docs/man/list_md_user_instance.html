@@ -350,7 +350,7 @@ Character. Either the name of an environment variable containing your MotherDuck
 </tr>
 </tbody></table></section><section id="details" class="level3"><h3 class="anchored" data-anchor-id="details">Details</h3>
 <p>This function calls the MotherDuck REST API endpoint <code style="white-space: pre;">https://api.motherduck.com/v1/users/{user_name}/instances</code> to fetch information about the user’s active DuckDB instances and their configuration parameters.</p>
-<p>The current authenticated user is displayed with <code><a href="https://alejandrohagan.github.io/md/reference/show_current_user.html">show_current_user()</a></code> for verification.</p>
+<p>The current authenticated user is displayed with <code><a href="https://usrbinr.github.io/md/man/show_current_user.html">show_current_user()</a></code> for verification.</p>
 </section><section id="value" class="level3"><h3 class="anchored" data-anchor-id="value">Value</h3>
 <p>A tibble with two columns:</p>
 <ul>
@@ -361,13 +361,13 @@ Character. Either the name of an environment variable containing your MotherDuck
 <p><code>instance_values</code>: corresponding values for each configuration field.</p>
 </li>
 </ul></section><section id="see-also" class="level3"><h3 class="anchored" data-anchor-id="see-also">See Also</h3>
-<p><code><a href="https://alejandrohagan.github.io/md/reference/list_md_user_tokens.html">list_md_user_tokens()</a></code>, <code><a href="https://alejandrohagan.github.io/md/reference/list_md_active_accounts.html">list_md_active_accounts()</a></code>, <code><a href="https://alejandrohagan.github.io/md/reference/show_current_user.html">show_current_user()</a></code></p>
+<p><code><a href="https://usrbinr.github.io/md/man/list_md_user_tokens.html">list_md_user_tokens()</a></code>, <code><a href="https://usrbinr.github.io/md/man/list_md_active_accounts.html">list_md_active_accounts()</a></code>, <code><a href="https://usrbinr.github.io/md/man/show_current_user.html">show_current_user()</a></code></p>
 </section><section id="examples" class="level3"><h3 class="anchored" data-anchor-id="examples">Examples</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://usrbinr.github.io/md/">"md"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># List instance settings for a specific user</span></span>
-<span><span class="va">instance_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://alejandrohagan.github.io/md/reference/list_md_user_instance.html">list_md_user_instance</a></span><span class="op">(</span>user_name <span class="op">=</span><span class="st">"Bob Smith"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">instance_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://usrbinr.github.io/md/man/list_md_user_instance.html">list_md_user_instance</a></span><span class="op">(</span>user_name <span class="op">=</span><span class="st">"Bob Smith"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

@@ -380,7 +380,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Before we get into how to use the package, lets quickly review the three things you will need to load data into a database:</p>
-<p><strong>Database name (Catalog Name)</strong> - This is object that will hold your schemas, tables or views - Different databases have their own naming convention, in motherduck, this is called Catalog <strong>Schema name</strong> - This is fancy name for the location that classifies and organizes your tables, functions, procedures, etc <strong>Table or view name</strong> - This is the name of the actual table or view that holds your data - Table can be a physical table of data that persists whereas a view is a stored procedures that queries underlying tables when needed</p>
+<p><strong>Database name (Catalog Name)</strong></p>
+<ul>
+<li>This is object that will hold your schemas, tables or views</li>
+<li>Different databases have their own naming convention, in motherduck, this is called Catalog</li>
+</ul>
+<p><strong>Schema name</strong></p>
+<ul>
+<li>This is fancy name for the location that classifies and organizes your tables, functions, procedures, etc</li>
+</ul>
+<p><strong>Table or view name</strong></p>
+<pre><code>-   This is the name of the actual table or view that holds your data
+-   Table can be a physical table of data that persists whereas a view is a stored procedures that queries underlying tables when needed</code></pre>
 <p>To save or reference data, you need to either fully qualify the name with <code>database_name.schema_name.table_name</code> or you need to be “in” your database and schema and reference the table name.</p>
 <p>If you uploaded data without creating a table or schema first then duckdb will assign “temp” and “main” as the default names for your database and schema respectively.</p>
 <div id="nte-md" class="callout callout-style-default callout-note callout-titled">
@@ -432,12 +443,12 @@ Caution&nbsp;1: connecto-to-motherduck
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a>con_md <span class="ot">&lt;-</span> <span class="fu">connect_to_motherduck</span>(<span class="at">motherduck_token =</span> <span class="st">"MOTHERDUCK_TOKEN"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-1" class="code-annotation-target"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>con_md <span class="ot">&lt;-</span> <span class="fu">connect_to_motherduck</span>(<span class="at">motherduck_token =</span> <span class="st">"MOTHERDUCK_TOKEN"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">Pass your token name from your R environment file</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="1" data-code-annotation="1">Pass your token name from your R environment file</span>
 </dd>
 </dl>
 </div>
@@ -475,46 +486,46 @@ information
 <p>You can do this with the <code>pwd()</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> function that will print out the current database &amp; schema that you are in.</p>
 <p>This would be the default location that you save your database unless you clarified a different database and schema.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwd</span>(con_md)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pwd</span>(con_md)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>→ Current role: `duckdb`</code></pre>
 </div>
 <pre class="fansi fansi-output"><code><span style="color: #555555;"># A tibble: 1 × 2</span>
-  current_database  current_schema
-  <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>         
-<span style="color: #555555;">1</span> fileaa1b3113b6f13 main          
+  current_database current_schema
+  <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>         
+<span style="color: #555555;">1</span> fileb16f913e6a14 main          
 </code></pre>
 </div>
 <p>By default, you will be in your local duckdb database even though you are connected to motherduck</p>
 <p>See <a href="#cau-con" class="quarto-xref">Caution&nbsp;1</a> to understand why we start in a local database vs.&nbsp;motherduck</p>
 <p>If we want to we can also navigate to your motherduck database with the <code>cd()</code> command</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span>(con_md,<span class="at">database =</span> <span class="st">"contoso"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span>(con_md,<span class="at">database =</span> <span class="st">"contoso"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>I am now in motherduck based <a href="github.com/usrbinr/contoso">contoso</a> database and any reference to schema or table would be relative to this database.</p>
 <p>Let’s verify that by list the all the tables in this database. We can do that with the <code>list_all_tables()</code> function.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list_all_tables</span>(con_md)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list_all_tables</span>(con_md)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="hwhoevfmnm" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hwhoevfmnm table {
+<div id="slbihfphfz" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#slbihfphfz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hwhoevfmnm thead, #hwhoevfmnm tbody, #hwhoevfmnm tfoot, #hwhoevfmnm tr, #hwhoevfmnm td, #hwhoevfmnm th {
+#slbihfphfz thead, #slbihfphfz tbody, #slbihfphfz tfoot, #slbihfphfz tr, #slbihfphfz td, #slbihfphfz th {
   border-style: none;
 }
 
-#hwhoevfmnm p {
+#slbihfphfz p {
   margin: 0;
   padding: 0;
 }
 
-#hwhoevfmnm .gt_table {
+#slbihfphfz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -540,12 +551,12 @@ information
   border-left-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_caption {
+#slbihfphfz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hwhoevfmnm .gt_title {
+#slbihfphfz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -557,7 +568,7 @@ information
   border-bottom-width: 0;
 }
 
-#hwhoevfmnm .gt_subtitle {
+#slbihfphfz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -569,7 +580,7 @@ information
   border-top-width: 0;
 }
 
-#hwhoevfmnm .gt_heading {
+#slbihfphfz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -581,13 +592,13 @@ information
   border-right-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_bottom_border {
+#slbihfphfz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_col_headings {
+#slbihfphfz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -602,7 +613,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_col_heading {
+#slbihfphfz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -622,7 +633,7 @@ information
   overflow-x: hidden;
 }
 
-#hwhoevfmnm .gt_column_spanner_outer {
+#slbihfphfz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -634,15 +645,15 @@ information
   padding-right: 4px;
 }
 
-#hwhoevfmnm .gt_column_spanner_outer:first-child {
+#slbihfphfz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hwhoevfmnm .gt_column_spanner_outer:last-child {
+#slbihfphfz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hwhoevfmnm .gt_column_spanner {
+#slbihfphfz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -654,11 +665,11 @@ information
   width: 100%;
 }
 
-#hwhoevfmnm .gt_spanner_row {
+#slbihfphfz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hwhoevfmnm .gt_group_heading {
+#slbihfphfz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -684,7 +695,7 @@ information
   text-align: left;
 }
 
-#hwhoevfmnm .gt_empty_group_heading {
+#slbihfphfz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -699,15 +710,15 @@ information
   vertical-align: middle;
 }
 
-#hwhoevfmnm .gt_from_md > :first-child {
+#slbihfphfz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hwhoevfmnm .gt_from_md > :last-child {
+#slbihfphfz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hwhoevfmnm .gt_row {
+#slbihfphfz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -726,7 +737,7 @@ information
   overflow-x: hidden;
 }
 
-#hwhoevfmnm .gt_stub {
+#slbihfphfz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -739,7 +750,7 @@ information
   padding-right: 5px;
 }
 
-#hwhoevfmnm .gt_stub_row_group {
+#slbihfphfz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -753,15 +764,15 @@ information
   vertical-align: top;
 }
 
-#hwhoevfmnm .gt_row_group_first td {
+#slbihfphfz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hwhoevfmnm .gt_row_group_first th {
+#slbihfphfz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hwhoevfmnm .gt_summary_row {
+#slbihfphfz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -771,16 +782,16 @@ information
   padding-right: 5px;
 }
 
-#hwhoevfmnm .gt_first_summary_row {
+#slbihfphfz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_first_summary_row.thick {
+#slbihfphfz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hwhoevfmnm .gt_last_summary_row {
+#slbihfphfz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -790,7 +801,7 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_grand_summary_row {
+#slbihfphfz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -800,7 +811,7 @@ information
   padding-right: 5px;
 }
 
-#hwhoevfmnm .gt_first_grand_summary_row {
+#slbihfphfz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -810,7 +821,7 @@ information
   border-top-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_last_grand_summary_row_top {
+#slbihfphfz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -820,11 +831,11 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_striped {
+#slbihfphfz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hwhoevfmnm .gt_table_body {
+#slbihfphfz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -833,7 +844,7 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_footnotes {
+#slbihfphfz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -847,7 +858,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_footnote {
+#slbihfphfz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -856,7 +867,7 @@ information
   padding-right: 5px;
 }
 
-#hwhoevfmnm .gt_sourcenotes {
+#slbihfphfz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -870,7 +881,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#hwhoevfmnm .gt_sourcenote {
+#slbihfphfz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -878,115 +889,115 @@ information
   padding-right: 5px;
 }
 
-#hwhoevfmnm .gt_left {
+#slbihfphfz .gt_left {
   text-align: left;
 }
 
-#hwhoevfmnm .gt_center {
+#slbihfphfz .gt_center {
   text-align: center;
 }
 
-#hwhoevfmnm .gt_right {
+#slbihfphfz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hwhoevfmnm .gt_font_normal {
+#slbihfphfz .gt_font_normal {
   font-weight: normal;
 }
 
-#hwhoevfmnm .gt_font_bold {
+#slbihfphfz .gt_font_bold {
   font-weight: bold;
 }
 
-#hwhoevfmnm .gt_font_italic {
+#slbihfphfz .gt_font_italic {
   font-style: italic;
 }
 
-#hwhoevfmnm .gt_super {
+#slbihfphfz .gt_super {
   font-size: 65%;
 }
 
-#hwhoevfmnm .gt_footnote_marks {
+#slbihfphfz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hwhoevfmnm .gt_asterisk {
+#slbihfphfz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hwhoevfmnm .gt_indent_1 {
+#slbihfphfz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hwhoevfmnm .gt_indent_2 {
+#slbihfphfz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hwhoevfmnm .gt_indent_3 {
+#slbihfphfz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hwhoevfmnm .gt_indent_4 {
+#slbihfphfz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hwhoevfmnm .gt_indent_5 {
+#slbihfphfz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hwhoevfmnm .katex-display {
+#slbihfphfz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hwhoevfmnm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#slbihfphfz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<div id="hwhoevfmnm" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="hwhoevfmnm">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"table_catalog":["md_information_schema","contoso","contoso","test_db","md_information_schema","contoso","contoso","contoso","vignette","contoso","test_db","contoso","contoso","md_information_schema","contoso","contoso","contoso","contoso","test_db","tsa","contoso","contoso","contoso","contoso","contoso","tsa","vignette","contoso","contoso","contoso","contoso","contoso","test_db","test_db","contoso","contoso","md_information_schema","contoso","contoso","contoso","test_db","test_db","contoso","tsa","md_information_schema","test_db","md_information_schema","contoso","contoso","contoso","contoso","md_information_schema","contoso"],"table_schema":["main","medium","small","stackoverflow_survey","main","large","large","mega","main","large","nyc","medium","medium","main","medium","medium","medium","mega","kaggle","main","large","small","small","small","mega","main","raw","medium","large","large","large","small","hn","who","small","small","main","large","mega","mega","nyc","stackoverflow_survey","small","main","main","nyc","main","medium","mega","mega","mega","main","small"],"table_name":["storage_info","customer","diamonds","survey_results","databases","product","date","customer","starwars","store","service_requests","product","date","query_history","sales","orderrows","fx","store","movies","current_year","orders","orderrows","fx","sales","orders","full_data","diamonds","orders","sales","orderrows","fx","orders","hacker_news","ambient_air_quality","product","date","shared_with_me","customer","product","date","taxi","survey_schemas","store","historical","database_snapshots","rideshare","storage_info_history","store","sales","orderrows","fx","owned_shares","customer"]},"columns":[{"id":"table_catalog","name":"table_catalog","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"},{"id":"table_schema","name":"table_schema","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"},{"id":"table_name","name":"table_name","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"compact":true,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"16px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"hwhoevfmnm","dataKey":"9d075de54de9ad6a7e65b24e8155f36e"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style"],"jsHooks":[]}</script>
+<div id="slbihfphfz" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="slbihfphfz">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"table_catalog":["contoso","contoso","contoso","contoso","test_db","test_db","contoso","contoso","contoso","test_db","test_db","md_information_schema","contoso","test_db","contoso","contoso","contoso","contoso","test_db","tsa","md_information_schema","contoso","tsa","vignette","contoso","tsa","test_db","md_information_schema","contoso","contoso","contoso","vignette","md_information_schema","contoso","contoso","test_db","md_information_schema","contoso","contoso","contoso","contoso","contoso","contoso","contoso","contoso","contoso","md_information_schema","contoso","contoso","contoso","contoso","contoso","md_information_schema"],"table_schema":["large","large","large","small","hn","who","large","mega","mega","nyc","stackoverflow_survey","main","large","nyc","medium","medium","medium","mega","kaggle","main","main","mega","main","raw","small","main","nyc","main","large","large","mega","main","main","medium","small","stackoverflow_survey","main","medium","medium","large","small","small","small","small","small","small","main","medium","medium","mega","mega","mega","main"],"table_name":["sales","orderrows","fx","orders","hacker_news","ambient_air_quality","customer","product","date","taxi","survey_schemas","shared_with_me","store","service_requests","sales","orderrows","fx","store","movies","current_year","query_history","orders","full_data","diamonds","store","historical","rideshare","database_snapshots","product","date","customer","starwars","databases","customer","diamonds","survey_results","storage_info","product","date","orders","orderrows","fx","sales","product","date","customer","owned_shares","orders","store","sales","orderrows","fx","storage_info_history"]},"columns":[{"id":"table_catalog","name":"table_catalog","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"},{"id":"table_schema","name":"table_schema","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"},{"id":"table_name","name":"table_name","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"compact":true,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"16px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"slbihfphfz","dataKey":"84cf20c25cefe1222db796f9fc19969b"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
 <p>Now that we knwo how to navigate to our various databaes, lets finally load data somee existing data into a new database and schema. <code>create_table()</code> function will create a new database / schema and save then load the data into a table.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span>diamonds <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>    md<span class="sc">::</span><span class="fu">create_table</span>(</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-5-3" class="code-annotation-target"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">.con =</span> con_md</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-5-4" class="code-annotation-target"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">database_name =</span> <span class="st">"vignette"</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-5-5" class="code-annotation-target"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">schema_name =</span> <span class="st">"raw"</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-5-6" class="code-annotation-target"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">table_name =</span> <span class="st">"diamonds"</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-5-7" class="code-annotation-target"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">write_type=</span><span class="st">"overwrite"</span></span>
-<span id="annotated-cell-5-8"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a>        )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span>diamonds <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a>    md<span class="sc">::</span><span class="fu">create_table</span>(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">.con =</span> con_md</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-6-4" class="code-annotation-target"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">database_name =</span> <span class="st">"vignette"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-6-5" class="code-annotation-target"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">schema_name =</span> <span class="st">"raw"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-6-6" class="code-annotation-target"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">table_name =</span> <span class="st">"diamonds"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-6-7" class="code-annotation-target"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">write_type=</span><span class="st">"overwrite"</span></span>
+<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a>        )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="1" data-code-annotation="1">Pass your data into the function</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="1" data-code-annotation="1">Pass your data into the function</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="3" data-code-annotation="2">List your motherduck connection</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="3" data-code-annotation="2">List your motherduck connection</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="4" data-code-annotation="3">database name (either new or existing)</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="4" data-code-annotation="3">database name (either new or existing)</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="5" data-code-annotation="4">schema name (either new or existing)</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="5" data-code-annotation="4">schema name (either new or existing)</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="6" data-code-annotation="5">table name</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="6" data-code-annotation="5">table name</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="7" data-code-annotation="6">Either overwrite or append the data</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="7" data-code-annotation="6">Either overwrite or append the data</span>
 </dd>
 </dl>
 </div>
@@ -1000,36 +1011,36 @@ information
 <h2 class="anchored" data-anchor-id="organizing-our-data">Organizing our data</h2>
 <p>Let’s say we want to filter and summarize this table and save it to our database with a new table name – no problem, we can repeat the steps and this time we will upload a DBI object instead of tibble.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a>id_name <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">Id</span>(<span class="st">"vignette"</span>,<span class="st">"raw"</span>,<span class="st">"diamonds"</span>)</span>
-<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>diamonds_summary_tbl <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">tbl</span>(con_md,id_name) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
-<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">.by=</span><span class="fu">c</span>(color,cut,clarity)</span>
-<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">mean_price=</span><span class="fu">mean</span>(price,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
-<span id="annotated-cell-6-7"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-6-9"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-6-10" class="code-annotation-target"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a>diamonds_summary_tbl <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-6-11"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">create_table</span>(   </span>
-<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.con =</span> con_md</span>
-<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">database_name =</span> <span class="st">"vignette"</span></span>
-<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">schema_name =</span> <span class="st">"raw"</span></span>
-<span id="annotated-cell-6-15"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">table_name =</span> <span class="st">"diamonds_summary"</span> </span>
-<span id="annotated-cell-6-16"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">write_type =</span> <span class="st">"overwrite"</span></span>
-<span id="annotated-cell-6-17"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-7-1" class="code-annotation-target"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a>id_name <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">Id</span>(<span class="st">"vignette"</span>,<span class="st">"raw"</span>,<span class="st">"diamonds"</span>)</span>
+<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>diamonds_summary_tbl <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">tbl</span>(con_md,id_name) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">.by=</span><span class="fu">c</span>(color,cut,clarity)</span>
+<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">mean_price=</span><span class="fu">mean</span>(price,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="annotated-cell-7-7"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-9"><a href="#annotated-cell-7-9" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-7-10" class="code-annotation-target"><a href="#annotated-cell-7-10" aria-hidden="true" tabindex="-1"></a>diamonds_summary_tbl <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-7-11"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">create_table</span>(   </span>
+<span id="annotated-cell-7-12"><a href="#annotated-cell-7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.con =</span> con_md</span>
+<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">database_name =</span> <span class="st">"vignette"</span></span>
+<span id="annotated-cell-7-14"><a href="#annotated-cell-7-14" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">schema_name =</span> <span class="st">"raw"</span></span>
+<span id="annotated-cell-7-15"><a href="#annotated-cell-7-15" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">table_name =</span> <span class="st">"diamonds_summary"</span> </span>
+<span id="annotated-cell-7-16"><a href="#annotated-cell-7-16" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">write_type =</span> <span class="st">"overwrite"</span></span>
+<span id="annotated-cell-7-17"><a href="#annotated-cell-7-17" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="1" data-code-annotation="1">You can directly call the full name or if you are already in your database / schema you can just call the table</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="1" data-code-annotation="1">You can directly call the full name or if you are already in your database / schema you can just call the table</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="3" data-code-annotation="2">Perform your additional cleaning, transformation, or summarization steps</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="2">Perform your additional cleaning, transformation, or summarization steps</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="10" data-code-annotation="3">Pass the DBI object to create_table and it will still save the table!</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="10" data-code-annotation="3">Pass the DBI object to create_table and it will still save the table!</span>
 </dd>
 </dl>
 </div>
@@ -1040,20 +1051,20 @@ information
 <h2 class="anchored" data-anchor-id="create-new-schema">Create new schema</h2>
 <p>Let’s say we want to organize these existing tables into a different schema, we can do this by first creating a new schema and then moving that table or alternatively loading a table directly with a new schema and table.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">create_schema</span>(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">.con=</span>con_md</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">database_name =</span> <span class="st">"vignette"</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">schema_name =</span> <span class="st">"curated"</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">create_schema</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">.con=</span>con_md</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">database_name =</span> <span class="st">"vignette"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">schema_name =</span> <span class="st">"curated"</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This will create a new schema if it doesn’t exist but won’t load any data.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list_schemas</span>(con_md)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list_schemas</span>(con_md)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <pre class="fansi fansi-output"><code><span style="color: #555555;"># Source:   SQL [?? x 2]</span>
-<span style="color: #555555;"># Database: DuckDB 1.4.1 [hagan@Linux 6.16.3-76061603-generic:R 4.5.1//tmp/Rtmpfu9Lfn/fileaa1b3113b6f13.duckdb]</span>
-  catalog_name      schema_name
-  <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>      
-<span style="color: #555555;">1</span> fileaa1b3113b6f13 main       
+<span style="color: #555555;"># Database: DuckDB 1.4.1 [hagan@Linux 6.16.3-76061603-generic:R 4.5.1//tmp/RtmphqQuiH/fileb16f913e6a14.duckdb]</span>
+  catalog_name     schema_name
+  <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>      
+<span style="color: #555555;">1</span> fileb16f913e6a14 main       
 </code></pre>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -1074,16 +1085,16 @@ information
 </div>
 <p>We can copy one of a series of tables to our new schema with <code>copy_tables_to_new_location</code>. This accepts a tibble or DBI object of objects with table_catalog,table_schema, table_name headers and will copy them into your new location.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list_all_tables</span>(con_md) <span class="sc">|&gt;</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    table_catalog<span class="sc">==</span><span class="st">"vignette"</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>md<span class="sc">::</span><span class="fu">copy_tables_to_new_location</span>(</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.con =</span> con_md</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">from_table_names =</span> _</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_database_name =</span> <span class="st">"vignette"</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_schema_name =</span> <span class="st">"curated"</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list_all_tables</span>(con_md) <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    table_catalog<span class="sc">==</span><span class="st">"vignette"</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>md<span class="sc">::</span><span class="fu">copy_tables_to_new_location</span>(</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.con =</span> con_md</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">from_table_names =</span> _</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_database_name =</span> <span class="st">"vignette"</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_schema_name =</span> <span class="st">"curated"</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There’s a complimentary function called <code>create_or_repalce_schema</code> which will also create a schema the different is if there is already a schema with that name it will delete that schema and any tables saved under it.</p>
 </section>
@@ -1092,7 +1103,7 @@ information
 <p>Sometimes we need to delete databases, schemas or tables.</p>
 <p>Be careful when you do this as its irreversible – there is no CTRL+Z to undo this.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">delete_schema</span>(con_md,<span class="at">database_name =</span> <span class="st">"vignette"</span>,<span class="at">schema_name =</span> <span class="st">"curated"</span>,<span class="at">cascade =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">delete_schema</span>(con_md,<span class="at">database_name =</span> <span class="st">"vignette"</span>,<span class="at">schema_name =</span> <span class="st">"curated"</span>,<span class="at">cascade =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="how-to-load-data-directly-into-motherduck" class="level2">
@@ -1101,72 +1112,72 @@ information
 <p>This will read the files from their source location directly into your database without loading the files into memory which is helpful when you are dealing with larger than memory data.</p>
 <p>Underneath the hood the duckdb function is using the <code>read_csv_auto</code> and you can pass the configuration options directly through the the read_csv function if you need configuration.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(mtcars,<span class="st">"mtcars.csv"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cd(schema = "raw")</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>duckdb<span class="sc">::</span><span class="fu">duckdb_read_csv</span>(<span class="at">conn =</span> con_md,<span class="at">files =</span> <span class="st">"mtcars.csv"</span>,<span class="at">name =</span> <span class="st">"mtcars"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(mtcars,<span class="st">"mtcars.csv"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cd(schema = "raw")</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>duckdb<span class="sc">::</span><span class="fu">duckdb_read_csv</span>(<span class="at">conn =</span> con_md,<span class="at">files =</span> <span class="st">"mtcars.csv"</span>,<span class="at">name =</span> <span class="st">"mtcars"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>For or excel, parquet or httpfs file formats, we can leverage md read_excel_duckdb, read_parquet_duckdb() or read_httpfs_duckdb() form the <code>md</code> package.</p>
 <p>Similar to the <code>read_csv_auto</code> function, these leverage underlying duckdb extensions to read these diffrent file formatas.</p>
 <p>You can view the default configuration tables with the md::config_* family of tables</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-12"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-12-1" class="code-annotation-target"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(starwars,<span class="st">"starwars.xlsx"</span>)</span>
-<span id="annotated-cell-12-2"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-3"><a href="#annotated-cell-12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-4"><a href="#annotated-cell-12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel_duckdb</span>(</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-12-5" class="code-annotation-target"><a href="#annotated-cell-12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.con=</span>con_md</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-12-6" class="code-annotation-target"><a href="#annotated-cell-12-6" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_database_name =</span> <span class="st">"vignette"</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-12-7" class="code-annotation-target"><a href="#annotated-cell-12-7" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_schema_name =</span> <span class="st">"main"</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-12-8" class="code-annotation-target"><a href="#annotated-cell-12-8" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_table_name =</span> <span class="st">"starwars"</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-12-9" class="code-annotation-target"><a href="#annotated-cell-12-9" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">file_path =</span> <span class="st">"starwars.xlsx"</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-12-10" class="code-annotation-target"><a href="#annotated-cell-12-10" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">header =</span> <span class="cn">TRUE</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-12-11" class="code-annotation-target"><a href="#annotated-cell-12-11" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">sheet =</span> <span class="st">"Sheet 1"</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-12-12" class="code-annotation-target"><a href="#annotated-cell-12-12" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">all_varchar  =</span> <span class="cn">TRUE</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-12-13" class="code-annotation-target"><a href="#annotated-cell-12-13" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">write_type =</span> <span class="st">"overwrite"</span></span>
-<span id="annotated-cell-12-14"><a href="#annotated-cell-12-14" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-13"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-13-1" class="code-annotation-target"><a href="#annotated-cell-13-1" aria-hidden="true" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(starwars,<span class="st">"starwars.xlsx"</span>)</span>
+<span id="annotated-cell-13-2"><a href="#annotated-cell-13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-13-3"><a href="#annotated-cell-13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-13-4"><a href="#annotated-cell-13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel_duckdb</span>(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-13-5" class="code-annotation-target"><a href="#annotated-cell-13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.con=</span>con_md</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-13-6" class="code-annotation-target"><a href="#annotated-cell-13-6" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_database_name =</span> <span class="st">"vignette"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-13-7" class="code-annotation-target"><a href="#annotated-cell-13-7" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_schema_name =</span> <span class="st">"main"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-13-8" class="code-annotation-target"><a href="#annotated-cell-13-8" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_table_name =</span> <span class="st">"starwars"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-13-9" class="code-annotation-target"><a href="#annotated-cell-13-9" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">file_path =</span> <span class="st">"starwars.xlsx"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-13-10" class="code-annotation-target"><a href="#annotated-cell-13-10" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">header =</span> <span class="cn">TRUE</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-13-11" class="code-annotation-target"><a href="#annotated-cell-13-11" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">sheet =</span> <span class="st">"Sheet 1"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-13-12" class="code-annotation-target"><a href="#annotated-cell-13-12" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">all_varchar  =</span> <span class="cn">TRUE</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-13-13" class="code-annotation-target"><a href="#annotated-cell-13-13" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">write_type =</span> <span class="st">"overwrite"</span></span>
+<span id="annotated-cell-13-14"><a href="#annotated-cell-13-14" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="1" data-code-annotation="1">Create a excel file</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="1" data-code-annotation="1">Create a excel file</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="5" data-code-annotation="2">Pass through our connection</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="5" data-code-annotation="2">Pass through our connection</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="6" data-code-annotation="3">Select the database we want the table to be saved in</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="6" data-code-annotation="3">Select the database we want the table to be saved in</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="7" data-code-annotation="4">Select the schema we want the table to be saved in</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="7" data-code-annotation="4">Select the schema we want the table to be saved in</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="8" data-code-annotation="5">Select the table name</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="8" data-code-annotation="5">Select the table name</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="9" data-code-annotation="6">Select the filepath to the excel file<br>
+<span data-code-cell="annotated-cell-13" data-code-lines="9" data-code-annotation="6">Select the filepath to the excel file<br>
 </span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="10" data-code-annotation="7">Clarify if we want the first line to be used as headers</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="10" data-code-annotation="7">Clarify if we want the first line to be used as headers</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="8">8</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="11" data-code-annotation="8">Clarify the sheet name to read</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="11" data-code-annotation="8">Clarify the sheet name to read</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="9">9</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="12" data-code-annotation="9">Clarify if all columns types be read in as characters</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="12" data-code-annotation="9">Clarify if all columns types be read in as characters</span>
 </dd>
-<dt data-target-cell="annotated-cell-12" data-target-annotation="10">10</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="10">10</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="13" data-code-annotation="10">Select if we should overwrite to an existing table or append</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="13" data-code-annotation="10">Select if we should overwrite to an existing table or append</span>
 </dd>
 </dl>
 </div>
@@ -1190,23 +1201,23 @@ information
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <div class="cell-output-display">
-<div id="xbcqshikaq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xbcqshikaq table {
+<div id="oxaztdyepk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#oxaztdyepk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xbcqshikaq thead, #xbcqshikaq tbody, #xbcqshikaq tfoot, #xbcqshikaq tr, #xbcqshikaq td, #xbcqshikaq th {
+#oxaztdyepk thead, #oxaztdyepk tbody, #oxaztdyepk tfoot, #oxaztdyepk tr, #oxaztdyepk td, #oxaztdyepk th {
   border-style: none;
 }
 
-#xbcqshikaq p {
+#oxaztdyepk p {
   margin: 0;
   padding: 0;
 }
 
-#xbcqshikaq .gt_table {
+#oxaztdyepk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1232,12 +1243,12 @@ information
   border-left-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_caption {
+#oxaztdyepk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xbcqshikaq .gt_title {
+#oxaztdyepk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1249,7 +1260,7 @@ information
   border-bottom-width: 0;
 }
 
-#xbcqshikaq .gt_subtitle {
+#oxaztdyepk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1261,7 +1272,7 @@ information
   border-top-width: 0;
 }
 
-#xbcqshikaq .gt_heading {
+#oxaztdyepk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1273,13 +1284,13 @@ information
   border-right-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_bottom_border {
+#oxaztdyepk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_col_headings {
+#oxaztdyepk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1294,7 +1305,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_col_heading {
+#oxaztdyepk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1314,7 +1325,7 @@ information
   overflow-x: hidden;
 }
 
-#xbcqshikaq .gt_column_spanner_outer {
+#oxaztdyepk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1326,15 +1337,15 @@ information
   padding-right: 4px;
 }
 
-#xbcqshikaq .gt_column_spanner_outer:first-child {
+#oxaztdyepk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xbcqshikaq .gt_column_spanner_outer:last-child {
+#oxaztdyepk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xbcqshikaq .gt_column_spanner {
+#oxaztdyepk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1346,11 +1357,11 @@ information
   width: 100%;
 }
 
-#xbcqshikaq .gt_spanner_row {
+#oxaztdyepk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xbcqshikaq .gt_group_heading {
+#oxaztdyepk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1376,7 +1387,7 @@ information
   text-align: left;
 }
 
-#xbcqshikaq .gt_empty_group_heading {
+#oxaztdyepk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1391,15 +1402,15 @@ information
   vertical-align: middle;
 }
 
-#xbcqshikaq .gt_from_md > :first-child {
+#oxaztdyepk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xbcqshikaq .gt_from_md > :last-child {
+#oxaztdyepk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xbcqshikaq .gt_row {
+#oxaztdyepk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1418,7 +1429,7 @@ information
   overflow-x: hidden;
 }
 
-#xbcqshikaq .gt_stub {
+#oxaztdyepk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1431,7 +1442,7 @@ information
   padding-right: 5px;
 }
 
-#xbcqshikaq .gt_stub_row_group {
+#oxaztdyepk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1445,15 +1456,15 @@ information
   vertical-align: top;
 }
 
-#xbcqshikaq .gt_row_group_first td {
+#oxaztdyepk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xbcqshikaq .gt_row_group_first th {
+#oxaztdyepk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xbcqshikaq .gt_summary_row {
+#oxaztdyepk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1463,16 +1474,16 @@ information
   padding-right: 5px;
 }
 
-#xbcqshikaq .gt_first_summary_row {
+#oxaztdyepk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_first_summary_row.thick {
+#oxaztdyepk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xbcqshikaq .gt_last_summary_row {
+#oxaztdyepk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1482,7 +1493,7 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_grand_summary_row {
+#oxaztdyepk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1492,7 +1503,7 @@ information
   padding-right: 5px;
 }
 
-#xbcqshikaq .gt_first_grand_summary_row {
+#oxaztdyepk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1502,7 +1513,7 @@ information
   border-top-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_last_grand_summary_row_top {
+#oxaztdyepk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1512,11 +1523,11 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_striped {
+#oxaztdyepk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xbcqshikaq .gt_table_body {
+#oxaztdyepk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1525,7 +1536,7 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_footnotes {
+#oxaztdyepk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1539,7 +1550,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_footnote {
+#oxaztdyepk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1548,7 +1559,7 @@ information
   padding-right: 5px;
 }
 
-#xbcqshikaq .gt_sourcenotes {
+#oxaztdyepk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1562,7 +1573,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#xbcqshikaq .gt_sourcenote {
+#oxaztdyepk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1570,72 +1581,72 @@ information
   padding-right: 5px;
 }
 
-#xbcqshikaq .gt_left {
+#oxaztdyepk .gt_left {
   text-align: left;
 }
 
-#xbcqshikaq .gt_center {
+#oxaztdyepk .gt_center {
   text-align: center;
 }
 
-#xbcqshikaq .gt_right {
+#oxaztdyepk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xbcqshikaq .gt_font_normal {
+#oxaztdyepk .gt_font_normal {
   font-weight: normal;
 }
 
-#xbcqshikaq .gt_font_bold {
+#oxaztdyepk .gt_font_bold {
   font-weight: bold;
 }
 
-#xbcqshikaq .gt_font_italic {
+#oxaztdyepk .gt_font_italic {
   font-style: italic;
 }
 
-#xbcqshikaq .gt_super {
+#oxaztdyepk .gt_super {
   font-size: 65%;
 }
 
-#xbcqshikaq .gt_footnote_marks {
+#oxaztdyepk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xbcqshikaq .gt_asterisk {
+#oxaztdyepk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xbcqshikaq .gt_indent_1 {
+#oxaztdyepk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xbcqshikaq .gt_indent_2 {
+#oxaztdyepk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xbcqshikaq .gt_indent_3 {
+#oxaztdyepk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xbcqshikaq .gt_indent_4 {
+#oxaztdyepk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xbcqshikaq .gt_indent_5 {
+#oxaztdyepk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#xbcqshikaq .katex-display {
+#oxaztdyepk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#xbcqshikaq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#oxaztdyepk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1906,23 +1917,23 @@ information
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
 <div class="cell-output-display">
-<div id="sfihgstcac" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sfihgstcac table {
+<div id="hhbjjkjcom" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hhbjjkjcom table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#sfihgstcac thead, #sfihgstcac tbody, #sfihgstcac tfoot, #sfihgstcac tr, #sfihgstcac td, #sfihgstcac th {
+#hhbjjkjcom thead, #hhbjjkjcom tbody, #hhbjjkjcom tfoot, #hhbjjkjcom tr, #hhbjjkjcom td, #hhbjjkjcom th {
   border-style: none;
 }
 
-#sfihgstcac p {
+#hhbjjkjcom p {
   margin: 0;
   padding: 0;
 }
 
-#sfihgstcac .gt_table {
+#hhbjjkjcom .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1948,12 +1959,12 @@ information
   border-left-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_caption {
+#hhbjjkjcom .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#sfihgstcac .gt_title {
+#hhbjjkjcom .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1965,7 +1976,7 @@ information
   border-bottom-width: 0;
 }
 
-#sfihgstcac .gt_subtitle {
+#hhbjjkjcom .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1977,7 +1988,7 @@ information
   border-top-width: 0;
 }
 
-#sfihgstcac .gt_heading {
+#hhbjjkjcom .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1989,13 +2000,13 @@ information
   border-right-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_bottom_border {
+#hhbjjkjcom .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_col_headings {
+#hhbjjkjcom .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2010,7 +2021,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_col_heading {
+#hhbjjkjcom .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2030,7 +2041,7 @@ information
   overflow-x: hidden;
 }
 
-#sfihgstcac .gt_column_spanner_outer {
+#hhbjjkjcom .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2042,15 +2053,15 @@ information
   padding-right: 4px;
 }
 
-#sfihgstcac .gt_column_spanner_outer:first-child {
+#hhbjjkjcom .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sfihgstcac .gt_column_spanner_outer:last-child {
+#hhbjjkjcom .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sfihgstcac .gt_column_spanner {
+#hhbjjkjcom .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2062,11 +2073,11 @@ information
   width: 100%;
 }
 
-#sfihgstcac .gt_spanner_row {
+#hhbjjkjcom .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#sfihgstcac .gt_group_heading {
+#hhbjjkjcom .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2092,7 +2103,7 @@ information
   text-align: left;
 }
 
-#sfihgstcac .gt_empty_group_heading {
+#hhbjjkjcom .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2107,15 +2118,15 @@ information
   vertical-align: middle;
 }
 
-#sfihgstcac .gt_from_md > :first-child {
+#hhbjjkjcom .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sfihgstcac .gt_from_md > :last-child {
+#hhbjjkjcom .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sfihgstcac .gt_row {
+#hhbjjkjcom .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2134,7 +2145,7 @@ information
   overflow-x: hidden;
 }
 
-#sfihgstcac .gt_stub {
+#hhbjjkjcom .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2147,7 +2158,7 @@ information
   padding-right: 5px;
 }
 
-#sfihgstcac .gt_stub_row_group {
+#hhbjjkjcom .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2161,15 +2172,15 @@ information
   vertical-align: top;
 }
 
-#sfihgstcac .gt_row_group_first td {
+#hhbjjkjcom .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sfihgstcac .gt_row_group_first th {
+#hhbjjkjcom .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#sfihgstcac .gt_summary_row {
+#hhbjjkjcom .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2179,16 +2190,16 @@ information
   padding-right: 5px;
 }
 
-#sfihgstcac .gt_first_summary_row {
+#hhbjjkjcom .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_first_summary_row.thick {
+#hhbjjkjcom .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sfihgstcac .gt_last_summary_row {
+#hhbjjkjcom .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2198,7 +2209,7 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_grand_summary_row {
+#hhbjjkjcom .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2208,7 +2219,7 @@ information
   padding-right: 5px;
 }
 
-#sfihgstcac .gt_first_grand_summary_row {
+#hhbjjkjcom .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2218,7 +2229,7 @@ information
   border-top-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_last_grand_summary_row_top {
+#hhbjjkjcom .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2228,11 +2239,11 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_striped {
+#hhbjjkjcom .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sfihgstcac .gt_table_body {
+#hhbjjkjcom .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2241,7 +2252,7 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_footnotes {
+#hhbjjkjcom .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2255,7 +2266,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_footnote {
+#hhbjjkjcom .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2264,7 +2275,7 @@ information
   padding-right: 5px;
 }
 
-#sfihgstcac .gt_sourcenotes {
+#hhbjjkjcom .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2278,7 +2289,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#sfihgstcac .gt_sourcenote {
+#hhbjjkjcom .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2286,72 +2297,72 @@ information
   padding-right: 5px;
 }
 
-#sfihgstcac .gt_left {
+#hhbjjkjcom .gt_left {
   text-align: left;
 }
 
-#sfihgstcac .gt_center {
+#hhbjjkjcom .gt_center {
   text-align: center;
 }
 
-#sfihgstcac .gt_right {
+#hhbjjkjcom .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sfihgstcac .gt_font_normal {
+#hhbjjkjcom .gt_font_normal {
   font-weight: normal;
 }
 
-#sfihgstcac .gt_font_bold {
+#hhbjjkjcom .gt_font_bold {
   font-weight: bold;
 }
 
-#sfihgstcac .gt_font_italic {
+#hhbjjkjcom .gt_font_italic {
   font-style: italic;
 }
 
-#sfihgstcac .gt_super {
+#hhbjjkjcom .gt_super {
   font-size: 65%;
 }
 
-#sfihgstcac .gt_footnote_marks {
+#hhbjjkjcom .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#sfihgstcac .gt_asterisk {
+#hhbjjkjcom .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sfihgstcac .gt_indent_1 {
+#hhbjjkjcom .gt_indent_1 {
   text-indent: 5px;
 }
 
-#sfihgstcac .gt_indent_2 {
+#hhbjjkjcom .gt_indent_2 {
   text-indent: 10px;
 }
 
-#sfihgstcac .gt_indent_3 {
+#hhbjjkjcom .gt_indent_3 {
   text-indent: 15px;
 }
 
-#sfihgstcac .gt_indent_4 {
+#hhbjjkjcom .gt_indent_4 {
   text-indent: 20px;
 }
 
-#sfihgstcac .gt_indent_5 {
+#hhbjjkjcom .gt_indent_5 {
   text-indent: 25px;
 }
 
-#sfihgstcac .katex-display {
+#hhbjjkjcom .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#sfihgstcac div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#hhbjjkjcom div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2418,23 +2429,23 @@ information
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell">
 <div class="cell-output-display">
-<div id="rmnkkvdmwn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rmnkkvdmwn table {
+<div id="dtqptdiznc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dtqptdiznc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rmnkkvdmwn thead, #rmnkkvdmwn tbody, #rmnkkvdmwn tfoot, #rmnkkvdmwn tr, #rmnkkvdmwn td, #rmnkkvdmwn th {
+#dtqptdiznc thead, #dtqptdiznc tbody, #dtqptdiznc tfoot, #dtqptdiznc tr, #dtqptdiznc td, #dtqptdiznc th {
   border-style: none;
 }
 
-#rmnkkvdmwn p {
+#dtqptdiznc p {
   margin: 0;
   padding: 0;
 }
 
-#rmnkkvdmwn .gt_table {
+#dtqptdiznc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2460,12 +2471,12 @@ information
   border-left-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_caption {
+#dtqptdiznc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rmnkkvdmwn .gt_title {
+#dtqptdiznc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2477,7 +2488,7 @@ information
   border-bottom-width: 0;
 }
 
-#rmnkkvdmwn .gt_subtitle {
+#dtqptdiznc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2489,7 +2500,7 @@ information
   border-top-width: 0;
 }
 
-#rmnkkvdmwn .gt_heading {
+#dtqptdiznc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2501,13 +2512,13 @@ information
   border-right-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_bottom_border {
+#dtqptdiznc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_col_headings {
+#dtqptdiznc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2522,7 +2533,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_col_heading {
+#dtqptdiznc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2542,7 +2553,7 @@ information
   overflow-x: hidden;
 }
 
-#rmnkkvdmwn .gt_column_spanner_outer {
+#dtqptdiznc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2554,15 +2565,15 @@ information
   padding-right: 4px;
 }
 
-#rmnkkvdmwn .gt_column_spanner_outer:first-child {
+#dtqptdiznc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rmnkkvdmwn .gt_column_spanner_outer:last-child {
+#dtqptdiznc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rmnkkvdmwn .gt_column_spanner {
+#dtqptdiznc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2574,11 +2585,11 @@ information
   width: 100%;
 }
 
-#rmnkkvdmwn .gt_spanner_row {
+#dtqptdiznc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rmnkkvdmwn .gt_group_heading {
+#dtqptdiznc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2604,7 +2615,7 @@ information
   text-align: left;
 }
 
-#rmnkkvdmwn .gt_empty_group_heading {
+#dtqptdiznc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2619,15 +2630,15 @@ information
   vertical-align: middle;
 }
 
-#rmnkkvdmwn .gt_from_md > :first-child {
+#dtqptdiznc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rmnkkvdmwn .gt_from_md > :last-child {
+#dtqptdiznc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rmnkkvdmwn .gt_row {
+#dtqptdiznc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2646,7 +2657,7 @@ information
   overflow-x: hidden;
 }
 
-#rmnkkvdmwn .gt_stub {
+#dtqptdiznc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2659,7 +2670,7 @@ information
   padding-right: 5px;
 }
 
-#rmnkkvdmwn .gt_stub_row_group {
+#dtqptdiznc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2673,15 +2684,15 @@ information
   vertical-align: top;
 }
 
-#rmnkkvdmwn .gt_row_group_first td {
+#dtqptdiznc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rmnkkvdmwn .gt_row_group_first th {
+#dtqptdiznc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rmnkkvdmwn .gt_summary_row {
+#dtqptdiznc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2691,16 +2702,16 @@ information
   padding-right: 5px;
 }
 
-#rmnkkvdmwn .gt_first_summary_row {
+#dtqptdiznc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_first_summary_row.thick {
+#dtqptdiznc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rmnkkvdmwn .gt_last_summary_row {
+#dtqptdiznc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2710,7 +2721,7 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_grand_summary_row {
+#dtqptdiznc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2720,7 +2731,7 @@ information
   padding-right: 5px;
 }
 
-#rmnkkvdmwn .gt_first_grand_summary_row {
+#dtqptdiznc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2730,7 +2741,7 @@ information
   border-top-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_last_grand_summary_row_top {
+#dtqptdiznc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2740,11 +2751,11 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_striped {
+#dtqptdiznc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rmnkkvdmwn .gt_table_body {
+#dtqptdiznc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2753,7 +2764,7 @@ information
   border-bottom-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_footnotes {
+#dtqptdiznc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2767,7 +2778,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_footnote {
+#dtqptdiznc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2776,7 +2787,7 @@ information
   padding-right: 5px;
 }
 
-#rmnkkvdmwn .gt_sourcenotes {
+#dtqptdiznc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2790,7 +2801,7 @@ information
   border-right-color: #D3D3D3;
 }
 
-#rmnkkvdmwn .gt_sourcenote {
+#dtqptdiznc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2798,72 +2809,72 @@ information
   padding-right: 5px;
 }
 
-#rmnkkvdmwn .gt_left {
+#dtqptdiznc .gt_left {
   text-align: left;
 }
 
-#rmnkkvdmwn .gt_center {
+#dtqptdiznc .gt_center {
   text-align: center;
 }
 
-#rmnkkvdmwn .gt_right {
+#dtqptdiznc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rmnkkvdmwn .gt_font_normal {
+#dtqptdiznc .gt_font_normal {
   font-weight: normal;
 }
 
-#rmnkkvdmwn .gt_font_bold {
+#dtqptdiznc .gt_font_bold {
   font-weight: bold;
 }
 
-#rmnkkvdmwn .gt_font_italic {
+#dtqptdiznc .gt_font_italic {
   font-style: italic;
 }
 
-#rmnkkvdmwn .gt_super {
+#dtqptdiznc .gt_super {
   font-size: 65%;
 }
 
-#rmnkkvdmwn .gt_footnote_marks {
+#dtqptdiznc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rmnkkvdmwn .gt_asterisk {
+#dtqptdiznc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rmnkkvdmwn .gt_indent_1 {
+#dtqptdiznc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rmnkkvdmwn .gt_indent_2 {
+#dtqptdiznc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rmnkkvdmwn .gt_indent_3 {
+#dtqptdiznc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rmnkkvdmwn .gt_indent_4 {
+#dtqptdiznc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rmnkkvdmwn .gt_indent_5 {
+#dtqptdiznc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#rmnkkvdmwn .katex-display {
+#dtqptdiznc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#rmnkkvdmwn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dtqptdiznc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
