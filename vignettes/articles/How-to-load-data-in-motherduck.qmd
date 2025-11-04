@@ -41,8 +41,8 @@ Before we get into how to use the package, lets quickly review the three things 
 
 **Table or view name**
 
-    -   This is the name of the actual table or view that holds your data
-    -   Table can be a physical table of data that persists whereas a view is a stored procedures that queries underlying tables when needed
+-   This is the name of the actual table or view that holds your data
+-   Table can be a physical table of data that persists whereas a view is a stored procedures that queries underlying tables when needed
     
 To save or reference data, you need to either fully qualify the name with `database_name.schema_name.table_name` or you need to be "in" your database and schema and reference the table name.
 
