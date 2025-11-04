@@ -24,7 +24,7 @@ Imports:
     cli,
     dbplyr,
     dplyr,
-    duckdb,
+    duckdb (>= 1.4.1),
     glue,
     purrr,
     stringr,

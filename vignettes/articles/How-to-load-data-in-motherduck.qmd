@@ -74,7 +74,7 @@ The `connect_to_motherduck()` function will take your access token that is your 
 
 
 ::: {#cau-con .callout-caution collapse="true"}
-## connecto-to-motherduck
+## connect-to-motherduck
 
 One limitation of the connecting to motherduck from R is that you first need to create a local motherduck instance which then allows the connection to motherduck.
 
