@@ -11,3 +11,7 @@
 ^vignettes/articles$
 ^altdoc$
 ^_quarto$
+^README.qmd
+^README.html
+^README_files/
+^access_token_md.png
