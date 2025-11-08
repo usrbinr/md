@@ -24,6 +24,8 @@ website:
         contents:
           - section: "Vignettes"
             contents:
+              - text: "How to Connect to Motherduck"
+                file: vignettes/articles/How-to-connect-to-motherduck.qmd
               - text: "How to load data into MotherDuck"
                 file: vignettes/articles/How-to-load-data-in-motherduck.qmd
 

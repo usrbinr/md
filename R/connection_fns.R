@@ -41,7 +41,7 @@ validate_con <- function(.con){
 #'
 #' @inheritParams validate_con
 #' @param return_type return message or logical value of connection status
-#' @seealso [validate_con()] and [connect_to_motherduck()]
+#' @seealso [connect_to_motherduck()]
 #'
 #' @returns logical value or warning message
 #' @export

@@ -1,6 +1,6 @@
 Package: md
 Type: Package
-Title: Motherduck Utilities
+Title: Collection of Utilities to Manage a "Motherduck" Database
 Version: 0.1.0
 Authors@R: c(
     person(
@@ -9,9 +9,9 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: Collection of database utilites for Motherduck platform
-    This provides utilites and metadata function support to simplify the management, connection,
-    uploading and management of a motherduck database platform.
+Description: Collection of database utilities for "Motherduck"" database
+    This provides utilities and metadata function support to simplify the management, connection,
+    uploading and management of a Motherduck database platform.
     This package requires an account www.motherduck.com to apply its functions.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -34,10 +34,12 @@ Imports:
     tibble
 Suggests: 
     testthat (>= 3.0.0),
-    quarto
+    quarto,
+    knitr,
+    rmarkdown
 Config/testthat/edition: 3
 Depends: 
     R (>= 3.5)
 URL: https://usrbinr.github.io/md/
 Config/Needs/website: rmarkdown
-VignetteBuilder: quarto
+VignetteBuilder: quarto, knitr

@@ -24,5 +24,5 @@ validate_md_connection_status(con)
 }
 }
 \seealso{
-\code{\link[=validate_con]{validate_con()}} and \code{\link[=connect_to_motherduck]{connect_to_motherduck()}}
+\code{\link[=connect_to_motherduck]{connect_to_motherduck()}}
 }
