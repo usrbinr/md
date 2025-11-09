@@ -7,7 +7,7 @@
 upload_database_to_md(.con, from_db_name, to_db_name)
 }
 \arguments{
-\item{.con}{A valid MotherDuck \code{DBI} connection.}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{from_db_name}{The local database name to copy from.}
 
@@ -33,11 +33,30 @@ objects (tables, views, etc.) from the local database.
 }
 \examples{
 \dontrun{
-con <- DBI::dbConnect(duckdb::duckdb())
-upload_database_to_md(con, from_db_name = "local_db", to_db_name = "analytics")
+con_db <- DBI::dbConnect(duckdb::duckdb())
+create_table(.con=con_db,.data=mtcars,database_name="memory",schema_name="main",table_name="mtcars")
+con_md <- connect_to_motherduck()
+
+upload_database_to_md(con_md, from_db_name = "memory", to_db_name = "analytics")
 }
 
 }
 \seealso{
-\code{\link[DBI:dbExecute]{DBI::dbExecute()}}
+Other db-manage: 
+\code{\link{alter_table_schema}()},
+\code{\link{copy_tables_to_new_location}()},
+\code{\link{create_database}()},
+\code{\link{create_if_not_exists_share}()},
+\code{\link{create_or_replace_share}()},
+\code{\link{create_schema}()},
+\code{\link{create_table}()},
+\code{\link{delete_and_create_schema}()},
+\code{\link{delete_database}()},
+\code{\link{delete_schema}()},
+\code{\link{delete_table}()},
+\code{\link{describe_share}()},
+\code{\link{drop_share}()},
+\code{\link{list_owned_shares}()},
+\code{\link{list_shared_with_me_shares}()}
 }
+\concept{db-manage}

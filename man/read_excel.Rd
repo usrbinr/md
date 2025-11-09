@@ -60,5 +60,7 @@ to \code{read_xlsx()} (e.g., \code{sheet}, \code{header}, \code{all_varchar}, \c
 See 'duckdb extension \href{https://duckdb.org/docs/stable/core_extensions/excel}{read_csv} for more information
 }
 \seealso{
-\code{\link[DBI:dbExecute]{DBI::dbExecute()}},
+Other db-read: 
+\code{\link{read_csv}()}
 }
+\concept{db-read}

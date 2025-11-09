@@ -4,7 +4,7 @@
 \alias{delete_table}
 \title{Drop a Table}
 \usage{
-delete_table(.con, database_name, schema_name, table_name, cascade = TRUE)
+delete_table(.con, database_name, schema_name, table_name)
 }
 \arguments{
 \item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
@@ -14,9 +14,6 @@ delete_table(.con, database_name, schema_name, table_name, cascade = TRUE)
 \item{schema_name}{Name of the schema containing the table.}
 
 \item{table_name}{Name of the table to drop.}
-
-\item{cascade}{Logical; if \code{TRUE} (default), drop dependent objects as well
-using \code{CASCADE}. If \code{FALSE}, the drop will fail if there are dependencies.}
 }
 \value{
 Invisibly returns \code{NULL}.
@@ -27,5 +24,21 @@ Drops a table from the specified database and schema if it exists.
 Uses \verb{DROP TABLE IF EXISTS} for safety and prints a CLI status report.
 }
 \seealso{
-\code{\link[DBI:dbExecute]{DBI::dbExecute()}}, \code{\link[=delete_schema]{delete_schema()}}, \code{\link[=delete_database]{delete_database()}}
+Other db-manage: 
+\code{\link{alter_table_schema}()},
+\code{\link{copy_tables_to_new_location}()},
+\code{\link{create_database}()},
+\code{\link{create_if_not_exists_share}()},
+\code{\link{create_or_replace_share}()},
+\code{\link{create_schema}()},
+\code{\link{create_table}()},
+\code{\link{delete_and_create_schema}()},
+\code{\link{delete_database}()},
+\code{\link{delete_schema}()},
+\code{\link{describe_share}()},
+\code{\link{drop_share}()},
+\code{\link{list_owned_shares}()},
+\code{\link{list_shared_with_me_shares}()},
+\code{\link{upload_database_to_md}()}
 }
+\concept{db-manage}

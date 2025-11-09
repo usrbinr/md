@@ -19,7 +19,7 @@
 #' `install_extensions()` or `load_extensions()`.
 #'
 #' @inheritParams validate_con
-#'
+
 #' @returns A tibble with one row per extension and columns describing its metadata
 #' and current status.
 #'
@@ -32,9 +32,7 @@
 #'
 #' DBI::dbDisconnect(con)
 #' }
-#'
-#' @seealso
-#' [load_extensions()], [install_extensions()],[validate_extension_install_status()],[validate_extension_load_status()],[validate_extension_install_status()]
+#' @family db-list
 #'
 #' @export
 list_extensions <- function(.con){
@@ -98,9 +96,7 @@ list_extensions <- function(.con){
 #' validate_extension_load_status(con, extension_names = c("excel", "arrow"), return_type = "arg")
 #' }
 #'
-#' @seealso
-#' [load_extensions()], [list_extensions()],[install_extensions()],[validate_extension_install_status()]
-#'
+#' @family db-con
 #' @export
 validate_extension_load_status <- function(.con,extension_names,return_type="msg"){
 
@@ -231,7 +227,7 @@ validate_extension_load_status <- function(.con,extension_names,return_type="msg
 #'   - `"msg"` prints CLI messages.
 #'   - `"ext"` returns a list of installed and failed extensions.
 #'   - `"arg"` returns TRUE if all requested extensions are installed, FALSE otherwise.
-#'
+#' @family db-con
 #' @returns
 #' Depending on `return_type`:
 #' - `"msg"`: prints CLI messages (invisible `NULL`).
@@ -251,9 +247,6 @@ validate_extension_load_status <- function(.con,extension_names,return_type="msg
 #' # Return logical indicating if all requested extensions are installed
 #' validate_extension_install_status(con, extension_names = c("arrow", "excel"), return_type = "arg")
 #' }
-#'
-#' @seealso
-#' [load_extensions()], [list_extensions()],[install_extensions()],[validate_extension_load_status()],[validate_extension_install_status()]
 #'
 #' @export
 validate_extension_install_status <- function(.con,extension_names,return_type="msg"){
@@ -393,9 +386,7 @@ validate_extension_install_status <- function(.con,extension_names,return_type="
 #'
 #' DBI::dbDisconnect(con)
 #' }
-#'
-#' @seealso
-#' [load_extensions()], [list_extensions()],[validate_extension_install_status()],[validate_extension_load_status()]
+#' @family db-con
 #'
 #' @export
 install_extensions <- function(.con,extension_names){
@@ -468,6 +459,8 @@ install_extensions <- function(.con,extension_names){
 }
 
 
+
+
 #' @title Load and Install DuckDB/MotherDuck Extensions
 #' @name load_extensions
 #'
@@ -503,8 +496,7 @@ install_extensions <- function(.con,extension_names){
 #' DBI::dbDisconnect(con)
 #' }
 #'
-#' @seealso
-#' [list_extensions()], [install_extensions()]
+#' @family db-con
 #'
 #' @export
 load_extensions <- function(.con,extension_names){
@@ -610,17 +602,20 @@ load_extensions <- function(.con,extension_names){
 #' DBI::dbDisconnect(con)
 #' }
 #'
-#' @seealso
-#' [connect_to_motherduck]
+#' @family db-con
 #'
 #' @export
 show_motherduck_token <- function(.con){
 
   validate_con(.con)
+  valid_md <- validate_md_connection_status(.con,return_type = "arg")
+
+  assertthat::assert_that(valid_md,msg = cli::cli_abort("This function requires a motherduck connetion"))
 
   DBI::dbGetQuery(.con, 'PRAGMA print_md_token;')
 
 }
+
 
 
 #' @title Print Current MotherDuck Database Context
@@ -654,8 +649,7 @@ show_motherduck_token <- function(.con){
 #' pwd(con)
 #' }
 #'
-#' @seealso
-#' [validate_con()], [list_databases()], [list_schemas()]
+#' @family db-meta
 #'
 #' @export
 pwd <- function(.con){
@@ -701,10 +695,10 @@ pwd <- function(.con){
 #'
 #' @inheritParams validate_con
 #' @param database_name A character string specifying the database to switch to.
-#'   Must be one of the available databases returned by [list_databases()].
+#'   Must be one of the available databases returned by [list_all_databases()].
 #' @param schema_name (Optional) A character string specifying the schema
 #'   to switch to within the given database. Must be one of the available
-#'   schemas returned by [list_schemas()].
+#'   schemas returned by [list_current_schemas()].
 #'
 #' @returns
 #' Invisibly returns a message summarizing the new connection context.
@@ -726,15 +720,13 @@ pwd <- function(.con){
 #' DBI::dbDisconnect(con)
 #' }
 #'
-#' @seealso
-#' [list_databases()], [list_schemas()],[pwd()]
-#'
+#' @family db-meta
 #' @export
 cd <- function(.con,database_name,schema_name){
 
   validate_con(.con)
 
-  database_valid_vec <- list_databases(.con) |>
+  database_valid_vec <- list_all_databases(.con) |>
     dplyr::pull(database_name)
 
   if(any(database_name %in% database_valid_vec)){
@@ -745,14 +737,14 @@ cd <- function(.con,database_name,schema_name){
 
     cli::cli_abort("
                    {.pkg {database}} is not valid,
-                   Use {.fn list_databases} to list valid databases.
+                   Use {.fn list_all_databases} to list valid databases.
                    Valid databases are: {.val {database_valid_vec}}
                    ")
   }
 
   if(!missing(schema_name)){
 
-  schema_valid_vec <- list_schemas(.con) |>
+  schema_valid_vec <- list_current_schemas(.con) |>
     dplyr::pull(schema_name)
 
 
@@ -764,7 +756,7 @@ cd <- function(.con,database_name,schema_name){
 
     cli::cli_abort("
                    {.pkg {schema_name}} is not valid,
-                   Use {.fn list_schemas} to list valid schemas.
+                   Use {.fn list_current_schemas} to list valid schemas.
                    Valid Schemas in  {.pkg {database_name}} are {.val {schema_valid_vec}}
                    ")
     }
@@ -820,8 +812,6 @@ cd <- function(.con,database_name,schema_name){
 #' dbDisconnect(con)
 #' }
 #'
-#' @seealso
-#' [dplyr::tbl()], [dplyr::collect()], [validate_con()]
 #'
 #' @export
 summary.tbl_lazy <- function(object, ...){
@@ -876,9 +866,7 @@ summary.tbl_lazy <- function(object, ...){
 #' # Disconnect
 #' DBI::dbDisconnect(con)
 #' }
-#'
-#' @seealso
-#' [list_shares]
+#' @family db-list
 #'
 #' @export
 list_setting <- function(.con){
@@ -929,21 +917,23 @@ list_setting <- function(.con){
 #' DBI::dbDisconnect(con)
 #' }
 #'
-#' @seealso [list_setting]
+#' @family db-list
 #'
 #' @export
 list_shares <- function(.con){
 
-
   valid_md <- validate_md_connection_status(.con,return_type = "arg")
 
-  if(valid_md){
+ if(valid_md){
 
+    suppressWarnings(
   out <- DBI::dbGetQuery(.con,"LIST SHARES;") |>
     dplyr::as_tibble()
-  }else{
-    out <- tibble::tibble()
-  }
+    )
+ }else{
+   out <- tibble::tibble()
+
+ }
 
   return(out)
 

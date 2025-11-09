@@ -31,5 +31,10 @@ DBI::dbDisconnect(con)
 
 }
 \seealso{
-\link{connect_to_motherduck}
+Other db-con: 
+\code{\link{install_extensions}()},
+\code{\link{load_extensions}()},
+\code{\link{validate_extension_install_status}()},
+\code{\link{validate_extension_load_status}()}
 }
+\concept{db-con}

@@ -18,7 +18,7 @@
 #' - Prints a summary of the current connection and schema creation status
 #'   using internal CLI helpers.
 #'
-#' @param .con A DuckDB connection object used to execute SQL queries.
+#' @inheritParams validate_con
 #' @param database_name The name of the database where the schema should be
 #'   dropped and recreated.
 #' @param schema_name The name of the schema to drop and recreate.
@@ -27,7 +27,7 @@
 #' Invisibly returns `NULL`.
 #' Side effect: drops and recreates the schema and prints CLI status messages.
 #'
-#' @seealso [DBI::dbExecute()]
+#' @family db-manage
 #'
 delete_and_create_schema <- function(.con,database_name,schema_name){
 
@@ -84,7 +84,7 @@ delete_and_create_schema <- function(.con,database_name,schema_name){
 #' Invisibly returns `NULL`.
 #' Side effect: creates the schema if necessary and prints CLI messages.
 #'
-#' @seealso [DBI::dbExecute()]
+#' @family db-manage
 create_schema <- function(.con,database_name,schema_name){
 
     # Validate write_type
@@ -148,7 +148,7 @@ create_schema <- function(.con,database_name,schema_name){
 #' Invisibly returns `NULL`.
 #' Side effect: writes the tibble to the specified database table.
 #'
-#' @seealso [DBI::dbWriteTable()], [DBI::Id()]
+#' @keywords internal
 create_table_tbl <- function(.data,.con,database_name,schema_name,table_name,write_type="overwrite"){
 
     # Validate write_type
@@ -263,8 +263,7 @@ create_table_tbl <- function(.data,.con,database_name,schema_name,table_name,wri
 #' A user-friendly message is returned invisibly (invisible `NULL`),
 #' indicating whether the table was created or appended to.
 #' Side effect: writes data to the database.
-#'
-#' @seealso [DBI::dbExecute()], [dbplyr::remote_query()]
+#' @keywords internal
 create_table_dbi <- function(.data,.con,database_name,schema_name,table_name,write_type="overwrite"){
 
 
@@ -353,7 +352,7 @@ create_table_dbi <- function(.data,.con,database_name,schema_name,table_name,wri
 #'
 #' @param .data Tibble/data frame (in-memory) or a `dbplyr`/DBI-backed lazy
 #'   table (class `"tbl_dbi"`).
-#' @param .con A DuckDB or MotherDuck `DBI` connection.
+#' @inheritParams validate_con
 #' @param database_name Database name to create/use.
 #' @param schema_name Schema name to create/use.
 #' @param table_name Target table name to create or append to.
@@ -364,8 +363,7 @@ create_table_dbi <- function(.data,.con,database_name,schema_name,table_name,wri
 #' Invisibly returns `NULL`. Side effect: writes a table to the database by
 #' delegating to the appropriate helper.
 #'
-#' @seealso [create_table_dbi()], [create_table_tbl()], [DBI::dbWriteTable()],
-#'   [dbplyr::remote_query()]
+#' @family db-manage
 create_table <- function(.data,.con,database_name,schema_name,table_name,write_type="overwrite"){
 
   data_class <- class(.data)
@@ -401,7 +399,7 @@ create_table <- function(.data,.con,database_name,schema_name,table_name,write_t
 
 
 #' @title Create (If Not Exists) and Switch to a Database
-#' @name create_if_not_exists_database
+#' @name create_database
 #'
 #' @description
 #' Ensures a database exists and sets it as the active database.
@@ -417,29 +415,31 @@ create_table <- function(.data,.con,database_name,schema_name,table_name,write_t
 #'   - `USE <database>`
 #' - Displays status and environment info with CLI messages.
 #'
-#' @param .con A valid `DBI` connection (DuckDB / MotherDuck).
-#' @param database_name Name of the database to create/ensure and switch to.
+#' @inheritParams validate_con
+#' @param database_name Name of the database to create/ensure and switch to
 #' @export
 #' @return
 #' Invisibly returns `NULL`.
-#' Side effect: may create a database and switches to it; prints CLI status.
+#' Side effect: may create a database and switches to it; prints CLI status
 #'
-#' @seealso [DBI::dbExecute()]
+#' @family db-manage
 #'
 #' @examples
 #' \dontrun{
-#' con <- DBI::dbConnect(duckdb::duckdb())
-#' create_if_not_exists_database(con, "analytics")
+#' con_md <- connect_to_motherduck()
+#' create_database(con_md, "analytics")
 #' }
 #'
 #' @export
-create_if_not_exists_database <- function(.con,database_name){
+create_database <- function(.con,database_name){
 
   # Validate write_type
 
   # Validate the connection (assume this is a custom function)
 
   md_con_indicator <- validate_md_connection_status(.con,return_type="arg")
+
+  assertthat::assert_that(md_con_indicator,msg=cli::cli_abort("Requires .con to be a motherduck connection"))
 
   if(md_con_indicator){
     # Create and connect to the database
@@ -456,7 +456,6 @@ create_if_not_exists_database <- function(.con,database_name){
 
 
 }
-
 
 
 
@@ -483,7 +482,7 @@ create_if_not_exists_database <- function(.con,database_name){
 #' Invisibly returns a character vector of fully-qualified table names moved.
 #' Side effects: creates `new_schema` if needed and alters table schemas.
 #'
-#' @seealso [DBI::dbExecute()], [DBI::dbGetQuery()]
+#' @family db-manage
 #'
 alter_table_schema <- function(.con, from_table_names, new_schema) {
 
@@ -528,11 +527,12 @@ alter_table_schema <- function(.con, from_table_names, new_schema) {
 #' - Intended for DuckDB or MotherDuck connections.
 #' - Uses CLI helpers to show current connection and report the deletion.
 #'
-#' @param .con A valid `DBI` connection (DuckDB / MotherDuck).
+#' @inheritParams validate_con
 #' @param database_name Name of the database containing the schema.
 #' @param schema_name Name of the schema to drop.
 #' @param cascade Logical; if `TRUE` (default), use `CASCADE` to drop
 #'   all dependent objects in the schema. If `FALSE`, drop only if empty.
+#' @family db-manage
 #' @export
 #' @return
 #' Invisibly returns `NULL`.
@@ -547,9 +547,19 @@ delete_schema <- function(
 ) {
 
 
-suppressMessages(
-cd(.con,database_name)
-)
+  if(rlang::is_missing(database_name)){
+
+    suppressMessages(
+    database_name <- pwd(.con)[["current_database"]]
+    )
+
+  }
+
+
+  suppressMessages(
+    cd(.con,database_name)
+  )
+
 
   table_count <-  list_all_tables(.con) |>
     dplyr::filter(
@@ -558,7 +568,6 @@ cd(.con,database_name)
     ) |>
    dplyr::collect() |>
    nrow()
-
 
   cli::cli_h1("Status:")
   validate_md_connection_status(.con)
@@ -588,15 +597,13 @@ cd(.con,database_name)
 
 
 
-
 #' @title Copy Tables to a New Database/Schema
 #' @name copy_tables_to_new_location
 #'
 #' @description
 #' Copies one or more tables to a new location (database/schema) by creating
 #' new tables via `CREATE TABLE ... AS SELECT * FROM ...`.
-#' If connected to MotherDuck, the target database is created if missing, and
-#' the target schema is created if missing on any connection.
+#' Requires motherduck connection
 #'
 #' @details
 #' - Input `from_table_names` must contain columns:
@@ -606,7 +613,7 @@ cd(.con,database_name)
 #' - On local DuckDB (non-MotherDuck), the target database name is ignored and
 #'   defaults to the current database of the connection.
 #'
-#' @param .con A `DBI` connection (DuckDB / MotherDuck).
+#' @inheritParams validate_con
 #' @param from_table_names A tibble/data frame listing source tables, with
 #'   columns `database_name`, `schema_name`, and `table_name`.
 #' @param to_database_name Target database name.
@@ -617,23 +624,26 @@ cd(.con,database_name)
 #' names that were created. Side effect: creates target DB/schema if needed and
 #' writes new tables.
 #'
-#' @seealso [DBI::dbExecute()], [DBI::Id()]
+#' @family db-manage
 #'
 #' @export
 copy_tables_to_new_location <- function(.con, from_table_names, to_database_name, to_schema_name) {
 
   md_con_indicator <- validate_md_connection_status(.con, return_type = "arg")
 
+
+  assertthat::assert_that(md_con_indicator,msg = cli::cli_abort("requires .con to be be motherduck connection"))
+
   if (md_con_indicator) {
     # Ensure target database exists (MotherDuck)
     DBI::dbExecute(.con, glue::glue_sql(
-      "CREATE DATABASE IF NOT EXISTS {`to_database_name`};", .con = .con
+      "CREATE DATABASE IF NOT EXISTS {`to_database_name`}; USE {`to_database_name`};", .con = .con
     ))
   }
 
   # Ensure target schema exists
   DBI::dbExecute(.con, glue::glue_sql(
-    "CREATE SCHEMA IF NOT EXISTS {`to_schema_name`};", .con = .con
+    "CREATE SCHEMA IF NOT EXISTS {`to_schema_name`}; USE {`to_schema_name`}; ", .con = .con
   ))
 
   # For local DuckDB, use the current database
@@ -692,6 +702,9 @@ copy_tables_to_new_location <- function(.con, from_table_names, to_database_name
 }
 
 
+
+
+
 #' @title Upload a Local Database to MotherDuck
 #' @name upload_database_to_md
 #'
@@ -706,7 +719,7 @@ copy_tables_to_new_location <- function(.con, from_table_names, to_database_name
 #'   objects (tables, views, etc.) from the local database.
 #' - Prints a CLI status report (connection, user, current DB) after completion.
 #'
-#' @param .con A valid MotherDuck `DBI` connection.
+#' @inheritParams validate_con
 #' @param from_db_name The local database name to copy from.
 #' @param to_db_name The target MotherDuck database to create/overwrite.
 #'
@@ -715,12 +728,15 @@ copy_tables_to_new_location <- function(.con, from_table_names, to_database_name
 #' Side effect: creates the target database and copies all objects; prints a CLI
 #' action report.
 #'
-#' @seealso [DBI::dbExecute()]
+#' @family db-manage
 #'
 #' @examples
 #' \dontrun{
-#' con <- DBI::dbConnect(duckdb::duckdb())
-#' upload_database_to_md(con, from_db_name = "local_db", to_db_name = "analytics")
+#' con_db <- DBI::dbConnect(duckdb::duckdb())
+#' create_table(.con=con_db,.data=mtcars,database_name="memory",schema_name="main",table_name="mtcars")
+#' con_md <- connect_to_motherduck()
+#'
+#' upload_database_to_md(con_md, from_db_name = "memory", to_db_name = "analytics")
 #' }
 #'
 #' @export
@@ -748,9 +764,10 @@ upload_database_to_md <- function(.con, from_db_name, to_db_name) {
 }
 
 
+
+
 #' @title List Database Functions (DuckDB/MotherDuck)
 #' @name list_fns
-#' @aliases list_db_fns
 #'
 #' @description
 #' Returns a lazy table listing available SQL functions from the current
@@ -761,13 +778,12 @@ upload_database_to_md <- function(.con, from_db_name, to_db_name) {
 #' `duckdb_functions()` to enumerate function metadata. The result is a
 #' `dbplyr` lazy tibble (`tbl_dbi`); call `collect()` to materialize it in R.
 #'
-#' @param .con A valid `DBI` connection (DuckDB or MotherDuck).
+#' @inheritParams validate_con
 #'
 #' @return
 #' A `dbplyr` lazy tibble (`tbl_dbi`) with function metadata (e.g.,
 #' `function_name`, `schema`, `is_aggregate`, `is_alias`, etc.).
-#'
-#' @seealso [DBI::dbConnect()], [dplyr::tbl()]
+#' @family db-list
 #'
 #' @export
 list_fns <- function(.con){
@@ -776,11 +792,11 @@ list_fns <- function(.con){
 
   out <- dplyr::tbl(
     .con,
-    "
+    dplyr::sql("
     SELECT *
     FROM duckdb_functions()
     ORDER BY function_name
-    "
+    ")
   )
 
   return(out)
@@ -788,7 +804,7 @@ list_fns <- function(.con){
 
 
 #' @title List Databases Visible to the Connection
-#' @name list_databases
+#' @name list_all_databases
 #'
 #' @description
 #' Returns a lazy tibble of distinct database (catalog) names visible through
@@ -802,9 +818,9 @@ list_fns <- function(.con){
 #' @return
 #' A `dbplyr` lazy tibble with one column: `table_catalog`.
 #'
-#' @seealso [dplyr::tbl()], [DBI::dbConnect()]
+#' @family db-list
 #' @export
-list_databases <- function(.con){
+list_all_databases <- function(.con){
 
   validate_con(.con)
 
@@ -821,10 +837,8 @@ list_databases <- function(.con){
 }
 
 
-
-
 #' @title List Schemas in the Current Database
-#' @name list_schemas
+#' @name list_current_schemas
 #'
 #' @description
 #' Returns a lazy tibble of all schemas in the **current database** of the
@@ -843,9 +857,9 @@ list_databases <- function(.con){
 #' * `catalog_name` — the current database name.
 #' * `schema_name` — each schema within that database.
 #'
-#' @seealso [dplyr::tbl()], [DBI::dbConnect()]
+#' @family db-list
 #' @export
-list_schemas <- function(.con) {
+list_current_schemas <- function(.con) {
 
   validate_con(.con)
 
@@ -887,7 +901,7 @@ list_schemas <- function(.con) {
 #' * `table_schema`  — the current schema.
 #' * `table_name`    — each table name.
 #'
-#' @seealso [dplyr::tbl()], [DBI::dbConnect()]
+#' @family db-list
 #'
 #' @export
 list_current_tables <- function(.con) {
@@ -932,7 +946,7 @@ list_current_tables <- function(.con) {
 #' * `table_schema`  — schema name
 #' * `table_name`    — table name
 #'
-#' @seealso [dplyr::tbl()], [DBI::dbConnect()]
+#' @family db-list
 #' @export
 list_all_tables <- function(.con) {
 
@@ -951,6 +965,11 @@ list_all_tables <- function(.con) {
 
   return(tables_dbi)
 }
+
+
+
+
+
 
 #' @title Drop a Database
 #' @name delete_database
@@ -971,11 +990,20 @@ list_all_tables <- function(.con) {
 #' Invisibly returns `NULL`.
 #' Side effect: drops the database and prints CLI status messages.
 #'
-#' @seealso [DBI::dbExecute()]
+#' @family db-manage
 #'
 #' @export
 delete_database <- function(.con,database_name) {
 
+  db_len <- list_all_tables(.con) |> dplyr::pull(table_catalog) |> unique() |> length()
+
+  md_valid <- validate_md_connection_status(.con,return_type = "arg")
+
+
+  assertthat::assert_that(
+  all(md_valid&db_len==1)
+  ,msg = cli::cli_abort("You need to have more than 1 database or be in motherduck instance to delete")
+  )
 
   # Status output
   cli::cli_h1("Status:")
@@ -997,49 +1025,72 @@ delete_database <- function(.con,database_name) {
 
 
 
-#' @title Retrieve Metadata for One or More Tables
-#' @name return_table_attributes
+
+#' @title Drop a Table
+#' @name delete_table
 #'
 #' @description
-#' Returns catalog (database), schema, and table information for one or more
-#' tables visible to the connection by querying `information_schema.tables`.
-#'
-#' @details
-#' - Accepts one or more table names and returns their associated
-#'   `table_catalog`, `table_schema`, and `table_name` if found.
-#' - Uses `information_schema.tables` to look up metadata.
-#' see [information_schema](https://duckdb.org/docs/stable/sql/meta/information_schema) for more information
+#' Drops a table from the specified database and schema if it exists.
+#' Uses `DROP TABLE IF EXISTS` for safety and prints a CLI status report.
 #'
 #' @param .con A valid `DBI` connection (DuckDB / MotherDuck).
-#' @param table_name Character vector of one or more table names to look up.
+#' @param database_name Name of the database containing the table.
+#' @param schema_name Name of the schema containing the table.
+#' @param table_name Name of the table to drop.
 #'
 #' @return
-#' A local tibble (data frame) with columns:
-#' * `table_catalog` — database/catalog name
-#' * `table_schema`  — schema name
-#' * `table_name`    — the matching table names
-
-#' @seealso [DBI::dbGetQuery],
+#' Invisibly returns `NULL`.
+#' Side effect: drops the table and prints CLI status messages.
+#' @family db-manage
 #' @export
-return_table_attributes <- function(.con, table_name) {
+delete_table <- function(.con, database_name, schema_name, table_name) {
 
-  out <- DBI::dbGetQuery(
-    .con,
-    glue::glue_sql(
-      "
-      SELECT
-        table_catalog,
-        table_schema,
-        table_name
-      FROM information_schema.tables
-      WHERE table_name IN ({table_name*})
-      ",
-      .con = .con
+  validate_con(.con)
+
+
+  if(rlang::is_missing(database_name)){
+
+    suppressMessages(
+    database_name <- pwd(.con)[["current_database"]]
     )
+  }
+
+
+  if(rlang::is_missing(schema_name)){
+
+    suppressMessages(
+    schema_name <- pwd(.con)[["current_schema"]]
+    )
+
+  }
+
+  full_name <- DBI::Id(database_name,schema_name,table_name)
+  full_name_str <- paste(database_name, schema_name, table_name, sep = ".")
+
+  assertthat::assert_that(
+    DBI::dbExistsTable(conn = .con,name = full_name)
+    ,msg = glue::glue("{full_name_str} does not exist.")
   )
 
-  return(out)
+  drop_sql <- glue::glue_sql(
+    "DROP TABLE IF EXISTS {`database_name`}.{`schema_name`}.{`table_name`};",
+    .con = .con
+  )
+
+  DBI::dbExecute(.con, drop_sql)
+
+  cli::cli_h1("Status:")
+  try(validate_md_connection_status(.con), silent = TRUE)
+  try(cli_show_user(.con), silent = TRUE)
+  try(cli_show_db(.con), silent = TRUE)
+  cli::cli_h3("Action Report:")
+  cli::cli_ul("Deleted {.val {table_name}} from {.val [database_name]} in {.val {schema_name}}")
+
 }
+
+
+
+
 
 
 
@@ -1060,8 +1111,7 @@ return_table_attributes <- function(.con, table_name) {
 #' @return
 #' A list of `DBI::Id` objects, each representing a fully-qualified table.
 #'
-#' @seealso [DBI::Id()]
-#'
+#' @keywords internal
 #'
 convert_table_to_sql_id <- function(x) {
 
@@ -1082,46 +1132,14 @@ convert_table_to_sql_id <- function(x) {
   return(out)
 }
 
-#' @title Drop a Table
-#' @name delete_table
-#'
-#' @description
-#' Drops a table from the specified database and schema if it exists.
-#' Uses `DROP TABLE IF EXISTS` for safety and prints a CLI status report.
-#'
-#' @param .con A valid `DBI` connection (DuckDB / MotherDuck).
-#' @param database_name Name of the database containing the table.
-#' @param schema_name Name of the schema containing the table.
-#' @param table_name Name of the table to drop.
-#' @param cascade Logical; if `TRUE` (default), drop dependent objects as well
-#'   using `CASCADE`. If `FALSE`, the drop will fail if there are dependencies.
-#'
-#' @return
-#' Invisibly returns `NULL`.
-#' Side effect: drops the table and prints CLI status messages.
-#'
-#' @seealso [DBI::dbExecute()], [delete_schema()], [delete_database()]
-#' @export
-delete_table <- function(.con, database_name, schema_name, table_name, cascade = TRUE) {
 
-  validate_con(.con)
 
-  drop_sql <- glue::glue_sql(
-    "DROP TABLE IF EXISTS {`database_name`}.{`schema_name`}.{`table_name`} {DBI::SQL(if (cascade) 'CASCADE' else '')};",
-    .con = .con
-  )
 
-  DBI::dbExecute(.con, drop_sql)
 
-  cli::cli_h1("Status:")
-  try(validate_md_connection_status(.con), silent = TRUE)
-  try(cli_show_user(.con), silent = TRUE)
-  try(cli_show_db(.con), silent = TRUE)
-  cli::cli_h3("Action Report:")
-  cli::cli_ul("Deleted {.val {table_name}} from {.val [database_name]} in {.val {schema_name}}")
-
-}
 
 utils::globalVariables(
   c("table_catalog", "table_schema", "table_name","current_database")
 )
+
+
+

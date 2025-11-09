@@ -7,7 +7,7 @@
 delete_and_create_schema(.con, database_name, schema_name)
 }
 \arguments{
-\item{.con}{A DuckDB connection object used to execute SQL queries.}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{The name of the database where the schema should be
 dropped and recreated.}
@@ -37,5 +37,21 @@ using internal CLI helpers.
 }
 }
 \seealso{
-\code{\link[DBI:dbExecute]{DBI::dbExecute()}}
+Other db-manage: 
+\code{\link{alter_table_schema}()},
+\code{\link{copy_tables_to_new_location}()},
+\code{\link{create_database}()},
+\code{\link{create_if_not_exists_share}()},
+\code{\link{create_or_replace_share}()},
+\code{\link{create_schema}()},
+\code{\link{create_table}()},
+\code{\link{delete_database}()},
+\code{\link{delete_schema}()},
+\code{\link{delete_table}()},
+\code{\link{describe_share}()},
+\code{\link{drop_share}()},
+\code{\link{list_owned_shares}()},
+\code{\link{list_shared_with_me_shares}()},
+\code{\link{upload_database_to_md}()}
 }
+\concept{db-manage}

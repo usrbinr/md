@@ -7,8 +7,7 @@
 cli_show_user(.con)
 }
 \arguments{
-\item{.con}{A database connection object. This is the connection through which the current user and role
-information is retrieved.}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
 This function doesn't return any value. It generates a formatted user report with the current user's
@@ -20,3 +19,4 @@ It queries the database to retrieve the current user using \code{current_user()}
 \code{current_role()}. The output is displayed in a clear and formatted manner, with the user name and role
 listed in an unordered list.
 }
+\keyword{internal}

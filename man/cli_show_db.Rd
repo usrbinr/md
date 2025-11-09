@@ -7,8 +7,7 @@
 cli_show_db(.con)
 }
 \arguments{
-\item{.con}{A database connection object. This is the connection through which the catalog and schema information
-is retrieved.}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
 This function doesn't return any value. It generates a formatted catalog report as output, including the
@@ -27,6 +26,6 @@ The report includes:
 \item Number of shares the user has access to
 }
 
-In addition, the function lists several useful functions like \code{cd}, \code{pwd}, \code{list_database}, etc.,
 that help manage and explore the database resources.
 }
+\keyword{internal}

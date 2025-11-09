@@ -41,6 +41,14 @@ instance_tbl <- list_md_user_instance(user_name ="Bob Smith")
 
 }
 \seealso{
-\code{\link[=list_md_user_tokens]{list_md_user_tokens()}}, \code{\link[=list_md_active_accounts]{list_md_active_accounts()}},
-\code{\link[=show_current_user]{show_current_user()}}
+Other db-api: 
+\code{\link{configure_md_user_settings}()},
+\code{\link{create_md_access_token}()},
+\code{\link{create_md_user}()},
+\code{\link{delete_md_access_token}()},
+\code{\link{delete_md_user}()},
+\code{\link{list_md_active_accounts}()},
+\code{\link{list_md_user_tokens}()},
+\code{\link{show_current_user}()}
 }
+\concept{db-api}

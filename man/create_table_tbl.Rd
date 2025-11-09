@@ -52,6 +52,4 @@ database is created and switches to it before creating the schema.
 \item \code{write_type = "append"} will insert rows into an existing table.
 }
 }
-\seealso{
-\code{\link[DBI:dbWriteTable]{DBI::dbWriteTable()}}, \code{\link[DBI:Id]{DBI::Id()}}
-}
+\keyword{internal}

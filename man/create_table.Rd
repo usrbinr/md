@@ -17,7 +17,7 @@ create_table(
 \item{.data}{Tibble/data frame (in-memory) or a \code{dbplyr}/DBI-backed lazy
 table (class \code{"tbl_dbi"}).}
 
-\item{.con}{A DuckDB or MotherDuck \code{DBI} connection.}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{Database name to create/use.}
 
@@ -50,6 +50,21 @@ delegated to \code{\link[=create_table_dbi]{create_table_dbi()}}.
 }
 }
 \seealso{
-\code{\link[=create_table_dbi]{create_table_dbi()}}, \code{\link[=create_table_tbl]{create_table_tbl()}}, \code{\link[DBI:dbWriteTable]{DBI::dbWriteTable()}},
-\code{\link[dbplyr:remote_name]{dbplyr::remote_query()}}
+Other db-manage: 
+\code{\link{alter_table_schema}()},
+\code{\link{copy_tables_to_new_location}()},
+\code{\link{create_database}()},
+\code{\link{create_if_not_exists_share}()},
+\code{\link{create_or_replace_share}()},
+\code{\link{create_schema}()},
+\code{\link{delete_and_create_schema}()},
+\code{\link{delete_database}()},
+\code{\link{delete_schema}()},
+\code{\link{delete_table}()},
+\code{\link{describe_share}()},
+\code{\link{drop_share}()},
+\code{\link{list_owned_shares}()},
+\code{\link{list_shared_with_me_shares}()},
+\code{\link{upload_database_to_md}()}
 }
+\concept{db-manage}

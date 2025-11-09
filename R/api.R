@@ -19,7 +19,7 @@
 #' * `"arg"` — returns a tibble containing the `current_user` column.
 #'
 #' @param return Character scalar, one of `"msg"` or `"arg"`. Default: `"msg"`.
-#'
+#' @family db-api
 #' @examples
 #' \dontrun{
 #' # Using an existing connection
@@ -213,7 +213,7 @@ validate_motherduck_token_env <- function(motherduck_token="MOTHERDUCK_TOKEN"){
 #' A tibble with two columns:
 #' - `account_settings`: configuration keys for the active accounts.
 #' - `account_values`: corresponding configuration values.
-#'
+#' @family db-api
 #' @examples
 #' \dontrun{
 #' # Retrieve active accounts for the authenticated user
@@ -291,8 +291,7 @@ list_md_active_accounts <- function(motherduck_token="MOTHERDUCK_TOKEN"){
 #' print(tokens_tbl)
 #' }
 #'
-#' @seealso
-#' [list_md_active_accounts()], [show_current_user()]
+#' @family db-api
 #'
 #' @export
 list_md_user_tokens <- function(user_name,motherduck_token="MOTHERDUCK_TOKEN"){
@@ -355,9 +354,7 @@ list_md_user_tokens <- function(user_name,motherduck_token="MOTHERDUCK_TOKEN"){
 #' instance_tbl <- list_md_user_instance(user_name ="Bob Smith")
 #' }
 #'
-#' @seealso
-#' [list_md_user_tokens()], [list_md_active_accounts()],
-#' [show_current_user()]
+#' @family db-api
 #'
 #' @export
 list_md_user_instance <- function(user_name,motherduck_token="MOTHERDUCK_TOKEN"){
@@ -406,9 +403,7 @@ list_md_user_instance <- function(user_name,motherduck_token="MOTHERDUCK_TOKEN")
 #' @return
 #' A tibble summarizing the API response, including the username and deletion status.
 #'
-#' @seealso
-#' [create_md_user()] for creating new users and
-#' [list_md_user_tokens()] for listing user tokens.
+#' @family db-api
 #'
 #' @examples
 #' \dontrun{
@@ -472,14 +467,12 @@ delete_md_user <- function(user_name, motherduck_token = "MOTHERDUCK_TOKEN") {
 #' endpoint to create a new user under the authenticated account.
 #' The provided token must belong to a user with permissions to manage
 #' organization-level accounts.
-#'@inheritParams list_md_user_tokens
+#' @inheritParams list_md_user_tokens
 #' @return
 #' A tibble summarizing the API response, typically containing the newly created
 #' username and associated metadata.
 #'
-#' @seealso
-#' [delete_md_user()] for deleting users, and
-#' [list_md_user_tokens()] for listing tokens associated with a given user.
+#' @family db-api
 #'
 #' @examples
 #' \dontrun{
@@ -561,9 +554,7 @@ create_md_user <- function(user_name, motherduck_token = "MOTHERDUCK_TOKEN") {
 #' A tibble containing the API response, including the username and the token
 #' attributes.
 #'
-#' @seealso
-#' [list_md_user_tokens()] for retrieving tokens of a user, and
-#' [list_md_active_accounts()] for listing available accounts.
+#' @family db-api
 #'
 #' @examples
 #' \dontrun{
@@ -581,12 +572,7 @@ create_md_user <- function(user_name, motherduck_token = "MOTHERDUCK_TOKEN") {
 #' @export
 create_md_access_token <- function(user_name,token_type,token_name,token_expiration_number,token_expiration_unit,motherduck_token="MOTHERDUCK_TOKEN"){
 
-    # test inputs
-    # user_name <- "alejandro_hagan"
-    # token_type <- "read_write"
-    # token_expiration_number=300
-    # token_expiration_unit="second"
-    # token_name <- "temp"
+
 
     valid_token_type_vec <- c("read_write", "read_scaling")
 
@@ -684,9 +670,7 @@ create_md_access_token <- function(user_name,token_type,token_name,token_expirat
 #' A tibble summarizing the API response, typically including the username and
 #' deletion status of the token.
 #'
-#' @seealso
-#' [create_md_access_token()] for creating new tokens, and
-#' [list_md_user_tokens()] for listing existing tokens.
+#' @family db-api
 #'
 #' @examples
 #' \dontrun{
@@ -762,7 +746,7 @@ delete_md_access_token <- function(user_name,token_name,motherduck_token="MOTHER
 #'
 #' @return
 #' A tibble containing the API response, including the updated settings for the user.
-#'
+#' @family db-api
 #' @examples
 #' \dontrun{
 #' configure_md_user_settings(
@@ -827,6 +811,7 @@ configure_md_user_settings <- function(
         ,column_name2 = "value"
     )
 }
+
 
 #' @title Convert a time duration to seconds
 #'
@@ -1071,6 +1056,7 @@ validate_flock_size <- function(flock_size){
 #' @return
 #' A message indicating that the share has been created or replaced.
 #'
+#' @family db-manage
 #' @examples
 #' \dontrun{
 #' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
@@ -1163,6 +1149,7 @@ create_or_replace_share <- function(.con,
 #' - `update` controls whether changes to the source database are automatically reflected in the share.
 #' After creation, the current user is displayed for confirmation.
 #'
+#' @family db-manage
 #' @return
 #' A message confirming that the share has been created, if it did not already exist.
 #'
@@ -1255,7 +1242,7 @@ create_if_not_exists_share <- function(.con,
 #' @return
 #' A tibble containing metadata about the share, including object names, types,
 #' and privileges associated with the share.
-#'
+#' @family db-manage
 #' @examples
 #' \dontrun{
 #' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
@@ -1302,7 +1289,7 @@ describe_share <- function(.con, share_name) {
 #'
 #' @return
 #' Invisibly returns `NULL`. Side effect: the specified share is removed if it exists.
-#'
+#' @family db-manage
 #' @examples
 #' \dontrun{
 #' drop_share(con_md, "test_share")
@@ -1364,7 +1351,7 @@ drop_share <- function(.con, share_name) {
 #' @return
 #' A tibble with one row per share owned by the current user, including columns
 #' for share name, object type, and granted privileges.
-#'
+#' @family db-manage
 #' @examples
 #' \dontrun{
 #' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
@@ -1402,7 +1389,7 @@ list_owned_shares <- function(.con) {
 #' @return
 #' A tibble containing one row per shared object, with columns describing
 #' the owner, object type, object name, and granted privileges.
-#'
+#' @family db-manage
 #' @examples
 #' \dontrun{
 #' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")

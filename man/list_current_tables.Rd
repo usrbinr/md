@@ -31,5 +31,13 @@ into R.
 }
 }
 \seealso{
-\code{\link[dplyr:tbl]{dplyr::tbl()}}, \code{\link[DBI:dbConnect]{DBI::dbConnect()}}
+Other db-list: 
+\code{\link{list_all_databases}()},
+\code{\link{list_all_tables}()},
+\code{\link{list_current_schemas}()},
+\code{\link{list_extensions}()},
+\code{\link{list_fns}()},
+\code{\link{list_setting}()},
+\code{\link{list_shares}()}
 }
+\concept{db-list}

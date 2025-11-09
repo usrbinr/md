@@ -2,13 +2,12 @@
 % Please edit documentation in R/utils-db.R
 \name{list_fns}
 \alias{list_fns}
-\alias{list_db_fns}
 \title{List Database Functions (DuckDB/MotherDuck)}
 \usage{
 list_fns(.con)
 }
 \arguments{
-\item{.con}{A valid \code{DBI} connection (DuckDB or MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
 A \code{dbplyr} lazy tibble (\code{tbl_dbi}) with function metadata (e.g.,
@@ -24,5 +23,13 @@ This wrapper validates the connection and then queries
 \code{dbplyr} lazy tibble (\code{tbl_dbi}); call \code{collect()} to materialize it in R.
 }
 \seealso{
-\code{\link[DBI:dbConnect]{DBI::dbConnect()}}, \code{\link[dplyr:tbl]{dplyr::tbl()}}
+Other db-list: 
+\code{\link{list_all_databases}()},
+\code{\link{list_all_tables}()},
+\code{\link{list_current_schemas}()},
+\code{\link{list_current_tables}()},
+\code{\link{list_extensions}()},
+\code{\link{list_setting}()},
+\code{\link{list_shares}()}
 }
+\concept{db-list}

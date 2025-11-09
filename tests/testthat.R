@@ -8,5 +8,7 @@
 
 library(testthat)
 library(md)
+library(DBI)
+library(openxlsx)
 
 test_check("md")

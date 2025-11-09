@@ -7,7 +7,7 @@
 cli_delete_obj(.con, database_name, schema_name, table_name)
 }
 \arguments{
-\item{.con}{A connection object to the database.}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{Name of the database to be deleted (optional).}
 
@@ -26,3 +26,4 @@ database. The function will check if the provided database, schema, or table exi
 it will proceed to delete them and print an action report detailing what was deleted and how many
 schemas or tables were affected. If the object does not exist, it will not delete anything.
 }
+\keyword{internal}

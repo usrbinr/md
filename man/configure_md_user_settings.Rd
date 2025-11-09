@@ -57,3 +57,15 @@ configure_md_user_settings(
 }
 
 }
+\seealso{
+Other db-api: 
+\code{\link{create_md_access_token}()},
+\code{\link{create_md_user}()},
+\code{\link{delete_md_access_token}()},
+\code{\link{delete_md_user}()},
+\code{\link{list_md_active_accounts}()},
+\code{\link{list_md_user_instance}()},
+\code{\link{list_md_user_tokens}()},
+\code{\link{show_current_user}()}
+}
+\concept{db-api}

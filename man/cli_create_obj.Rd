@@ -7,8 +7,7 @@
 cli_create_obj(.con, database_name, schema_name, table_name, write_type)
 }
 \arguments{
-\item{.con}{A database connection object. This is the connection through which the database, schema, and table information
-is retrieved.}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{The name of the database to create or insert into. If missing, the current database is used.}
 
@@ -31,3 +30,4 @@ or inserts into the existing one, based on the given parameters. It generates an
 indicating the status of the operation, whether a new database, schema, or table was created or
 whether existing ones were used.
 }
+\keyword{internal}

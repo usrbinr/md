@@ -45,6 +45,14 @@ delete_md_access_token(
 
 }
 \seealso{
-\code{\link[=create_md_access_token]{create_md_access_token()}} for creating new tokens, and
-\code{\link[=list_md_user_tokens]{list_md_user_tokens()}} for listing existing tokens.
+Other db-api: 
+\code{\link{configure_md_user_settings}()},
+\code{\link{create_md_access_token}()},
+\code{\link{create_md_user}()},
+\code{\link{delete_md_user}()},
+\code{\link{list_md_active_accounts}()},
+\code{\link{list_md_user_instance}()},
+\code{\link{list_md_user_tokens}()},
+\code{\link{show_current_user}()}
 }
+\concept{db-api}

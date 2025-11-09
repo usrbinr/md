@@ -23,6 +23,4 @@ Converts a tibble of table metadata (\code{table_catalog}, \code{table_schema},
 Useful for safely quoting fully qualified table references in
 \code{DBI}/\code{dbplyr} workflows.
 }
-\seealso{
-\code{\link[DBI:Id]{DBI::Id()}}
-}
+\keyword{internal}

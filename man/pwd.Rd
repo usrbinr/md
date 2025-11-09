@@ -37,5 +37,7 @@ pwd(con)
 
 }
 \seealso{
-\code{\link[=validate_con]{validate_con()}}, \code{\link[=list_databases]{list_databases()}}, \code{\link[=list_schemas]{list_schemas()}}
+Other db-meta: 
+\code{\link{cd}()}
 }
+\concept{db-meta}

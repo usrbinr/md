@@ -38,5 +38,13 @@ DBI::dbDisconnect(con)
 
 }
 \seealso{
-\link{list_setting}
+Other db-list: 
+\code{\link{list_all_databases}()},
+\code{\link{list_all_tables}()},
+\code{\link{list_current_schemas}()},
+\code{\link{list_current_tables}()},
+\code{\link{list_extensions}()},
+\code{\link{list_fns}()},
+\code{\link{list_setting}()}
 }
+\concept{db-list}

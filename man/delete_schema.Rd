@@ -33,3 +33,22 @@ Prints helpful CLI information about the current connection and action.
 \item Uses CLI helpers to show current connection and report the deletion.
 }
 }
+\seealso{
+Other db-manage: 
+\code{\link{alter_table_schema}()},
+\code{\link{copy_tables_to_new_location}()},
+\code{\link{create_database}()},
+\code{\link{create_if_not_exists_share}()},
+\code{\link{create_or_replace_share}()},
+\code{\link{create_schema}()},
+\code{\link{create_table}()},
+\code{\link{delete_and_create_schema}()},
+\code{\link{delete_database}()},
+\code{\link{delete_table}()},
+\code{\link{describe_share}()},
+\code{\link{drop_share}()},
+\code{\link{list_owned_shares}()},
+\code{\link{list_shared_with_me_shares}()},
+\code{\link{upload_database_to_md}()}
+}
+\concept{db-manage}

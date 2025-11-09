@@ -32,7 +32,8 @@ Imports:
     rlang,
     janitor,
     tibble,
-    contoso
+    openxlsx,
+    fs
 Suggests: 
     testthat (>= 3.0.0),
     quarto,

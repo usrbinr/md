@@ -54,6 +54,4 @@ database is created and switches to it before creating the schema.
 \item \code{write_type = "append"} will insert rows into an existing table.
 }
 }
-\seealso{
-\code{\link[DBI:dbExecute]{DBI::dbExecute()}}, \code{\link[dbplyr:remote_name]{dbplyr::remote_query()}}
-}
+\keyword{internal}

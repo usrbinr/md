@@ -30,3 +30,5 @@ altdoc/freeze.rds
 _quarto/*
 !_quarto/_freeze/
 inst/doc
+README.qmd
+READMME_files/*

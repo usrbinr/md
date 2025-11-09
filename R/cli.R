@@ -3,8 +3,7 @@
 #' @title Database, Schema, and Table Creator
 #' @name cli_create_obj
 #'
-#' @param .con A database connection object. This is the connection through which the database, schema, and table information
-#'             is retrieved.
+#' @inheritParams validate_con
 #' @param database_name The name of the database to create or insert into. If missing, the current database is used.
 #' @param schema_name The name of the schema to create or insert into. If missing, the current schema is used.
 #' @param table_name The name of the table to create or insert into. If missing, no table-specific action is taken.
@@ -19,13 +18,13 @@
 #' whether existing ones were used.
 #' @returns This function doesn't return any value. It generates a formatted report showing whether a new database, schema,
 #'          or table was created or if existing ones were used.
-#'
+#' @keywords internal
 cli_create_obj <- function(.con, database_name, schema_name, table_name, write_type) {
 
     # Step 1: Get a list of all tables from the connected database
     all_table_tbl <- list_all_tables(.con) |> dplyr::collect()
 
-    all_database_tbl <- list_databases(.con) |> dplyr::collect()
+    all_database_tbl <- list_all_databases(.con) |> dplyr::collect()
 
 
     # Step 2: If no database name is provided, get the current database from the connection
@@ -74,7 +73,7 @@ cli_create_obj <- function(.con, database_name, schema_name, table_name, write_t
         cd(.con,database_name = database_name)
         )
 
-        schema_count <- list_schemas(.con) |>
+        schema_count <- list_current_schemas(.con) |>
             dplyr::collect() |>
             dplyr::filter(
                 catalog_name %in% database_name   # Filter by database
@@ -106,7 +105,7 @@ cli_create_obj <- function(.con, database_name, schema_name, table_name, write_t
         cli::cli_text(
             dplyr::if_else(!table_count > 0,
                     "{cli::symbol$tick} Created new table {.val {table_name_vec}}",
-                    "{cli::symbol$tick} {str_to_sentence(write_type)} existing table {.val {table_name_vec}}")
+                    "{cli::symbol$tick} {stringr::str_to_sentence(write_type)} existing table {.val {table_name_vec}}")
         )
     }
 }
@@ -115,8 +114,7 @@ cli_create_obj <- function(.con, database_name, schema_name, table_name, write_t
 #' @title User Information Report
 #' @name cli_show_user
 #'
-#' @param .con A database connection object. This is the connection through which the current user and role
-#'             information is retrieved.
+#' @inheritParams validate_con
 #'
 #' @returns This function doesn't return any value. It generates a formatted user report with the current user's
 #'          name and role as output.
@@ -126,6 +124,7 @@ cli_create_obj <- function(.con, database_name, schema_name, table_name, write_t
 #' It queries the database to retrieve the current user using `current_user()` and the current role using
 #' `current_role()`. The output is displayed in a clear and formatted manner, with the user name and role
 #' listed in an unordered list.
+#' @keywords internal
 cli_show_user <- function(.con) {
 
     # Step 1: Get the current user by querying the database
@@ -162,8 +161,7 @@ cli_show_user <- function(.con) {
 #' @title Catalog Report Generator
 #' @name cli_show_db
 #'
-#' @param .con A database connection object. This is the connection through which the catalog and schema information
-#'             is retrieved.
+#' @inheritParams validate_con
 #'
 #' @returns This function doesn't return any value. It generates a formatted catalog report as output, including the
 #'          current database, schema, and access counts for catalogs, tables, and shares.
@@ -178,8 +176,8 @@ cli_show_user <- function(.con) {
 #' - Number of tables the user has access to
 #' - Number of shares the user has access to
 #'
-#' In addition, the function lists several useful functions like `cd`, `pwd`, `list_database`, etc.,
 #' that help manage and explore the database resources.
+#' @keywords internal
 cli_show_db <- function(.con) {
 
     # Step 1: Get the number of shares the user has access to
@@ -198,8 +196,7 @@ cli_show_db <- function(.con) {
     current_schema <- dplyr::tbl(.con, dplyr::sql("select current_schema() as schema")) |> dplyr::pull(schema)
 
     # Step 4: Get the number of catalogs (databases) the user has access to
-    # Calls `md::list_databases` to list all databases and counts them
-    db_count <- length(list_databases(.con) |> dplyr::pull(database_name))
+    db_count <- length(list_all_databases(.con) |> dplyr::pull(database_name))
 
 
     # Step 5: Get the number of tables the user has access to
@@ -243,7 +240,7 @@ cli_show_db <- function(.con) {
 
 #' @title CLI print deleted objects
 #' @name cli_delete_obj
-#' @param .con A connection object to the database.
+#' @inheritParams validate_con
 #' @param database_name Name of the database to be deleted (optional).
 #' @param schema_name Name of the schema to be deleted (optional).
 #' @param table_name Name of the table to be deleted (optional).
@@ -256,7 +253,7 @@ cli_show_db <- function(.con) {
 #' @returns This function does not return any values. It prints a message indicating
 #'          the deleted objects (database, schema, or table) and the number of schemas/tables
 #'          affected by the deletion.
-#'
+#' @keywords internal
 cli_delete_obj <- function(.con, database_name, schema_name, table_name) {
 
 

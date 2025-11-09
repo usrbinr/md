@@ -12,7 +12,7 @@ copy_tables_to_new_location(
 )
 }
 \arguments{
-\item{.con}{A \code{DBI} connection (DuckDB / MotherDuck).}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{from_table_names}{A tibble/data frame listing source tables, with
 columns \code{database_name}, \code{schema_name}, and \code{table_name}.}
@@ -29,8 +29,7 @@ writes new tables.
 \description{
 Copies one or more tables to a new location (database/schema) by creating
 new tables via \verb{CREATE TABLE ... AS SELECT * FROM ...}.
-If connected to MotherDuck, the target database is created if missing, and
-the target schema is created if missing on any connection.
+Requires motherduck connection
 }
 \details{
 \itemize{
@@ -43,5 +42,21 @@ defaults to the current database of the connection.
 }
 }
 \seealso{
-\code{\link[DBI:dbExecute]{DBI::dbExecute()}}, \code{\link[DBI:Id]{DBI::Id()}}
+Other db-manage: 
+\code{\link{alter_table_schema}()},
+\code{\link{create_database}()},
+\code{\link{create_if_not_exists_share}()},
+\code{\link{create_or_replace_share}()},
+\code{\link{create_schema}()},
+\code{\link{create_table}()},
+\code{\link{delete_and_create_schema}()},
+\code{\link{delete_database}()},
+\code{\link{delete_schema}()},
+\code{\link{delete_table}()},
+\code{\link{describe_share}()},
+\code{\link{drop_share}()},
+\code{\link{list_owned_shares}()},
+\code{\link{list_shared_with_me_shares}()},
+\code{\link{upload_database_to_md}()}
 }
+\concept{db-manage}

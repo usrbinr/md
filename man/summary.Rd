@@ -46,7 +46,5 @@ summary(tbl_obj)
 dbDisconnect(con)
 }
 
-}
-\seealso{
-\code{\link[dplyr:tbl]{dplyr::tbl()}}, \code{\link[dplyr:compute]{dplyr::collect()}}, \code{\link[=validate_con]{validate_con()}}
+
 }

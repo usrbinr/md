@@ -10,11 +10,11 @@ cd(.con, database_name, schema_name)
 \item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
 \item{database_name}{A character string specifying the database to switch to.
-Must be one of the available databases returned by \code{\link[=list_databases]{list_databases()}}.}
+Must be one of the available databases returned by \code{\link[=list_all_databases]{list_all_databases()}}.}
 
 \item{schema_name}{(Optional) A character string specifying the schema
 to switch to within the given database. Must be one of the available
-schemas returned by \code{\link[=list_schemas]{list_schemas()}}.}
+schemas returned by \code{\link[=list_current_schemas]{list_current_schemas()}}.}
 }
 \value{
 Invisibly returns a message summarizing the new connection context.
@@ -51,5 +51,7 @@ DBI::dbDisconnect(con)
 
 }
 \seealso{
-\code{\link[=list_databases]{list_databases()}}, \code{\link[=list_schemas]{list_schemas()}},\code{\link[=pwd]{pwd()}}
+Other db-meta: 
+\code{\link{pwd}()}
 }
+\concept{db-meta}

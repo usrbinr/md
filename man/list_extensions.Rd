@@ -40,8 +40,15 @@ list_extensions(con)
 
 DBI::dbDisconnect(con)
 }
-
 }
 \seealso{
-\code{\link[=load_extensions]{load_extensions()}}, \code{\link[=install_extensions]{install_extensions()}},\code{\link[=validate_extension_install_status]{validate_extension_install_status()}},\code{\link[=validate_extension_load_status]{validate_extension_load_status()}},\code{\link[=validate_extension_install_status]{validate_extension_install_status()}}
+Other db-list: 
+\code{\link{list_all_databases}()},
+\code{\link{list_all_tables}()},
+\code{\link{list_current_schemas}()},
+\code{\link{list_current_tables}()},
+\code{\link{list_fns}()},
+\code{\link{list_setting}()},
+\code{\link{list_shares}()}
 }
+\concept{db-list}

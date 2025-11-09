@@ -57,5 +57,10 @@ validate_extension_install_status(con, extension_names = c("arrow", "excel"), re
 
 }
 \seealso{
-\code{\link[=load_extensions]{load_extensions()}}, \code{\link[=list_extensions]{list_extensions()}},\code{\link[=install_extensions]{install_extensions()}},\code{\link[=validate_extension_load_status]{validate_extension_load_status()}},\code{\link[=validate_extension_install_status]{validate_extension_install_status()}}
+Other db-con: 
+\code{\link{install_extensions}()},
+\code{\link{load_extensions}()},
+\code{\link{show_motherduck_token}()},
+\code{\link{validate_extension_load_status}()}
 }
+\concept{db-con}
