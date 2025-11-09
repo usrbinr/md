@@ -2,24 +2,46 @@
 % Please edit documentation in R/utils-md.R
 \name{install_extensions}
 \alias{install_extensions}
-\title{Install motherduck extensions}
+\title{Install DuckDB/MotherDuck Extensions}
 \usage{
 install_extensions(.con, extension_names)
 }
 \arguments{
-\item{.con}{duckdb connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
-\item{extension_names}{DuckDB extension names}
+\item{extension_names}{A character vector of DuckDB/MotherDuck extension names to install.}
 }
 \value{
-message
+Invisibly returns \code{NULL}. A detailed CLI report of installation success/failure
+is printed.
 }
 \description{
-Installs and loads valid DuckDB extensions
+Installs valid DuckDB or MotherDuck extensions for the current connection.
+}
+\details{
+The \code{install_extensions()} function validates the provided DuckDB/MotherDuck connection,
+then checks which of the requested extensions are valid. Valid extensions that are not
+already installed are installed using the \code{INSTALL} SQL command. Invalid extensions are
+reported to the user via CLI messages. This function provides a summary report
+describing which extensions were successfully installed and which were invalid.
+
+Unlike \code{load_extensions()}, this function focuses purely on installation and does not
+automatically load extensions after installing.
 }
 \examples{
 \dontrun{
 con <- DBI::dbConnect(duckdb::duckdb())
-install_extensions(con,'motherduck',silent_msg=TRUE)
+
+# Install the 'motherduck' extension
+install_extensions(con, "motherduck")
+
+# Install multiple extensions
+install_extensions(con, c("fts", "httpfs"))
+
+DBI::dbDisconnect(con)
 }
+
+}
+\seealso{
+\code{\link[=load_extensions]{load_extensions()}}, \code{\link[=list_extensions]{list_extensions()}},\code{\link[=validate_extension_install_status]{validate_extension_install_status()}},\code{\link[=validate_extension_load_status]{validate_extension_load_status()}}
 }

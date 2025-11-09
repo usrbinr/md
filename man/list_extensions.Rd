@@ -2,22 +2,46 @@
 % Please edit documentation in R/utils-md.R
 \name{list_extensions}
 \alias{list_extensions}
-\title{List motherduck extensions, their description and status}
+\title{List MotherDuck/DuckDB Extensions}
 \usage{
 list_extensions(.con)
 }
 \arguments{
-\item{.con}{DuckDB connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-tibble
+A tibble with one row per extension and columns describing its metadata
+and current status.
 }
 \description{
-Lists available DuckDB extensions, their description, load / installed status and more
+Retrieves all available DuckDB or MotherDuck extensions along with their descriptions,
+installation and load status.
+}
+\details{
+The \code{list_extensions()} function queries the database for all extensions that are
+available in the current DuckDB or MotherDuck connection. The returned tibble includes
+information such as:
+\itemize{
+\item \code{extension_name}: Name of the extension.
+\item \code{description}: Short description of the extension.
+\item \code{installed}: Logical indicating if the extension is installed.
+\item \code{loaded}: Logical indicating if the extension is currently loaded.
+}
+
+This is useful for determining which extensions can be installed or loaded using
+\code{install_extensions()} or \code{load_extensions()}.
 }
 \examples{
 \dontrun{
 con <- DBI::dbConnect(duckdb::duckdb())
+
+# List all available extensions
 list_extensions(con)
+
+DBI::dbDisconnect(con)
 }
+
+}
+\seealso{
+\code{\link[=load_extensions]{load_extensions()}}, \code{\link[=install_extensions]{install_extensions()}},\code{\link[=validate_extension_install_status]{validate_extension_install_status()}},\code{\link[=validate_extension_load_status]{validate_extension_load_status()}},\code{\link[=validate_extension_install_status]{validate_extension_install_status()}}
 }

@@ -1,0 +1,91 @@
+---
+title: "MotherDuck Package Reference"
+format: html
+---
+
+# MotherDuck Package Reference
+
+This page provides a reference for all functions in the MotherDuck package.
+
+---
+
+## Schema & Table Management
+
+- [`alter_table_schema()`](man/alter_table_schema.Rd)
+- [`cd()`](man/cd.Rd)
+- [`create_if_not_exists_database()`](man/create_if_not_exists_database.Rd)
+- [`create_if_not_exists_share()`](man/create_if_not_exists_share.Rd)
+- [`create_md_access_token()`](man/create_md_access_token.Rd)
+- [`create_md_user()`](man/create_md_user.Rd)
+- [`create_or_replace_share()`](man/create_or_replace_share.Rd)
+- [`create_schema()`](man/create_schema.Rd)
+- [`create_table()`](man/create_table.Rd)
+- [`create_table_dbi()`](man/create_table_dbi.Rd)
+- [`create_table_tbl()`](man/create_table_tbl.Rd)
+- [`delete_and_create_schema()`](man/delete_and_create_schema.Rd)
+- [`delete_database()`](man/delete_database.Rd)
+- [`delete_md_access_token()`](man/delete_md_access_token.Rd)
+- [`delete_md_user()`](man/delete_md_user.Rd)
+- [`delete_schema()`](man/delete_schema.Rd)
+- [`delete_table()`](man/delete_table.Rd)
+- [`upload_database_to_md()`](man/upload_database_to_md.Rd)
+- [`validate_and_print_database_loction()`](man/validate_and_print_database_loction.Rd)
+- [`validate_con()`](man/validate_con.Rd)
+- [`validate_md_connection_status()`](man/validate_md_connection_status.Rd)
+
+---
+
+## CLI Helpers
+
+- [`cli_create_obj()`](man/cli_create_obj.Rd)
+- [`cli_delete_obj()`](man/cli_delete_obj.Rd)
+- [`cli_show_db()`](man/cli_show_db.Rd)
+- [`cli_show_user()`](man/cli_show_user.Rd)
+- [`show_current_user()`](man/show_current_user.Rd)
+
+---
+
+## Configuration & Connection
+
+- [`config_csv()`](man/config_csv.Rd)
+- [`config_db()`](man/config_db.Rd)
+- [`config_excel()`](man/config_excel.Rd)
+- [`config_parquet()`](man/config_parquet.Rd)
+- [`connect_to_motherduck()`](man/connect_to_motherduck.Rd)
+- [`read_excel()`](man/read_excel.Rd)
+
+---
+
+## Listing / Query Helpers
+
+- [`copy_tables_to_new_location()`](man/copy_tables_to_new_location.Rd)
+- [`convert_table_to_sql_id()`](man/convert_table_to_sql_id.Rd)
+- [`list_all_tables()`](man/list_all_tables.Rd)
+- [`list_current_tables()`](man/list_current_tables.Rd)
+- [`list_databases()`](man/list_databases.Rd)
+- [`list_extensions()`](man/list_extensions.Rd)
+- [`list_md_active_accounts()`](man/list_md_active_accounts.Rd)
+- [`list_md_user_instance()`](man/list_md_user_instance.Rd)
+- [`list_md_user_tokens()`](man/list_md_user_tokens.Rd)
+- [`list_owned_shares()`](man/list_owned_shares.Rd)
+- [`list_schemas()`](man/list_schemas.Rd)
+- [`list_setting()`](man/list_setting.Rd)
+- [`list_shares()`](man/list_shares.Rd)
+- [`list_shared_with_me_shares()`](man/list_shared_with_me_shares.Rd)
+- [`list_fns()`](man/list_fns.Rd)
+- [`return_table_attributes()`](man/return_table_attributes.Rd)
+- [`summary()`](man/summary.Rd)
+- [`pwd()`](man/pwd.Rd)
+
+---
+
+## Extensions / MotherDuck Add-ons
+
+- [`install_extensions()`](man/install_extensions.Rd)
+- [`load_extensions()`](man/load_extensions.Rd)
+- [`validate_extension_install_status()`](man/validate_extension_install_status.Rd)
+- [`validate_extension_load_status()`](man/validate_extension_load_status.Rd)
+- [`show_motherduck_token()`](man/show_motherduck_token.Rd)
+- [`reexports()`](man/reexports.Rd)
+- [`describe_share()`](man/describe_share.Rd)
+- [`drop_share()`](man/drop_share.Rd)

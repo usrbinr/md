@@ -31,7 +31,8 @@ Imports:
     httr2,
     rlang,
     janitor,
-    tibble
+    tibble,
+    contoso
 Suggests: 
     testthat (>= 3.0.0),
     quarto,

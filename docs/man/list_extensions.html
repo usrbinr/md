@@ -115,7 +115,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../reference.qmd"> 
+<span class="menu-text">Reference</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/usrbinr/md/"> <i class="bi bi-github" role="img" aria-label="md GitHub">
 </i> 
@@ -330,9 +336,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         
     <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="undefined"><i class="bi bi-link-45deg"></i></a></li></ul></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header><section id="list-motherduck-extensions-their-description-and-status" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="list-motherduck-extensions-their-description-and-status">List motherduck extensions, their description and status</h2>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header><section id="list-motherduckduckdb-extensions" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="list-motherduckduckdb-extensions">List MotherDuck/DuckDB Extensions</h2>
 <section id="description" class="level3"><h3 class="anchored" data-anchor-id="description">Description</h3>
-<p>Lists available DuckDB extensions, their description, load / installed status and more</p>
+<p>Retrieves all available DuckDB or MotherDuck extensions along with their descriptions, installation and load status.</p>
 </section><section id="usage" class="level3"><h3 class="anchored" data-anchor-id="usage">Usage</h3>
 <pre><code class="language-R">list_extensions(.con)
 </code></pre>
@@ -342,16 +348,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <code id=".con">.con</code>
 </td>
 <td>
-DuckDB connection
+A valid <code>DBI</code> connection (DuckDB / MotherDuck).
 </td>
-</tr></tbody></table></section><section id="value" class="level3"><h3 class="anchored" data-anchor-id="value">Value</h3>
-<p>tibble</p>
+</tr></tbody></table></section><section id="details" class="level3"><h3 class="anchored" data-anchor-id="details">Details</h3>
+<p>The <code><a href="https://usrbinr.github.io/md/man/list_extensions.html">list_extensions()</a></code> function queries the database for all extensions that are available in the current DuckDB or MotherDuck connection. The returned tibble includes information such as:</p>
+<ul>
+<li>
+<p><code>extension_name</code>: Name of the extension.</p>
+</li>
+<li>
+<p><code>description</code>: Short description of the extension.</p>
+</li>
+<li>
+<p><code>installed</code>: Logical indicating if the extension is installed.</p>
+</li>
+<li>
+<p><code>loaded</code>: Logical indicating if the extension is currently loaded.</p>
+</li>
+</ul>
+<p>This is useful for determining which extensions can be installed or loaded using <code><a href="https://usrbinr.github.io/md/man/install_extensions.html">install_extensions()</a></code> or <code><a href="https://usrbinr.github.io/md/man/load_extensions.html">load_extensions()</a></code>.</p>
+</section><section id="value" class="level3"><h3 class="anchored" data-anchor-id="value">Value</h3>
+<p>A tibble with one row per extension and columns describing its metadata and current status.</p>
+</section><section id="see-also" class="level3"><h3 class="anchored" data-anchor-id="see-also">See Also</h3>
+<p><code><a href="https://usrbinr.github.io/md/man/load_extensions.html">load_extensions()</a></code>, <code><a href="https://usrbinr.github.io/md/man/install_extensions.html">install_extensions()</a></code>,<code><a href="https://usrbinr.github.io/md/man/validate_extension_install_status.html">validate_extension_install_status()</a></code>,<code><a href="https://usrbinr.github.io/md/man/validate_extension_load_status.html">validate_extension_load_status()</a></code>,<code><a href="https://usrbinr.github.io/md/man/validate_extension_install_status.html">validate_extension_install_status()</a></code></p>
 </section><section id="examples" class="level3"><h3 class="anchored" data-anchor-id="examples">Examples</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://usrbinr.github.io/md/">"md"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://usrbinr.github.io/md/man/list_extensions.html">list_extensions</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span></span>
+<span><span class="co"># List all available extensions</span></span>
+<span><span class="fu"><a href="https://usrbinr.github.io/md/man/list_extensions.html">list_extensions</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

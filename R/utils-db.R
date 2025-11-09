@@ -156,17 +156,24 @@ create_table_tbl <- function(.data,.con,database_name,schema_name,table_name,wri
 
     # Validate the connection (assume this is a custom function)
 
+    suppressMessages(
     md_con_indicator <- validate_md_connection_status(.con,return_type="arg")
+    )
+
 
     if(rlang::is_missing(database_name)){
 
+      suppressMessages(
       database_name <- pwd(.con)[["current_database"]]
+      )
 
     }
 
 
     if(rlang::is_missing(schema_name)){
+      suppressMessages(
       schema_name <- pwd(.con)[["current_schema"]]
+      )
     }
 
     database_name <- DBI::dbQuoteIdentifier(conn = .con,x = database_name)
@@ -174,9 +181,7 @@ create_table_tbl <- function(.data,.con,database_name,schema_name,table_name,wri
     if(md_con_indicator){
 
 #         # Create and connect to the database
-        DBI::dbExecute(.con, glue::glue_sql("CREATE DATABASE IF NOT EXISTS {database_name};", .con = .con))
-        Sys.sleep(1)
-        DBI::dbExecute(.con, glue::glue_sql("USE {database_name};", .con = .con))
+        DBI::dbExecute(.con, glue::glue_sql("CREATE DATABASE IF NOT EXISTS {database_name}; USE {database_name};", .con = .con))
 
     }
 
@@ -185,12 +190,12 @@ create_table_tbl <- function(.data,.con,database_name,schema_name,table_name,wri
 
     schema_name <- DBI::dbQuoteIdentifier(conn = .con,x=schema_name)
 
-    #
+    if(md_con_indicator){
+
     DBI::dbExecute(.con, glue::glue_sql("CREATE SCHEMA IF NOT EXISTS {schema_name}; USE {schema_name};", .con = .con))
-    #
-    Sys.sleep(1)
-    #
-    # DBI::dbExecute(.con, glue::glue_sql("USE {schema_name};", .con = .con))
+
+    }
+
 
 
     # Add audit fields
@@ -216,8 +221,6 @@ create_table_tbl <- function(.data,.con,database_name,schema_name,table_name,wri
         DBI::dbWriteTable(.con, name = table_id, value = out, append = TRUE)
 
     }
-
-
 
 }
 
@@ -271,24 +274,31 @@ create_table_dbi <- function(.data,.con,database_name,schema_name,table_name,wri
   md_con_indicator <- validate_md_connection_status(.con,return_type="arg")
 
   if(rlang::is_missing(database_name)){
+
+    suppressMessages(
     database_name <- pwd(.con)[["current_database"]]
+    )
+
   }
 
   if(rlang::is_missing(schema_name)){
+
+    suppressMessages(
     schema_name <- pwd(.con)[["current_schema"]]
+    )
+
   }
 
   if(md_con_indicator){
     # Create and connect to the database
-    DBI::dbExecute(.con, glue::glue_sql("CREATE DATABASE IF NOT EXISTS {`database_name`};", .con = .con))
-    DBI::dbExecute(.con, glue::glue_sql("USE {`database_name`};", .con = .con))
+    DBI::dbExecute(.con, glue::glue_sql("CREATE DATABASE IF NOT EXISTS {`database_name`};USE {`database_name`};", .con = .con))
   }
 
   Sys.sleep(1)
   # Create schema
-  DBI::dbExecute(.con, glue::glue_sql("CREATE SCHEMA IF NOT EXISTS {`schema_name`};", .con = .con))
-  DBI::dbExecute(.con, glue::glue_sql("USE {`schema_name`};", .con = .con))
-
+  if(md_con_indicator){
+  DBI::dbExecute(.con, glue::glue_sql("CREATE SCHEMA IF NOT EXISTS {`schema_name`}; USE {`schema_name`};", .con = .con))
+}
 
   date_vec <- Sys.Date()
   time_vec <- format(Sys.time(), "%H:%M:%S  %Z",tz = Sys.timezone())
@@ -301,17 +311,9 @@ create_table_dbi <- function(.data,.con,database_name,schema_name,table_name,wri
     ) |>
     dbplyr::remote_query()
 
-  # Use DBI::Id to ensure schema is used explicitly
-
-  if(!md_con_indicator){
-
-    database_name <- pwd(.con)$current_database
-  }
-
-  # table_id <- DBI::Id(database=database_name,schema = schema_name, table = table_name)
-  # table_id <- DBI::Id(table = table_name)
 
   table_name_id <- DBI::dbQuoteIdentifier(.con,table_name)
+
   # Write table
   if (write_type == "overwrite") {
 
@@ -366,7 +368,6 @@ create_table_dbi <- function(.data,.con,database_name,schema_name,table_name,wri
 #'   [dbplyr::remote_query()]
 create_table <- function(.data,.con,database_name,schema_name,table_name,write_type="overwrite"){
 
-
   data_class <- class(.data)
 
   if(!any(data_class %in% c("tbl_dbi","data.frame"))){
@@ -388,15 +389,11 @@ create_table <- function(.data,.con,database_name,schema_name,table_name,write_t
     )
   }
 
-
   cli::cli_h1("Status:")
   validate_md_connection_status(.con)
   cli_show_user(.con)
   cli_show_db(.con)
   cli_create_obj(.con,database_name = database_name,schema_name = schema_name,write_type = write_type)
-
-
-
 
 }
 

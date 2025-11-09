@@ -2,27 +2,60 @@
 % Please edit documentation in R/utils-md.R
 \name{validate_extension_install_status}
 \alias{validate_extension_install_status}
-\title{Validate that the Motherduck extension correctly loaded}
+\title{Validate Installed MotherDuck/DuckDB Extensions}
 \usage{
 validate_extension_install_status(.con, extension_names, return_type = "msg")
 }
 \arguments{
-\item{.con}{connection obj}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
-\item{extension_names}{list of extension names that you want to validate}
+\item{extension_names}{A character vector of extensions to validate.}
 
-\item{return_type}{'msg' or 'ext'}
+\item{return_type}{One of \code{"msg"}, \code{"ext"}, or \code{"arg"}. Determines the type of return value.
+\itemize{
+\item \code{"msg"} prints CLI messages.
+\item \code{"ext"} returns a list of installed and failed extensions.
+\item \code{"arg"} returns TRUE if all requested extensions are installed, FALSE otherwise.
+}}
 }
 \value{
-message or extension names
+Depending on \code{return_type}:
+\itemize{
+\item \code{"msg"}: prints CLI messages (invisible \code{NULL}).
+\item \code{"ext"}: list with \code{success_ext} and \code{fail_ext}.
+\item \code{"arg"}: logical indicating if all requested extensions are installed.
+}
 }
 \description{
-Validate that the Motherduck extension correctly loaded
+Checks whether specified DuckDB or MotherDuck extensions are installed and provides a detailed status report.
+}
+\details{
+The \code{validate_extension_install_status()} function validates the current connection and
+checks which of the requested extensions are installed. It produces a detailed CLI report
+showing which extensions are installed, not installed, or missing.
+
+The function can return different outputs based on the \code{return_type} argument:
+\itemize{
+\item \code{"msg"}: prints a CLI report with extension statuses.
+\item \code{"ext"}: returns a list containing \code{success_ext} (installed) and \code{fail_ext} (not installed).
+\item \code{"arg"}: returns a logical value indicating whether all requested extensions are installed.
+}
 }
 \examples{
 \dontrun{
-library(DBI)
-con <- dbConnect(duckdb::duckdb())
-validate_extension_install_status(con,extension_names=c('excelA','arrow'),return_type='ext')
+con <- DBI::dbConnect(duckdb::duckdb())
+
+# Print CLI report
+validate_extension_install_status(con, extension_names = c("arrow", "excel"), return_type = "msg")
+
+# Return a list of installed and failed extensions
+validate_extension_install_status(con, extension_names = c("arrow", "excel"), return_type = "ext")
+
+# Return logical indicating if all requested extensions are installed
+validate_extension_install_status(con, extension_names = c("arrow", "excel"), return_type = "arg")
 }
+
+}
+\seealso{
+\code{\link[=load_extensions]{load_extensions()}}, \code{\link[=list_extensions]{list_extensions()}},\code{\link[=install_extensions]{install_extensions()}},\code{\link[=validate_extension_load_status]{validate_extension_load_status()}},\code{\link[=validate_extension_install_status]{validate_extension_install_status()}}
 }

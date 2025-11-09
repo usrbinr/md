@@ -1,18 +1,42 @@
 
-#' @title List motherduck extensions, their description and status
+#' @title List MotherDuck/DuckDB Extensions
 #' @name list_extensions
-#' @param .con DuckDB connection
-#' @description
-#' Lists available DuckDB extensions, their description, load / installed status and more
 #'
-#' @returns tibble
-#' @export
+#' @description
+#' Retrieves all available DuckDB or MotherDuck extensions along with their descriptions,
+#' installation and load status.
+#'
+#' @details
+#' The `list_extensions()` function queries the database for all extensions that are
+#' available in the current DuckDB or MotherDuck connection. The returned tibble includes
+#' information such as:
+#' - `extension_name`: Name of the extension.
+#' - `description`: Short description of the extension.
+#' - `installed`: Logical indicating if the extension is installed.
+#' - `loaded`: Logical indicating if the extension is currently loaded.
+#'
+#' This is useful for determining which extensions can be installed or loaded using
+#' `install_extensions()` or `load_extensions()`.
+#'
+#' @inheritParams validate_con
+#'
+#' @returns A tibble with one row per extension and columns describing its metadata
+#' and current status.
 #'
 #' @examples
 #' \dontrun{
 #' con <- DBI::dbConnect(duckdb::duckdb())
+#'
+#' # List all available extensions
 #' list_extensions(con)
+#'
+#' DBI::dbDisconnect(con)
 #' }
+#'
+#' @seealso
+#' [load_extensions()], [install_extensions()],[validate_extension_install_status()],[validate_extension_load_status()],[validate_extension_install_status()]
+#'
+#' @export
 list_extensions <- function(.con){
 
   validate_con(.con)
@@ -29,21 +53,55 @@ list_extensions <- function(.con){
 
 }
 
-#' @title Validate  Motherduck extensions are correctly loaded
+
+
+
+#' @title Validate Loaded MotherDuck/DuckDB Extensions
 #' @name validate_extension_load_status
 #'
-#' @param .con connection obj
-#' @param extension_names list of extension names that you want to validate
-#' @param return_type 'msg' or 'ext'
+#' @description
+#' Checks whether specified DuckDB or MotherDuck extensions are loaded in the current session and provides a detailed status report.
 #'
-#' @returns message or extension names
-#' @export
+#' @details
+#' The `validate_extension_load_status()` function validates the current connection, then
+#' checks which of the requested extensions are loaded. It produces a detailed CLI report
+#' showing which extensions are loaded, failed to load, or missing.
+#'
+#' Depending on the `return_type` argument, the function can either print messages, return
+#' a list of extension statuses, or return a logical value indicating whether all requested
+#' extensions are successfully loaded.
+#'
+#' @inheritParams validate_con
+#' @param extension_names A character vector of extensions to validate.
+#' @param return_type One of `"msg"`, `"ext"`, or `"arg"`. Determines the type of return value:
+#'   - `"msg"` prints CLI messages.
+#'   - `"ext"` returns a list with `success_ext`, `fail_ext`, and `missing_ext`.
+#'   - `"arg"` returns TRUE if all requested extensions are loaded, FALSE otherwise.
+#'
+#' @returns
+#' Depending on `return_type`:
+#' - `"msg"`: prints CLI messages (invisible `NULL`).
+#' - `"ext"`: list with `success_ext`, `fail_ext`, and `missing_ext`.
+#' - `"arg"`: logical indicating if all requested extensions are loaded.
 #'
 #' @examples
 #' \dontrun{
 #' con <- DBI::dbConnect(duckdb::duckdb())
-#' validate_extension_load_status(con,extension_names=c('excel','arrow'),return_type='ext')
+#'
+#' # Print CLI report
+#' validate_extension_load_status(con, extension_names = c("excel", "arrow"), return_type = "msg")
+#'
+#' # Return a list of loaded, failed, and missing extensions
+#' validate_extension_load_status(con, extension_names = c("excel", "arrow"), return_type = "ext")
+#'
+#' # Return logical indicating if all requested extensions are loaded
+#' validate_extension_load_status(con, extension_names = c("excel", "arrow"), return_type = "arg")
 #' }
+#'
+#' @seealso
+#' [load_extensions()], [list_extensions()],[install_extensions()],[validate_extension_install_status()]
+#'
+#' @export
 validate_extension_load_status <- function(.con,extension_names,return_type="msg"){
 
 
@@ -148,22 +206,56 @@ validate_extension_load_status <- function(.con,extension_names,return_type="msg
 }
 
 
-#' @title Validate that the Motherduck extension correctly loaded
+
+
+
+#' @title Validate Installed MotherDuck/DuckDB Extensions
 #' @name validate_extension_install_status
 #'
-#' @param .con connection obj
-#' @param extension_names list of extension names that you want to validate
-#' @param return_type 'msg' or 'ext'
+#' @description
+#' Checks whether specified DuckDB or MotherDuck extensions are installed and provides a detailed status report.
 #'
-#' @returns message or extension names
-#' @export
+#' @details
+#' The `validate_extension_install_status()` function validates the current connection and
+#' checks which of the requested extensions are installed. It produces a detailed CLI report
+#' showing which extensions are installed, not installed, or missing.
+#'
+#' The function can return different outputs based on the `return_type` argument:
+#' - `"msg"`: prints a CLI report with extension statuses.
+#' - `"ext"`: returns a list containing `success_ext` (installed) and `fail_ext` (not installed).
+#' - `"arg"`: returns a logical value indicating whether all requested extensions are installed.
+#'
+#' @inheritParams validate_con
+#' @param extension_names A character vector of extensions to validate.
+#' @param return_type One of `"msg"`, `"ext"`, or `"arg"`. Determines the type of return value.
+#'   - `"msg"` prints CLI messages.
+#'   - `"ext"` returns a list of installed and failed extensions.
+#'   - `"arg"` returns TRUE if all requested extensions are installed, FALSE otherwise.
+#'
+#' @returns
+#' Depending on `return_type`:
+#' - `"msg"`: prints CLI messages (invisible `NULL`).
+#' - `"ext"`: list with `success_ext` and `fail_ext`.
+#' - `"arg"`: logical indicating if all requested extensions are installed.
 #'
 #' @examples
 #' \dontrun{
-#' library(DBI)
-#' con <- dbConnect(duckdb::duckdb())
-#' validate_extension_install_status(con,extension_names=c('excelA','arrow'),return_type='ext')
+#' con <- DBI::dbConnect(duckdb::duckdb())
+#'
+#' # Print CLI report
+#' validate_extension_install_status(con, extension_names = c("arrow", "excel"), return_type = "msg")
+#'
+#' # Return a list of installed and failed extensions
+#' validate_extension_install_status(con, extension_names = c("arrow", "excel"), return_type = "ext")
+#'
+#' # Return logical indicating if all requested extensions are installed
+#' validate_extension_install_status(con, extension_names = c("arrow", "excel"), return_type = "arg")
 #' }
+#'
+#' @seealso
+#' [load_extensions()], [list_extensions()],[install_extensions()],[validate_extension_load_status()],[validate_extension_install_status()]
+#'
+#' @export
 validate_extension_install_status <- function(.con,extension_names,return_type="msg"){
 
   ## need to first validate those that are returned from the table
@@ -267,22 +359,45 @@ validate_extension_install_status <- function(.con,extension_names,return_type="
 
 
 
-#' @title Install motherduck extensions
+#' @title Install DuckDB/MotherDuck Extensions
 #' @name install_extensions
+#'
 #' @description
-#' Installs and loads valid DuckDB extensions
+#' Installs valid DuckDB or MotherDuck extensions for the current connection.
 #'
-#' @param .con duckdb connection
-#' @param extension_names DuckDB extension names
+#' @details
+#' The `install_extensions()` function validates the provided DuckDB/MotherDuck connection,
+#' then checks which of the requested extensions are valid. Valid extensions that are not
+#' already installed are installed using the `INSTALL` SQL command. Invalid extensions are
+#' reported to the user via CLI messages. This function provides a summary report
+#' describing which extensions were successfully installed and which were invalid.
 #'
-#' @returns message
-#' @export
+#' Unlike `load_extensions()`, this function focuses purely on installation and does not
+#' automatically load extensions after installing.
+#'
+#' @inheritParams validate_con
+#' @param extension_names A character vector of DuckDB/MotherDuck extension names to install.
+#'
+#' @returns Invisibly returns `NULL`. A detailed CLI report of installation success/failure
+#' is printed.
 #'
 #' @examples
 #' \dontrun{
 #' con <- DBI::dbConnect(duckdb::duckdb())
-#' install_extensions(con,'motherduck',silent_msg=TRUE)
-#'}
+#'
+#' # Install the 'motherduck' extension
+#' install_extensions(con, "motherduck")
+#'
+#' # Install multiple extensions
+#' install_extensions(con, c("fts", "httpfs"))
+#'
+#' DBI::dbDisconnect(con)
+#' }
+#'
+#' @seealso
+#' [load_extensions()], [list_extensions()],[validate_extension_install_status()],[validate_extension_load_status()]
+#'
+#' @export
 install_extensions <- function(.con,extension_names){
 
   # extension_names <- c("fts")
@@ -353,23 +468,45 @@ install_extensions <- function(.con,extension_names){
 }
 
 
-#' @title Loand (and install) motherduck extensions
+#' @title Load and Install DuckDB/MotherDuck Extensions
 #' @name load_extensions
+#'
 #' @description
-#' Installs and loads valid DuckDB extensions
+#' Installs (if necessary) and loads valid DuckDB or MotherDuck extensions for the active connection.
 #'
-#' @param .con duckdb connection
-#' @param extension_names DuckDB extension names
+#' @details
+#' The `load_extensions()` function first validates the provided DuckDB/MotherDuck connection,
+#' then checks which of the requested extensions are valid and not already installed.
+#' Valid extensions are installed and loaded into the current session. Invalid extensions
+#' are reported to the user. The function provides a detailed CLI report summarizing which
+#' extensions were successfully installed and loaded, and which were invalid.
 #'
-#' @returns message
-#' @export
+#' It is especially useful for ensuring that required extensions, such as `motherduck`,
+#' are available in your database session. The CLI messages also provide guidance on
+#' listing all available extensions and installing additional DuckDB extensions.
+#'
+#' @inheritParams validate_con
+#' @param extension_names A character vector of DuckDB/MotherDuck extension names to load/install.
+#'
+#' @returns Invisibly returns `NULL`. The function prints a CLI report of the extension status.
 #'
 #' @examples
 #' \dontrun{
 #' con <- DBI::dbConnect(duckdb::duckdb())
-#' load_extensions(con,'motherduck')
+#'
+#' # Install and load the 'motherduck' extension
+#' load_extensions(con, "motherduck")
+#'
+#' # Load multiple extensions
+#' load_extensions(con, c("motherduck", "httpfs"))
+#'
+#' DBI::dbDisconnect(con)
 #' }
 #'
+#' @seealso
+#' [list_extensions()], [install_extensions()]
+#'
+#' @export
 load_extensions <- function(.con,extension_names){
 
   # extension_names <- c("motherduck")
@@ -449,14 +586,34 @@ load_extensions <- function(.con,extension_names){
 
 
 
-#' @title Show your motherduck token
+#' @title Show Your MotherDuck Token
 #' @name show_motherduck_token
 #'
-#' @param .con connection
+#' @description
+#' Displays the active MotherDuck authentication token associated with the current connection.
+#' Useful for debugging or verifying that your session is authenticated correctly.
 #'
-#' @returns message
+#' @details
+#' The `show_motherduck_token()` function executes the internal MotherDuck pragma
+#' `print_md_token` and returns the token information. This function should only be
+#' used in secure environments, as it exposes your authentication token in plain text.
+#' It requires a valid MotherDuck connection established with `DBI::dbConnect()`.
+#'
+#' @inheritParams validate_con
+#'
+#' @returns A tibble containing the current MotherDuck token.
+#'
+#' @examples
+#' \dontrun{
+#' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = "md:")
+#' show_motherduck_token(con)
+#' DBI::dbDisconnect(con)
+#' }
+#'
+#' @seealso
+#' [connect_to_motherduck]
+#'
 #' @export
-#'
 show_motherduck_token <- function(.con){
 
   validate_con(.con)
@@ -466,52 +623,41 @@ show_motherduck_token <- function(.con){
 }
 
 
-
-
-
-
-
-
-#' Show DuckDB settings
-#'
-#' @param .con connection
-#'
-#' @returns tibble
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' con <- DBI::dbConnect(duckdb::duckdb())
-#' show_duckdb_settings(con)
-#' }
-show_duckdb_settings <- function(.con){
-
-  validate_con(.con)
-
- out <-  DBI::dbGetQuery(.con,"SELECT * from duckdb_settings();") |> tibble::as_tibble()
-
- return(out)
-
-}
-
-
-
-
-#' @title  Print current databases
+#' @title Print Current MotherDuck Database Context
 #' @name pwd
+#'
 #' @description
-#' Prints the current database that you are in (adopts language from linux)
+#' Displays the current database, schema, and role for the active DuckDB/MotherDuck connection.
+#' This mirrors the behavior of `pwd` in Linux by showing your current “working database.”
 #'
-#' @param .con motherdudck connection
+#' @details
+#' The `pwd()` function is a helper for inspecting the current database context of a DuckDB
+#' or MotherDuck connection. It queries the database for the current database, schema, and role.
+#' The database and schema are returned as a tibble for easy programmatic access, while the
+#' role is displayed using a CLI alert. This is especially useful in multi-database environments
+#' or when working with different user roles, providing a quick way to verify where SQL queries
+#' will be executed.
 #'
-#' @returns tibble
-#' @export
+#' @inheritParams validate_con
+#'
+#' @returns
+#' A tibble with columns:
+#' \describe{
+#'   \item{current_database}{The active database name.}
+#'   \item{current_schema}{The active schema name.}
+#' }
+#' The current role is printed to the console via `cli`.
 #'
 #' @examples
 #' \dontrun{
 #' con <- DBI::dbConnect(duckdb::duckdb())
 #' pwd(con)
 #' }
+#'
+#' @seealso
+#' [validate_con()], [list_databases()], [list_schemas()]
+#'
+#' @export
 pwd <- function(.con){
 
   validate_con(.con)
@@ -536,15 +682,54 @@ pwd <- function(.con){
 }
 
 
-#' Change Database
+
+
+#' @title Change Active Database and Schema
+#' @name cd
+#' @description
+#' Switches the active database and (optionally) schema for a valid
+#' DuckDB or MotherDuck connection. The function validates the target
+#' database and schema before executing the `USE` command and provides
+#' user feedback via CLI messages.
 #'
-#' @param .con connection
-#' @param database_name database name
-#' @param schema_name schema name
+#' @details
+#' The `cd()` function is analogous to a "change directory" command in a
+#' file system, but for database contexts. It updates the currently active
+#' database (and optionally schema) for the given connection. If the target
+#' database or schema does not exist, the function aborts with a descriptive
+#' CLI error message.
 #'
-#' @returns message
+#' @inheritParams validate_con
+#' @param database_name A character string specifying the database to switch to.
+#'   Must be one of the available databases returned by [list_databases()].
+#' @param schema_name (Optional) A character string specifying the schema
+#'   to switch to within the given database. Must be one of the available
+#'   schemas returned by [list_schemas()].
+#'
+#' @returns
+#' Invisibly returns a message summarizing the new connection context.
+#' Side effects include printing CLI headers showing the current user
+#' and database context.
+#'
+#' @examples
+#' \dontrun{
+#' # Connect to MotherDuck
+#' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = "md:")
+#'
+#' # List available databases
+#' list_databases(con)
+#'
+#' # Change to a specific database and schema
+#' cd(con, database_name = "analytics_db", schema_name = "public")
+#'
+#' # Disconnect
+#' DBI::dbDisconnect(con)
+#' }
+#'
+#' @seealso
+#' [list_databases()], [list_schemas()],[pwd()]
+#'
 #' @export
-#'
 cd <- function(.con,database_name,schema_name){
 
   validate_con(.con)
@@ -552,7 +737,7 @@ cd <- function(.con,database_name,schema_name){
   database_valid_vec <- list_databases(.con) |>
     dplyr::pull(database_name)
 
-  if(database_name %in% database_valid_vec){
+  if(any(database_name %in% database_valid_vec)){
 
     DBI::dbExecute(.con,glue::glue("USE {database_name};"))
 
@@ -575,13 +760,6 @@ cd <- function(.con,database_name,schema_name){
 
     DBI::dbExecute(.con,glue::glue("USE {schema_name};"))
 
-    # current_schema_vec <-   suppressMessages(
-    #   pwd(.con) |>
-    #   dplyr::pull(current_schema)
-    # )
-    #
-    # cli::cli_text("Current schema: {.pkg {current_schema_vec}}")
-
   }else{
 
     cli::cli_abort("
@@ -589,9 +767,8 @@ cd <- function(.con,database_name,schema_name){
                    Use {.fn list_schemas} to list valid schemas.
                    Valid Schemas in  {.pkg {database_name}} are {.val {schema_valid_vec}}
                    ")
+    }
   }
-  }
-
 
   cli::cli_h1("Status:")
   cli_show_user(.con)
@@ -603,15 +780,50 @@ cd <- function(.con,database_name,schema_name){
 
 
 
-
-#' Summarize for DBI objects
+#' @title Summarize a Lazy DBI Table
+#' @name summary
 #'
-#' @param object dbi object
-#' @param ... addtional argments, unused
+#' @description
+#' The `summary.tbl_lazy()` method provides a database-aware summary interface
+#' for lazy tables created via **dbplyr**. Instead of collecting data into R,
+#' it constructs a SQL `SUMMARIZE` query and executes it remotely, returning
+#' another lazy table reference.
 #'
-#' @returns DBI object
+#' @param object A [`tbl_lazy`][dbplyr::tbl_lazy] object representing a remote
+#'   database table or query.
+#' @param ... Additional arguments (currently unused). Present for S3 method
+#'   compatibility.
+#'
+#' @returns
+#' A [`tbl_lazy`][dbplyr::tbl_lazy] object containing the summarized results,
+#' still backed by the remote database connection.
+#'
+#' @details
+#' This method does **not** pull data into memory. Instead, it creates a new
+#' lazy query object representing the database-side summary. To retrieve the
+#' summarized data, use `collect()` on the returned object.
+#'
+#' @examples
+#' \dontrun{
+#' library(DBI)
+#' library(duckdb)
+#' library(dplyr)
+#'
+#' con <- dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+#' dbWriteTable(con, "mtcars", mtcars)
+#'
+#' tbl_obj <- tbl(con, "mtcars")
+#'
+#' # Returns a lazy summary table
+#' summary(tbl_obj)
+#'
+#' dbDisconnect(con)
+#' }
+#'
+#' @seealso
+#' [dplyr::tbl()], [dplyr::collect()], [validate_con()]
+#'
 #' @export
-
 summary.tbl_lazy <- function(object, ...){
 
   con <- dbplyr::remote_con(object)
@@ -633,16 +845,42 @@ summary.tbl_lazy <- function(object, ...){
 
 
 
-
-
-
-#' @title List database settings
-#' @name list_settings
-#' @param .con dubdb or md connection
+#' @title List Database Settings
+#' @name list_setting
 #'
-#' @returns tibble
+#' @description
+#' The `list_setting()` function provides a convenient way to inspect the
+#' active configuration of a DuckDB or MotherDuck connection. It executes
+#' the internal DuckDB function `duckdb_settings()` and returns the results
+#' as a tidy tibble for easy viewing or filtering.
+#'
+#' @details
+#' This function is particularly useful for debugging or auditing runtime
+#' environments. All settings are returned as character columns, including
+#' their names, current values, and default values.
+#'
+#' @inheritParams validate_con
+#'
+#' @returns
+#' A [tibble] containing one row per setting with columns
+#' describing the setting name, current value, description, and default value.
+#'
+#' @examples
+#' \dontrun{
+#' # Connect to DuckDB
+#' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+#'
+#' # List all database settings
+#' list_setting(con)
+#'
+#' # Disconnect
+#' DBI::dbDisconnect(con)
+#' }
+#'
+#' @seealso
+#' [list_shares]
+#'
 #' @export
-#'
 list_setting <- function(.con){
 
   out <- DBI::dbGetQuery(
@@ -661,48 +899,60 @@ list_setting <- function(.con){
 
 
 
-# sample_frac.tbl_lazy <- function(.con,table_name,frac_prop){
-#
-#   # table_name <- "orders"
-#   # frac_prop <- 10
-#
-#   validate_md_connection_status(.con,return_type = "msg")
-#
-#   out <-  dplyr::tbl(
-#     .con
-#     ,dplyr::sql(
-#       paste0("
-#            SELECT * FROM ",table_name," USING SAMPLE ",frac_prop,"%"
-#       )
-#     )
-#   )
-#
-#   return(out)
-#
-# }
-
-
-#' Title
+#' @title List MotherDuck Shares
+#' @name list_shares
 #'
-#' @param .con connection
+#' @description
+#' The `list_shares()` function provides a convenient wrapper around the
+#' MotherDuck SQL command `LIST SHARES;`. It validates that the supplied
+#' connection is an active MotherDuck connection before executing the query.
+#' If the connection is not valid, the function returns `0` instead of a table.
 #'
-#' @returns message
+#' @details
+#' MotherDuck supports object sharing, which allows users to list and access
+#' data shared between accounts. This function helps programmatically inspect
+#' available shares within an authenticated MotherDuck session.
+#' @inheritParams validate_con
+#' @returns
+#' A [tibble] containing details of available shares if
+#' the connection is an MD connection or an empty tibble if not
+#'
+#' @examples
+#' \dontrun{
+#' # Connect to MotherDuck
+#' con <- DBI::dbConnect(duckdb::duckdb(), dbdir = "md:")
+#'
+#' # List shares
+#' list_shares(con)
+#'
+#' # Disconnect
+#' DBI::dbDisconnect(con)
+#' }
+#'
+#' @seealso [list_setting]
+#'
 #' @export
-#'
 list_shares <- function(.con){
 
-  out <- DBI::dbGetQuery(
-    .con
-    ,"LIST SHARES;"
-  ) |>
-    tibble::as_tibble()
+
+  valid_md <- validate_md_connection_status(.con,return_type = "arg")
+
+  if(valid_md){
+
+  out <- DBI::dbGetQuery(.con,"LIST SHARES;") |>
+    dplyr::as_tibble()
+  }else{
+    out <- tibble::tibble()
+  }
 
   return(out)
 
 }
 
 
-
+#' @importFrom contoso launch_ui
+#' @export
+contoso::launch_ui
 
 
 

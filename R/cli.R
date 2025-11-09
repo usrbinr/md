@@ -30,7 +30,10 @@ cli_create_obj <- function(.con, database_name, schema_name, table_name, write_t
 
     # Step 2: If no database name is provided, get the current database from the connection
     if (missing(database_name)) {
+
+        suppressMessages(
         database_name <- pwd(.con) |> dplyr::pull(current_database)
+        )
     }
 
     # Step 3: Check how many tables are in the provided database by filtering
@@ -57,7 +60,9 @@ cli_create_obj <- function(.con, database_name, schema_name, table_name, write_t
 
     # Step 6: If no schema name is provided, get the current schema from the connection
     if (missing(schema_name)) {
+        suppressMessages(
         schema_name <- pwd(.con) |> dplyr::pull(current_schema)
+        )
     }
 
     # Step 7: If schema name is provided, check how many tables exist in the schema
@@ -179,6 +184,8 @@ cli_show_db <- function(.con) {
 
     # Step 1: Get the number of shares the user has access to
     # Calls `md::list_shares` to list all shares and counts the rows
+
+
     suppressWarnings(
     share_count <- md::list_shares(.con) |> nrow()
     )

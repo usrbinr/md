@@ -2,16 +2,41 @@
 % Please edit documentation in R/utils-md.R
 \name{list_shares}
 \alias{list_shares}
-\title{Title}
+\title{List MotherDuck Shares}
 \usage{
 list_shares(.con)
 }
 \arguments{
-\item{.con}{connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-message
+A \link[tibble:tibble]{tibble::tibble} containing details of available shares if
+the connection is an MD connection or an empty tibble if not
 }
 \description{
-Title
+The \code{list_shares()} function provides a convenient wrapper around the
+MotherDuck SQL command \verb{LIST SHARES;}. It validates that the supplied
+connection is an active MotherDuck connection before executing the query.
+If the connection is not valid, the function returns \code{0} instead of a table.
+}
+\details{
+MotherDuck supports object sharing, which allows users to list and access
+data shared between accounts. This function helps programmatically inspect
+available shares within an authenticated MotherDuck session.
+}
+\examples{
+\dontrun{
+# Connect to MotherDuck
+con <- DBI::dbConnect(duckdb::duckdb(), dbdir = "md:")
+
+# List shares
+list_shares(con)
+
+# Disconnect
+DBI::dbDisconnect(con)
+}
+
+}
+\seealso{
+\link{list_setting}
 }

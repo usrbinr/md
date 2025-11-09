@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.25">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>show_duckdb_settings – md</title>
+<title>summary – md</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../reference.qmd"> 
+<span class="menu-text">Reference</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/usrbinr/md/"> <i class="bi bi-github" role="img" aria-label="md GitHub">
 </i> 
@@ -330,28 +336,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         
     <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="undefined"><i class="bi bi-link-45deg"></i></a></li></ul></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header><section id="show-duckdb-settings" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="show-duckdb-settings">Show DuckDB settings</h2>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header><section id="summarize-a-lazy-dbi-table" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="summarize-a-lazy-dbi-table">Summarize a Lazy DBI Table</h2>
 <section id="description" class="level3"><h3 class="anchored" data-anchor-id="description">Description</h3>
-<p>Show DuckDB settings</p>
+<p>The <code>summary.tbl_lazy()</code> method provides a database-aware summary interface for lazy tables created via <strong>dbplyr</strong>. Instead of collecting data into R, it constructs a SQL <code>SUMMARIZE</code> query and executes it remotely, returning another lazy table reference.</p>
 </section><section id="usage" class="level3"><h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<pre><code class="language-R">show_duckdb_settings(.con)
+<pre><code class="language-R">## S3 method for class 'tbl_lazy'
+summary(object, ...)
 </code></pre>
 </section><section id="arguments" class="level3"><h3 class="anchored" data-anchor-id="arguments">Arguments</h3>
-<table role="presentation"><tbody><tr>
+<table role="presentation">
+<tbody><tr>
 <td style="white-space: collapse; font-family: monospace; vertical-align: top">
-<code id=".con">.con</code>
+<code id="object">object</code>
 </td>
 <td>
-connection
+A <code>tbl_lazy</code> object representing a remote database table or query.
 </td>
-</tr></tbody></table></section><section id="value" class="level3"><h3 class="anchored" data-anchor-id="value">Value</h3>
-<p>tibble</p>
+</tr>
+<tr>
+<td style="white-space: collapse; font-family: monospace; vertical-align: top">
+<code id="...">…</code>
+</td>
+<td>
+Additional arguments (currently unused). Present for S3 method compatibility.
+</td>
+</tr>
+</tbody></table></section><section id="details" class="level3"><h3 class="anchored" data-anchor-id="details">Details</h3>
+<p>This method does <strong>not</strong> pull data into memory. Instead, it creates a new lazy query object representing the database-side summary. To retrieve the summarized data, use <code><a href="https://dplyr.tidyverse.org/reference/compute.html">collect()</a></code> on the returned object.</p>
+</section><section id="value" class="level3"><h3 class="anchored" data-anchor-id="value">Value</h3>
+<p>A <code>tbl_lazy</code> object containing the summarized results, still backed by the remote database connection.</p>
+</section><section id="see-also" class="level3"><h3 class="anchored" data-anchor-id="see-also">See Also</h3>
+<p><code><a href="https://dplyr.tidyverse.org/reference/tbl.html">dplyr::tbl()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/compute.html">dplyr::collect()</a></code>, <code>validate_con()</code></p>
 </section><section id="examples" class="level3"><h3 class="anchored" data-anchor-id="examples">Examples</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://usrbinr.github.io/md/">"md"</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://usrbinr.github.io/md/man/show_duckdb_settings.html">show_duckdb_settings</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dbi.r-dbi.org">DBI</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.duckdb.org/">duckdb</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span>, dbdir <span class="op">=</span> <span class="st">":memory:"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbWriteTable.html">dbWriteTable</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"mtcars"</span>, <span class="va">mtcars</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tbl_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"mtcars"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Returns a lazy summary table</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">tbl_obj</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

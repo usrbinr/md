@@ -11,6 +11,9 @@ website:
       - icon: github
         href: $ALTDOC_PACKAGE_URL_GITHUB
         aria-label: "$ALTDOC_PACKAGE_NAME GitHub"
+    left:
+      - text: "Reference"
+        href: reference.qmd   # <-- this makes your reference.qmd appear in the navbar
 
   sidebar:
     collapse-level: 1

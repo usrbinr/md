@@ -2,22 +2,40 @@
 % Please edit documentation in R/utils-md.R
 \name{pwd}
 \alias{pwd}
-\title{Print current databases}
+\title{Print Current MotherDuck Database Context}
 \usage{
 pwd(.con)
 }
 \arguments{
-\item{.con}{motherdudck connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-tibble
+A tibble with columns:
+\describe{
+\item{current_database}{The active database name.}
+\item{current_schema}{The active schema name.}
+}
+The current role is printed to the console via \code{cli}.
 }
 \description{
-Prints the current database that you are in (adopts language from linux)
+Displays the current database, schema, and role for the active DuckDB/MotherDuck connection.
+This mirrors the behavior of \code{pwd} in Linux by showing your current “working database.”
+}
+\details{
+The \code{pwd()} function is a helper for inspecting the current database context of a DuckDB
+or MotherDuck connection. It queries the database for the current database, schema, and role.
+The database and schema are returned as a tibble for easy programmatic access, while the
+role is displayed using a CLI alert. This is especially useful in multi-database environments
+or when working with different user roles, providing a quick way to verify where SQL queries
+will be executed.
 }
 \examples{
 \dontrun{
 con <- DBI::dbConnect(duckdb::duckdb())
 pwd(con)
 }
+
+}
+\seealso{
+\code{\link[=validate_con]{validate_con()}}, \code{\link[=list_databases]{list_databases()}}, \code{\link[=list_schemas]{list_schemas()}}
 }

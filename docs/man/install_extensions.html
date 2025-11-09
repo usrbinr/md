@@ -115,7 +115,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../reference.qmd"> 
+<span class="menu-text">Reference</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/usrbinr/md/"> <i class="bi bi-github" role="img" aria-label="md GitHub">
 </i> 
@@ -330,9 +336,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         
     <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="undefined"><i class="bi bi-link-45deg"></i></a></li></ul></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header><section id="install-motherduck-extensions" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="install-motherduck-extensions">Install motherduck extensions</h2>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header><section id="install-duckdbmotherduck-extensions" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="install-duckdbmotherduck-extensions">Install DuckDB/MotherDuck Extensions</h2>
 <section id="description" class="level3"><h3 class="anchored" data-anchor-id="description">Description</h3>
-<p>Installs and loads valid DuckDB extensions</p>
+<p>Installs valid DuckDB or MotherDuck extensions for the current connection.</p>
 </section><section id="usage" class="level3"><h3 class="anchored" data-anchor-id="usage">Usage</h3>
 <pre><code class="language-R">install_extensions(.con, extension_names)
 </code></pre>
@@ -343,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <code id=".con">.con</code>
 </td>
 <td>
-duckdb connection
+A valid <code>DBI</code> connection (DuckDB / MotherDuck).
 </td>
 </tr>
 <tr>
@@ -351,17 +357,29 @@ duckdb connection
 <code id="extension_names">extension_names</code>
 </td>
 <td>
-DuckDB extension names
+A character vector of DuckDB/MotherDuck extension names to install.
 </td>
 </tr>
-</tbody></table></section><section id="value" class="level3"><h3 class="anchored" data-anchor-id="value">Value</h3>
-<p>message</p>
+</tbody></table></section><section id="details" class="level3"><h3 class="anchored" data-anchor-id="details">Details</h3>
+<p>The <code><a href="https://usrbinr.github.io/md/man/install_extensions.html">install_extensions()</a></code> function validates the provided DuckDB/MotherDuck connection, then checks which of the requested extensions are valid. Valid extensions that are not already installed are installed using the <code>INSTALL</code> SQL command. Invalid extensions are reported to the user via CLI messages. This function provides a summary report describing which extensions were successfully installed and which were invalid.</p>
+<p>Unlike <code><a href="https://usrbinr.github.io/md/man/load_extensions.html">load_extensions()</a></code>, this function focuses purely on installation and does not automatically load extensions after installing.</p>
+</section><section id="value" class="level3"><h3 class="anchored" data-anchor-id="value">Value</h3>
+<p>Invisibly returns <code>NULL</code>. A detailed CLI report of installation success/failure is printed.</p>
+</section><section id="see-also" class="level3"><h3 class="anchored" data-anchor-id="see-also">See Also</h3>
+<p><code><a href="https://usrbinr.github.io/md/man/load_extensions.html">load_extensions()</a></code>, <code><a href="https://usrbinr.github.io/md/man/list_extensions.html">list_extensions()</a></code>,<code><a href="https://usrbinr.github.io/md/man/validate_extension_install_status.html">validate_extension_install_status()</a></code>,<code><a href="https://usrbinr.github.io/md/man/validate_extension_load_status.html">validate_extension_load_status()</a></code></p>
 </section><section id="examples" class="level3"><h3 class="anchored" data-anchor-id="examples">Examples</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://usrbinr.github.io/md/">"md"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://usrbinr.github.io/md/man/install_extensions.html">install_extensions</a></span><span class="op">(</span><span class="va">con</span>,<span class="st">'motherduck'</span>,silent_msg<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span></span>
+<span><span class="co"># Install the 'motherduck' extension</span></span>
+<span><span class="fu"><a href="https://usrbinr.github.io/md/man/install_extensions.html">install_extensions</a></span><span class="op">(</span><span class="va">con</span>, <span class="st">"motherduck"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Install multiple extensions</span></span>
+<span><span class="fu"><a href="https://usrbinr.github.io/md/man/install_extensions.html">install_extensions</a></span><span class="op">(</span><span class="va">con</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"fts"</span>, <span class="st">"httpfs"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html">dbDisconnect</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

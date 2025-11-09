@@ -2,26 +2,57 @@
 % Please edit documentation in R/utils-md.R
 \name{validate_extension_load_status}
 \alias{validate_extension_load_status}
-\title{Validate  Motherduck extensions are correctly loaded}
+\title{Validate Loaded MotherDuck/DuckDB Extensions}
 \usage{
 validate_extension_load_status(.con, extension_names, return_type = "msg")
 }
 \arguments{
-\item{.con}{connection obj}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 
-\item{extension_names}{list of extension names that you want to validate}
+\item{extension_names}{A character vector of extensions to validate.}
 
-\item{return_type}{'msg' or 'ext'}
+\item{return_type}{One of \code{"msg"}, \code{"ext"}, or \code{"arg"}. Determines the type of return value:
+\itemize{
+\item \code{"msg"} prints CLI messages.
+\item \code{"ext"} returns a list with \code{success_ext}, \code{fail_ext}, and \code{missing_ext}.
+\item \code{"arg"} returns TRUE if all requested extensions are loaded, FALSE otherwise.
+}}
 }
 \value{
-message or extension names
+Depending on \code{return_type}:
+\itemize{
+\item \code{"msg"}: prints CLI messages (invisible \code{NULL}).
+\item \code{"ext"}: list with \code{success_ext}, \code{fail_ext}, and \code{missing_ext}.
+\item \code{"arg"}: logical indicating if all requested extensions are loaded.
+}
 }
 \description{
-Validate  Motherduck extensions are correctly loaded
+Checks whether specified DuckDB or MotherDuck extensions are loaded in the current session and provides a detailed status report.
+}
+\details{
+The \code{validate_extension_load_status()} function validates the current connection, then
+checks which of the requested extensions are loaded. It produces a detailed CLI report
+showing which extensions are loaded, failed to load, or missing.
+
+Depending on the \code{return_type} argument, the function can either print messages, return
+a list of extension statuses, or return a logical value indicating whether all requested
+extensions are successfully loaded.
 }
 \examples{
 \dontrun{
 con <- DBI::dbConnect(duckdb::duckdb())
-validate_extension_load_status(con,extension_names=c('excel','arrow'),return_type='ext')
+
+# Print CLI report
+validate_extension_load_status(con, extension_names = c("excel", "arrow"), return_type = "msg")
+
+# Return a list of loaded, failed, and missing extensions
+validate_extension_load_status(con, extension_names = c("excel", "arrow"), return_type = "ext")
+
+# Return logical indicating if all requested extensions are loaded
+validate_extension_load_status(con, extension_names = c("excel", "arrow"), return_type = "arg")
 }
+
+}
+\seealso{
+\code{\link[=load_extensions]{load_extensions()}}, \code{\link[=list_extensions]{list_extensions()}},\code{\link[=install_extensions]{install_extensions()}},\code{\link[=validate_extension_install_status]{validate_extension_install_status()}}
 }

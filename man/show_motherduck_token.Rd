@@ -2,16 +2,34 @@
 % Please edit documentation in R/utils-md.R
 \name{show_motherduck_token}
 \alias{show_motherduck_token}
-\title{Show your motherduck token}
+\title{Show Your MotherDuck Token}
 \usage{
 show_motherduck_token(.con)
 }
 \arguments{
-\item{.con}{connection}
+\item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-message
+A tibble containing the current MotherDuck token.
 }
 \description{
-Show your motherduck token
+Displays the active MotherDuck authentication token associated with the current connection.
+Useful for debugging or verifying that your session is authenticated correctly.
+}
+\details{
+The \code{show_motherduck_token()} function executes the internal MotherDuck pragma
+\code{print_md_token} and returns the token information. This function should only be
+used in secure environments, as it exposes your authentication token in plain text.
+It requires a valid MotherDuck connection established with \code{DBI::dbConnect()}.
+}
+\examples{
+\dontrun{
+con <- DBI::dbConnect(duckdb::duckdb(), dbdir = "md:")
+show_motherduck_token(con)
+DBI::dbDisconnect(con)
+}
+
+}
+\seealso{
+\link{connect_to_motherduck}
 }
