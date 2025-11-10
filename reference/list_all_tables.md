@@ -28,7 +28,8 @@ A `dbplyr` lazy tibble with columns:
 
 ## Details
 
-The result is a `dbplyr` lazy table (`tbl_dbi`). Use `collect()` to
+The result is a `dbplyr` lazy table (`tbl_dbi`). Use
+[`collect()`](https://dplyr.tidyverse.org/reference/compute.html) to
 bring results into R as a local tibble.
 
 ## See also

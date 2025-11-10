@@ -24,8 +24,9 @@ A `dbplyr` lazy tibble (`tbl_dbi`) with function metadata (e.g.,
 
 This wrapper validates the connection and then queries
 `duckdb_functions()` to enumerate function metadata. The result is a
-`dbplyr` lazy tibble (`tbl_dbi`); call `collect()` to materialize it in
-R.
+`dbplyr` lazy tibble (`tbl_dbi`); call
+[`collect()`](https://dplyr.tidyverse.org/reference/compute.html) to
+materialize it in R.
 
 ## See also
 

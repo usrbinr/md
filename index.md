@@ -41,7 +41,8 @@ if you have any feedback.
 - [duckdb](https://duckdb.org/) R package installed on your computer
 - A [motherduck](https://motherduck.com/) account
 - A motherduck access token which you you can be saved to your R
-  environment file with `usethis::edit_r_environ()`
+  environment file with
+  [`usethis::edit_r_environ()`](https://usethis.r-lib.org/reference/edit.html)
 
 ``` r
 con_md <- connect_to_motherduck("MOTHERDUCK_TOKEN")

@@ -254,6 +254,9 @@ A named character list. Example names and values include:
 ``` r
 # inspect the config
 md::config_db
+#> $access_mode
+#> [1] "automatic"
+#> 
 #> $allocator_background_threads
 #> [1] "false"
 #> 
@@ -311,6 +314,9 @@ md::config_db
 #> $custom_extension_repository
 #> [1] ""
 #> 
+#> $custom_user_agent
+#> [1] ""
+#> 
 #> $default_block_size
 #> [1] "262144"
 #> 
@@ -331,6 +337,12 @@ md::config_db
 #> 
 #> $disabled_compression_methods
 #> [1] ""
+#> 
+#> $duckdb_api
+#> [1] "cli"
+#> 
+#> $enable_external_access
+#> [1] "true"
 #> 
 #> $enable_external_file_cache
 #> [1] "true"

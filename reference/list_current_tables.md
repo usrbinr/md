@@ -32,8 +32,9 @@ A `dbplyr` lazy tibble with columns:
 - This function validates that the connection is valid with
   [`validate_con()`](https://usrbinr.github.io/md/reference/validate_con.md).
 
-- Result is a `dbplyr` lazy table (`tbl_dbi`); call `collect()` to bring
-  it into R.
+- Result is a `dbplyr` lazy table (`tbl_dbi`); call
+  [`collect()`](https://dplyr.tidyverse.org/reference/compute.html) to
+  bring it into R.
 
 ## See also
 
