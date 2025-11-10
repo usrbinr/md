@@ -10,7 +10,7 @@ list_setting(.con)
 \item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-A \link[tibble:tibble]{tibble::tibble} containing one row per setting with columns
+A \link{tibble} containing one row per setting with columns
 describing the setting name, current value, description, and default value.
 }
 \description{

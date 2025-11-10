@@ -10,7 +10,7 @@ list_shares(.con)
 \item{.con}{A valid \code{DBI} connection (DuckDB / MotherDuck).}
 }
 \value{
-A \link[tibble:tibble]{tibble::tibble} containing details of available shares if
+A \link{tibble} containing details of available shares if
 the connection is an MD connection or an empty tibble if not
 }
 \description{
