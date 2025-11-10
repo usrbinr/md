@@ -1,12 +1,12 @@
 # Create or Append a Table from a Tibble or DBI-Backed Table
 
 A thin wrapper that routes to either
-[`create_table_dbi()`](https://usrbinr.github.io/md/reference/create_table_dbi.md)
-(for `dbplyr`-backed lazy tables, class `"tbl_dbi"`) or
-[`create_table_tbl()`](https://usrbinr.github.io/md/reference/create_table_tbl.md)
-(for in-memory tibbles / data frames), creating a physical table in the
-target database/schema. Supports **overwrite** and **append** write
-strategies and defers all heavy lifting to the specific implementation.
+[`create_table_dbi()`](create_table_dbi.md) (for `dbplyr`-backed lazy
+tables, class `"tbl_dbi"`) or
+[`create_table_tbl()`](create_table_tbl.md) (for in-memory tibbles /
+data frames), creating a physical table in the target database/schema.
+Supports **overwrite** and **append** write strategies and defers all
+heavy lifting to the specific implementation.
 
 ## Usage
 
@@ -57,30 +57,28 @@ delegating to the appropriate helper.
 ## Details
 
 - If `.data` is a `dbplyr` lazy table (class `"tbl_dbi"`), the call is
-  delegated to
-  [`create_table_dbi()`](https://usrbinr.github.io/md/reference/create_table_dbi.md).
+  delegated to [`create_table_dbi()`](create_table_dbi.md).
 
 - If `.data` is an in-memory tibble/data frame (class including
   `"data.frame"`), the call is delegated to
-  [`create_table_tbl()`](https://usrbinr.github.io/md/reference/create_table_tbl.md).
+  [`create_table_tbl()`](create_table_tbl.md).
 
 - Any other input classes trigger an error.
 
 ## See also
 
-Other db-manage:
-[`alter_table_schema()`](https://usrbinr.github.io/md/reference/alter_table_schema.md),
-[`copy_tables_to_new_location()`](https://usrbinr.github.io/md/reference/copy_tables_to_new_location.md),
-[`create_database()`](https://usrbinr.github.io/md/reference/create_database.md),
-[`create_if_not_exists_share()`](https://usrbinr.github.io/md/reference/create_if_not_exists_share.md),
-[`create_or_replace_share()`](https://usrbinr.github.io/md/reference/create_or_replace_share.md),
-[`create_schema()`](https://usrbinr.github.io/md/reference/create_schema.md),
-[`delete_and_create_schema()`](https://usrbinr.github.io/md/reference/delete_and_create_schema.md),
-[`delete_database()`](https://usrbinr.github.io/md/reference/delete_database.md),
-[`delete_schema()`](https://usrbinr.github.io/md/reference/delete_schema.md),
-[`delete_table()`](https://usrbinr.github.io/md/reference/delete_table.md),
-[`describe_share()`](https://usrbinr.github.io/md/reference/describe_share.md),
-[`drop_share()`](https://usrbinr.github.io/md/reference/drop_share.md),
-[`list_owned_shares()`](https://usrbinr.github.io/md/reference/list_owned_shares.md),
-[`list_shared_with_me_shares()`](https://usrbinr.github.io/md/reference/list_shared_with_me_shares.md),
-[`upload_database_to_md()`](https://usrbinr.github.io/md/reference/upload_database_to_md.md)
+Other db-manage: [`alter_table_schema()`](alter_table_schema.md),
+[`copy_tables_to_new_location()`](copy_tables_to_new_location.md),
+[`create_database()`](create_database.md),
+[`create_if_not_exists_share()`](create_if_not_exists_share.md),
+[`create_or_replace_share()`](create_or_replace_share.md),
+[`create_schema()`](create_schema.md),
+[`delete_and_create_schema()`](delete_and_create_schema.md),
+[`delete_database()`](delete_database.md),
+[`delete_schema()`](delete_schema.md),
+[`delete_table()`](delete_table.md),
+[`describe_share()`](describe_share.md),
+[`drop_share()`](drop_share.md),
+[`list_owned_shares()`](list_owned_shares.md),
+[`list_shared_with_me_shares()`](list_shared_with_me_shares.md),
+[`upload_database_to_md()`](upload_database_to_md.md)

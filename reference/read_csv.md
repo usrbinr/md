@@ -116,5 +116,4 @@ Invisibly returns `NULL`. Side effect: creates
 
 ## See also
 
-Other db-read:
-[`read_excel()`](https://usrbinr.github.io/md/reference/read_excel.md)
+Other db-read: [`read_excel()`](read_excel.md)

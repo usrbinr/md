@@ -27,18 +27,15 @@ A `dbplyr` lazy tibble with columns:
 ## Details
 
 - This function assumes the connection is valid (checked with
-  [`validate_con()`](https://usrbinr.github.io/md/reference/validate_con.md)).
+  [`validate_con()`](validate_con.md)).
 
 - Returns a `dbplyr` lazy table; use `collect()` to bring the result
   into R.
 
 ## See also
 
-Other db-list:
-[`list_all_databases()`](https://usrbinr.github.io/md/reference/list_all_databases.md),
-[`list_all_tables()`](https://usrbinr.github.io/md/reference/list_all_tables.md),
-[`list_current_tables()`](https://usrbinr.github.io/md/reference/list_current_tables.md),
-[`list_extensions()`](https://usrbinr.github.io/md/reference/list_extensions.md),
-[`list_fns()`](https://usrbinr.github.io/md/reference/list_fns.md),
-[`list_setting()`](https://usrbinr.github.io/md/reference/list_setting.md),
-[`list_shares()`](https://usrbinr.github.io/md/reference/list_shares.md)
+Other db-list: [`list_all_databases()`](list_all_databases.md),
+[`list_all_tables()`](list_all_tables.md),
+[`list_current_tables()`](list_current_tables.md),
+[`list_extensions()`](list_extensions.md), [`list_fns()`](list_fns.md),
+[`list_setting()`](list_setting.md), [`list_shares()`](list_shares.md)

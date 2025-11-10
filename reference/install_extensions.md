@@ -34,18 +34,16 @@ reported to the user via CLI messages. This function provides a summary
 report describing which extensions were successfully installed and which
 were invalid.
 
-Unlike
-[`load_extensions()`](https://usrbinr.github.io/md/reference/load_extensions.md),
-this function focuses purely on installation and does not automatically
-load extensions after installing.
+Unlike [`load_extensions()`](load_extensions.md), this function focuses
+purely on installation and does not automatically load extensions after
+installing.
 
 ## See also
 
-Other db-con:
-[`load_extensions()`](https://usrbinr.github.io/md/reference/load_extensions.md),
-[`show_motherduck_token()`](https://usrbinr.github.io/md/reference/show_motherduck_token.md),
-[`validate_extension_install_status()`](https://usrbinr.github.io/md/reference/validate_extension_install_status.md),
-[`validate_extension_load_status()`](https://usrbinr.github.io/md/reference/validate_extension_load_status.md)
+Other db-con: [`load_extensions()`](load_extensions.md),
+[`show_motherduck_token()`](show_motherduck_token.md),
+[`validate_extension_install_status()`](validate_extension_install_status.md),
+[`validate_extension_load_status()`](validate_extension_load_status.md)
 
 ## Examples
 

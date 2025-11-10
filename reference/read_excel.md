@@ -90,5 +90,4 @@ Invisibly returns `NULL`. Side effect: creates
 
 ## See also
 
-Other db-read:
-[`read_csv()`](https://usrbinr.github.io/md/reference/read_csv.md)
+Other db-read: [`read_csv()`](read_csv.md)

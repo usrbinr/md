@@ -95,56 +95,18 @@
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usrbinr.github.io/md/">md</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://alejandrohagan.github.io/md/" class="external-link">md</a></span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="va">con_md</span> <span class="op">&lt;-</span> <span class="fu">md</span><span class="fu">::</span><span class="fu"><a href="../reference/connect_to_motherduck.html">connect_to_motherduck</a></span><span class="op">(</span><span class="st">"MOTHERDUCK_TOKEN"</span><span class="op">)</span></span></code></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<pre class="fansi fansi-message"><code><span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Extension Load &amp; Install Report</span> <span style="color: #00BBBB;">─────────────────────────────────────────────</span>
-</code></pre>
-<pre class="fansi fansi-message"><code>Installed and loaded <span style="color: #BBBB00;">1</span> extension: <span style="color: #0000BB;">motherduck</span>
-</code></pre>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Use `list_extensions()` to list extensions, status and their descriptions</code></pre>
-</div>
-<pre class="fansi fansi-message"><code>Use `install_extensions()` to install new <span style="color: #BB0000;">duckdb</span> extensions
-</code></pre>
-<pre class="fansi fansi-message"><code>See <span style="color: #0000BB; font-style: italic;">&lt;https://duckdb.org/docs/stable/extensions/overview.html&gt;</span> for more
-information
-</code></pre>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<pre class="fansi fansi-message"><code>── <span style="font-weight: bold;">Connection Status Report:</span> ──
-</code></pre>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<pre class="fansi fansi-message"><code><span style="color: #00BB00;">✔</span> You are connected to MotherDuck
-</code></pre>
 </div>
 <p>This will return a connection and print statement indicating if connection status.</p>
 <p>At any time you can validate your connection status with <code><a href="../reference/validate_md_connection_status.html">validate_md_connection_status()</a></code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usrbinr.github.io/md/">md</a></span><span class="op">)</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://alejandrohagan.github.io/md/" class="external-link">md</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/validate_md_connection_status.html">validate_md_connection_status</a></span><span class="op">(</span><span class="va">con_md</span><span class="op">)</span></span></code></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<pre class="fansi fansi-message"><code>── <span style="font-weight: bold;">Connection Status Report:</span> ──
-</code></pre>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<pre class="fansi fansi-message"><code><span style="color: #00BB00;">✔</span> You are connected to MotherDuck
-</code></pre>
 </div>
 <div>
 <blockquote>
@@ -204,7 +166,7 @@ information
 </div>
 <p>At any time you can see what configuration arguments are for your connection with <code>md::list_settings()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/list_setting.html">list_setting</a></span><span class="op">(</span><span class="va">con_md</span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>Congratulations, you’ve set connected to your motherduck database from R!</p>

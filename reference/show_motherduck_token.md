@@ -31,11 +31,10 @@ connection established with
 
 ## See also
 
-Other db-con:
-[`install_extensions()`](https://usrbinr.github.io/md/reference/install_extensions.md),
-[`load_extensions()`](https://usrbinr.github.io/md/reference/load_extensions.md),
-[`validate_extension_install_status()`](https://usrbinr.github.io/md/reference/validate_extension_install_status.md),
-[`validate_extension_load_status()`](https://usrbinr.github.io/md/reference/validate_extension_load_status.md)
+Other db-con: [`install_extensions()`](install_extensions.md),
+[`load_extensions()`](load_extensions.md),
+[`validate_extension_install_status()`](validate_extension_install_status.md),
+[`validate_extension_load_status()`](validate_extension_load_status.md)
 
 ## Examples
 
