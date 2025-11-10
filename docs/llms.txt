@@ -1,0 +1,151 @@
+# Motherduck
+
+![](reference/figures/md_logo.png)
+
+## Overview
+
+This is a collection of utilities to help with the management,
+administration and navigation of [duckdb](https://duckdb.org/) database
+either locally on your computer or in the cloud via
+[motherduck](https://motherduck.com/)
+
+Database management is incredibly easy in R with fantastic packages such
+as [DBI](https://dbplyr.tidyverse.org/) and
+[dbplyr](https://dbplyr.tidyverse.org/), however some databases have
+specific extensions or utilities that are aren’t readily accessible via
+this packages
+
+{md} pack simplifies these common database administration task with easy
+to understand syntax. {md} is built upon
+[DBI](https://dbplyr.tidyverse.org/) and returns a lazy DBI object so
+that you can further fully integrate your data with
+[dbplyr](https://dbplyr.tidyverse.org/)
+
+## Future ambition
+
+Eventually, I’ll use the learning from this package to create a meta DB
+utilities package so that regardless if you’re in snowflake, DuckDB,
+Redshift, etc you will have generalized functions that work across your
+database types
+
+This is very much work in progress – I’ll eventually transition to the
+[R7](https://rconsortium.github.io/S7/articles/S7.html) object system
+but just want to get some usage first before deciding on the
+architecture and structure.
+
+Please create an issue if you have any comments or requests or reach out
+if you have any feedback.
+
+## What do I need to use this?
+
+- [duckdb](https://duckdb.org/) R package installed on your computer
+- A [motherduck](https://motherduck.com/) account
+- A motherduck access token which you you can be saved to your R
+  environment file with
+  [`usethis::edit_r_environ()`](https://usethis.r-lib.org/reference/edit.html)
+
+``` r
+con_md <- connect_to_motherduck("MOTHERDUCK_TOKEN")
+```
+
+# Package index
+
+## All functions
+
+- [`alter_table_schema()`](alter_table_schema.md) : Move Tables from One
+  Schema to Another
+- [`cd()`](cd.md) : Change Active Database and Schema
+- [`config_csv`](config_csv.md) : DuckDB CSV read configuration
+  (config_csv)
+- [`config_db`](config_db.md) : DuckDB runtime database configuration
+  (config_db)
+- [`config_excel`](config_excel.md) : DuckDB Excel read configuration
+  (config_excel)
+- [`config_parquet`](config_parquet.md) : DuckDB Parquet read
+  configuration (config_parquet)
+- [`configure_md_user_settings()`](configure_md_user_settings.md) :
+  Configure a MotherDuck user's settings
+- [`connect_to_motherduck()`](connect_to_motherduck.md) : Create
+  connection to motherduck
+- [`copy_tables_to_new_location()`](copy_tables_to_new_location.md) :
+  Copy Tables to a New Database/Schema
+- [`create_database()`](create_database.md) : Create (If Not Exists) and
+  Switch to a Database
+- [`create_if_not_exists_share()`](create_if_not_exists_share.md) :
+  Create a MotherDuck database share if it does not exist
+- [`create_md_access_token()`](create_md_access_token.md) : Create a
+  MotherDuck access token
+- [`create_md_user()`](create_md_user.md) : Create a new MotherDuck user
+- [`create_or_replace_share()`](create_or_replace_share.md) : Create or
+  replace a MotherDuck database share
+- [`create_schema()`](create_schema.md) : Create a Schema in a Database
+  if It Does Not Exist
+- [`create_table()`](create_table.md) : Create or Append a Table from a
+  Tibble or DBI-Backed Table
+- [`delete_and_create_schema()`](delete_and_create_schema.md) : Drop and
+  Recreate a Schema in a MotherDuck / DuckDB Database
+- [`delete_database()`](delete_database.md) : Drop a Database
+- [`delete_md_access_token()`](delete_md_access_token.md) : Delete a
+  MotherDuck user's access token
+- [`delete_md_user()`](delete_md_user.md) : Delete a MotherDuck user
+- [`delete_schema()`](delete_schema.md) : Drop a Schema from a Database
+- [`delete_table()`](delete_table.md) : Drop a Table
+- [`describe_share()`](describe_share.md) : Describe a MotherDuck share
+- [`drop_share()`](drop_share.md) : Drop a MotherDuck share
+- [`install_extensions()`](install_extensions.md) : Install
+  DuckDB/MotherDuck Extensions
+- [`launch_ui()`](launch_ui.md) : Launch the DuckDB UI in your browser
+- [`list_all_databases()`](list_all_databases.md) : List Databases
+  Visible to the Connection
+- [`list_all_tables()`](list_all_tables.md) : List All Tables Visible to
+  the Connection
+- [`list_current_schemas()`](list_current_schemas.md) : List Schemas in
+  the Current Database
+- [`list_current_tables()`](list_current_tables.md) : List Tables in the
+  Current Database and Schema
+- [`list_extensions()`](list_extensions.md) : List MotherDuck/DuckDB
+  Extensions
+- [`list_fns()`](list_fns.md) : List Database Functions
+  (DuckDB/MotherDuck)
+- [`list_md_active_accounts()`](list_md_active_accounts.md) : List
+  active MotherDuck accounts
+- [`list_md_user_instance()`](list_md_user_instance.md) : List a
+  MotherDuck user's instance settings
+- [`list_md_user_tokens()`](list_md_user_tokens.md) : List a MotherDuck
+  user's tokens
+- [`list_owned_shares()`](list_owned_shares.md) : List all shares owned
+  by the current user
+- [`list_setting()`](list_setting.md) : List Database Settings
+- [`list_shared_with_me_shares()`](list_shared_with_me_shares.md) : List
+  all shares shared with the current user
+- [`list_shares()`](list_shares.md) : List MotherDuck Shares
+- [`load_extensions()`](load_extensions.md) : Load and Install
+  DuckDB/MotherDuck Extensions
+- [`pwd()`](pwd.md) : Print Current MotherDuck Database Context
+- [`read_csv()`](read_csv.md) : Read a CSV file into a DuckDB/MotherDuck
+  table
+- [`read_excel()`](read_excel.md) : Read an Excel file into a
+  DuckDB/MotherDuck table
+- [`show_current_user()`](show_current_user.md) : Show current database
+  user
+- [`show_motherduck_token()`](show_motherduck_token.md) : Show Your
+  MotherDuck Token
+- [`summary(`*`<tbl_lazy>`*`)`](summary.md) : Summarize a Lazy DBI Table
+- [`upload_database_to_md()`](upload_database_to_md.md) : Upload a Local
+  Database to MotherDuck
+- [`validate_and_print_database_loction()`](validate_and_print_database_loction.md)
+  : validate and Pprint your database location
+- [`validate_con()`](validate_con.md) : Validate connection is DuckDB
+- [`validate_extension_install_status()`](validate_extension_install_status.md)
+  : Validate Installed MotherDuck/DuckDB Extensions
+- [`validate_extension_load_status()`](validate_extension_load_status.md)
+  : Validate Loaded MotherDuck/DuckDB Extensions
+- [`validate_md_connection_status()`](validate_md_connection_status.md)
+  : Validate Mother Duck Connection Status
+
+# Articles
+
+### All vignettes
+
+- [How to connect to motherduck](How-to-connect-to-motherduck.md):
+- [How to load data into Motherduck](How-to-load-data-in-motherduck.md):
