@@ -36,7 +36,8 @@ Suggests:
     testthat (>= 3.0.0),
     quarto,
     knitr,
-    openxlsx
+    openxlsx,
+    rmarkdown
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Depends: 
