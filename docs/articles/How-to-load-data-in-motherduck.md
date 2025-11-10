@@ -61,7 +61,8 @@ you will need:
 - access token
 - motherduck extension for duckdb
 
-The [`connect_to_motherduck()`](../reference/connect_to_motherduck.md)
+The
+[`connect_to_motherduck()`](https://usrbinr.github.io/md/reference/connect_to_motherduck.md)
 function will take your access token that is your environment file[^1],
 install and load the extensions and then finally connect to your
 motherduck instance.
@@ -76,7 +77,7 @@ motherduck instance.
 > and your cloud based motherduck databases.
 >
 > Check which database you are “in” with the
-> [`pwd()`](../reference/pwd.md) command
+> [`pwd()`](https://usrbinr.github.io/md/reference/pwd.md) command
 
 ``` r
 1con_md <- connect_to_motherduck(motherduck_token = "MOTHERDUCK_TOKEN")
@@ -92,7 +93,8 @@ information about your connection
 Before uploading new data, it can be helpful to check “where” you are in
 your database
 
-You can do this with the [`pwd()`](../reference/pwd.md)[^2] function
+You can do this with the
+[`pwd()`](https://usrbinr.github.io/md/reference/pwd.md)[^2] function
 that will print out the current database & schema that you are in.
 
 This would be the default location that you save your database unless
@@ -109,18 +111,20 @@ See [Caution 1](#cau-con) to understand why we start in a local database
 vs. motherduck
 
 If we want to we can also navigate to your motherduck database with the
-[`cd()`](../reference/cd.md) command
+[`cd()`](https://usrbinr.github.io/md/reference/cd.md) command
 
 ``` r
 cd(con_md,database = "contoso")
 ```
 
-I am now in motherduck based [contoso](github.com/usrbinr/contoso)
+I am now in motherduck based
+[contoso](https://usrbinr.github.io/md/articles/github.com/usrbinr/contoso)
 database and any reference to schema or table would be relative to this
 database.
 
 Let’s verify that by list the all the tables in this database. We can do
-that with the [`list_all_tables()`](../reference/list_all_tables.md)
+that with the
+[`list_all_tables()`](https://usrbinr.github.io/md/reference/list_all_tables.md)
 function.
 
 ``` r
@@ -129,8 +133,9 @@ list_all_tables(con_md)
 
 Now that we knwo how to navigate to our various databaes, lets finally
 load data somee existing data into a new database and schema.
-[`create_table()`](../reference/create_table.md) function will create a
-new database / schema and save then load the data into a table.
+[`create_table()`](https://usrbinr.github.io/md/reference/create_table.md)
+function will create a new database / schema and save then load the data
+into a table.
 
 ``` r
 1ggplot2::diamonds |>
@@ -175,7 +180,8 @@ and shares that you haves access
 To validate the data is in our database, we can do the following:
 
 We can validate if we have successfully saved the table in our database
-by running [`list_all_tables()`](../reference/list_all_tables.md).
+by running
+[`list_all_tables()`](https://usrbinr.github.io/md/reference/list_all_tables.md).
 
 If you want to access your motherduck data, you can simply leverage
 [`dplyr::tbl()`](https://dplyr.tidyverse.org/reference/tbl.html) or
@@ -223,8 +229,9 @@ this time we will upload a DBI object instead of tibble.
   Pass the DBI object to create_table and it will still save the table!
 
 While its the same syntax,
-[`create_table()`](../reference/create_table.md) will work with an R
-object, duckplyr or DBI object to save that table into your database.
+[`create_table()`](https://usrbinr.github.io/md/reference/create_table.md)
+will work with an R object, duckplyr or DBI object to save that table
+into your database.
 
 ## Create new schema
 
