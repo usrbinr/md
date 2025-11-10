@@ -39,19 +39,20 @@ information about the user’s active DuckDB instances and their
 configuration parameters.
 
 The current authenticated user is displayed with
-[`show_current_user()`](show_current_user.md) for verification.
+[`show_current_user()`](https://usrbinr.github.io/md/reference/show_current_user.md)
+for verification.
 
 ## See also
 
 Other db-api:
-[`configure_md_user_settings()`](configure_md_user_settings.md),
-[`create_md_access_token()`](create_md_access_token.md),
-[`create_md_user()`](create_md_user.md),
-[`delete_md_access_token()`](delete_md_access_token.md),
-[`delete_md_user()`](delete_md_user.md),
-[`list_md_active_accounts()`](list_md_active_accounts.md),
-[`list_md_user_tokens()`](list_md_user_tokens.md),
-[`show_current_user()`](show_current_user.md)
+[`configure_md_user_settings()`](https://usrbinr.github.io/md/reference/configure_md_user_settings.md),
+[`create_md_access_token()`](https://usrbinr.github.io/md/reference/create_md_access_token.md),
+[`create_md_user()`](https://usrbinr.github.io/md/reference/create_md_user.md),
+[`delete_md_access_token()`](https://usrbinr.github.io/md/reference/delete_md_access_token.md),
+[`delete_md_user()`](https://usrbinr.github.io/md/reference/delete_md_user.md),
+[`list_md_active_accounts()`](https://usrbinr.github.io/md/reference/list_md_active_accounts.md),
+[`list_md_user_tokens()`](https://usrbinr.github.io/md/reference/list_md_user_tokens.md),
+[`show_current_user()`](https://usrbinr.github.io/md/reference/show_current_user.md)
 
 ## Examples
 

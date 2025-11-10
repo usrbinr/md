@@ -42,7 +42,8 @@ quick way to verify where SQL queries will be executed.
 
 ## See also
 
-Other db-meta: [`cd()`](cd.md), [`launch_ui()`](launch_ui.md)
+Other db-meta: [`cd()`](https://usrbinr.github.io/md/reference/cd.md),
+[`launch_ui()`](https://usrbinr.github.io/md/reference/launch_ui.md)
 
 ## Examples
 

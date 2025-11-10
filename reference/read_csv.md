@@ -1,13 +1,15 @@
 # Read a CSV file into a DuckDB/MotherDuck table
 
 Loads the DuckDB **excel** extension and creates a table from a CSV file
-using the `read_csv_auto()` table function. The destination is fully
-qualified as `<database>.<schema>.<table>`. Only the options you supply
-are forwarded to `read_csv_auto()` (e.g., `header`, `all_varchar`,
-`sample_size`, `names`, `types`, `skip`, `union_by_name`,
-`normalize_names`, `allow_quoted_nulls`, `ignore_errors`). If `names` or
-`types` are not supplied, they are ignored. See the DuckDB
-[read_csv_auto()
+using the
+[`read_csv_auto()`](https://rdrr.io/pkg/md/man/read_httpfs.html) table
+function. The destination is fully qualified as
+`<database>.<schema>.<table>`. Only the options you supply are forwarded
+to [`read_csv_auto()`](https://rdrr.io/pkg/md/man/read_httpfs.html)
+(e.g., `header`, `all_varchar`, `sample_size`, `names`, `types`, `skip`,
+`union_by_name`, `normalize_names`, `allow_quoted_nulls`,
+`ignore_errors`). If `names` or `types` are not supplied, they are
+ignored. See the DuckDB [read_csv_auto()
 documentation](https://duckdb.org/docs/stable/data/csv/overview) for
 more information.
 
@@ -106,8 +108,9 @@ read_csv(
 
 - ...:
 
-  Additional arguments passed to `read_csv_auto()` in format listed in
-  duckdb documentation (optional)
+  Additional arguments passed to
+  [`read_csv_auto()`](https://rdrr.io/pkg/md/man/read_httpfs.html) in
+  format listed in duckdb documentation (optional)
 
 ## Value
 
@@ -116,4 +119,5 @@ Invisibly returns `NULL`. Side effect: creates
 
 ## See also
 
-Other db-read: [`read_excel()`](read_excel.md)
+Other db-read:
+[`read_excel()`](https://usrbinr.github.io/md/reference/read_excel.md)

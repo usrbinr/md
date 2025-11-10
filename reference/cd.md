@@ -21,13 +21,14 @@ cd(.con, database_name, schema_name)
 
   A character string specifying the database to switch to. Must be one
   of the available databases returned by
-  [`list_all_databases()`](list_all_databases.md).
+  [`list_all_databases()`](https://usrbinr.github.io/md/reference/list_all_databases.md).
 
 - schema_name:
 
   (Optional) A character string specifying the schema to switch to
   within the given database. Must be one of the available schemas
-  returned by [`list_current_schemas()`](list_current_schemas.md).
+  returned by
+  [`list_current_schemas()`](https://usrbinr.github.io/md/reference/list_current_schemas.md).
 
 ## Value
 
@@ -45,7 +46,9 @@ descriptive CLI error message.
 
 ## See also
 
-Other db-meta: [`launch_ui()`](launch_ui.md), [`pwd()`](pwd.md)
+Other db-meta:
+[`launch_ui()`](https://usrbinr.github.io/md/reference/launch_ui.md),
+[`pwd()`](https://usrbinr.github.io/md/reference/pwd.md)
 
 ## Examples
 

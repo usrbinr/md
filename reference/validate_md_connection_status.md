@@ -25,7 +25,7 @@ logical value or warning message
 
 ## See also
 
-[`connect_to_motherduck()`](connect_to_motherduck.md)
+[`connect_to_motherduck()`](https://usrbinr.github.io/md/reference/connect_to_motherduck.md)
 
 ## Examples
 

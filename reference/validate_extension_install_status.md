@@ -61,10 +61,11 @@ argument:
 
 ## See also
 
-Other db-con: [`install_extensions()`](install_extensions.md),
-[`load_extensions()`](load_extensions.md),
-[`show_motherduck_token()`](show_motherduck_token.md),
-[`validate_extension_load_status()`](validate_extension_load_status.md)
+Other db-con:
+[`install_extensions()`](https://usrbinr.github.io/md/reference/install_extensions.md),
+[`load_extensions()`](https://usrbinr.github.io/md/reference/load_extensions.md),
+[`show_motherduck_token()`](https://usrbinr.github.io/md/reference/show_motherduck_token.md),
+[`validate_extension_load_status()`](https://usrbinr.github.io/md/reference/validate_extension_load_status.md)
 
 ## Examples
 

@@ -58,7 +58,7 @@ writes data to the database.
 ## Details
 
 - If the connection is a MotherDuck connection (detected by
-  [`validate_md_connection_status()`](validate_md_connection_status.md)),
+  [`validate_md_connection_status()`](https://usrbinr.github.io/md/reference/validate_md_connection_status.md)),
   the function ensures the database is created and switches to it before
   creating the schema.
 

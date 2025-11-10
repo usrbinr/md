@@ -33,12 +33,14 @@ MotherDuck session.
 
 ## See also
 
-Other db-list: [`list_all_databases()`](list_all_databases.md),
-[`list_all_tables()`](list_all_tables.md),
-[`list_current_schemas()`](list_current_schemas.md),
-[`list_current_tables()`](list_current_tables.md),
-[`list_extensions()`](list_extensions.md), [`list_fns()`](list_fns.md),
-[`list_setting()`](list_setting.md)
+Other db-list:
+[`list_all_databases()`](https://usrbinr.github.io/md/reference/list_all_databases.md),
+[`list_all_tables()`](https://usrbinr.github.io/md/reference/list_all_tables.md),
+[`list_current_schemas()`](https://usrbinr.github.io/md/reference/list_current_schemas.md),
+[`list_current_tables()`](https://usrbinr.github.io/md/reference/list_current_tables.md),
+[`list_extensions()`](https://usrbinr.github.io/md/reference/list_extensions.md),
+[`list_fns()`](https://usrbinr.github.io/md/reference/list_fns.md),
+[`list_setting()`](https://usrbinr.github.io/md/reference/list_setting.md)
 
 ## Examples
 
