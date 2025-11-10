@@ -5,12 +5,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>How to load data in motherduck • md</title>
+<title>How to load data into Motherduck • md</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="How to load data in motherduck">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="How-to-load-data-in-motherduck_files/libs/quarto-html/popper.min.js"></script><script src="How-to-load-data-in-motherduck_files/libs/quarto-html/tippy.umd.min.js"></script><link href="How-to-load-data-in-motherduck_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="How-to-load-data-in-motherduck_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<script src="How-to-load-data-in-motherduck_files/libs/core-js-2.5.3/shim.min.js"></script><script src="How-to-load-data-in-motherduck_files/libs/react-18.2.0/react.min.js"></script><script src="How-to-load-data-in-motherduck_files/libs/react-18.2.0/react-dom.min.js"></script><script src="How-to-load-data-in-motherduck_files/libs/reactwidget-2.0.0/react-tools.js"></script><script src="How-to-load-data-in-motherduck_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="How-to-load-data-in-motherduck_files/libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+<script src="How-to-load-data-in-motherduck_files/libs/reactable-binding-0.4.4/reactable.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="How to load data into Motherduck">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -33,9 +36,8 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/How-to-load-data-in-motherduck.html">How to load data in motherduck</a></li>
-    <li><a class="dropdown-item" href="../articles/How-to-manage-settings-and-extensions.html">How to manage settings and extensions</a></li>
-    <li><a class="dropdown-item" href="../articles/How-to-manage-users-tokens-and-service-accounts.html">How to manage users, tokens and service accounts</a></li>
+<li><a class="dropdown-item" href="../articles/How-to-connect-to-motherduck.html">How to connect to motherduck</a></li>
+    <li><a class="dropdown-item" href="../articles/How-to-load-data-in-motherduck.html">How to load data into Motherduck</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -49,98 +51,2807 @@
 
 
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>How to load data in motherduck</h1>
-            
-      
+      <h1>How to load data into Motherduck</h1>
 
-      <div class="d-none name"><code>How-to-load-data-in-motherduck.Rmd</code></div>
+
+
+
+
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://alejandrohagan.github.io/md/">md</a></span><span class="op">)</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="create-a-database">Create a database<a class="anchor" aria-label="anchor" href="#create-a-database"></a>
-</h2>
-<p>Later on we will show examples of how to read data from a source
-file, eg. csv, parquet, excel, or even a different database, directly
-into duckdb but for now let’s assume its some data that you already have
-loaded.</p>
-<p>Before we get into that lets review quickly the three things you need
-to load data into a database: - database name - This is object that will
-hold your schemas, tables, functions, roles, permissions, etc - somtimes
-this may be called a catalog - schema name - This of this as fancy name
-to classify and organize your tables, functions, procedures, etc - By
-default, duckdb will use “main” as a schema name - table or view name -
-This is the name of the actual table or view that holds your data</p>
-<p>To save or reference data, you need to fully qualify with
-<code>database_name.schema_name.table_name</code></p>
-<p>If you uploaded data without creating a table or schema first then
-duckdb will assign “temp” and “main” as the default names for your
-database and schema respectively.</p>
-<p>The quickest and easiest way to get data into duckdb is either
-use:</p>
-<ul>
-<li>duckdb::register_duckdb()</li>
-<li>md::create_or_replace_database()</li>
-</ul>
-<p>The different is create_or_replace_database() gives you more control
-on the database name and schema name</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">diamonds_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span> <span class="co">#&lt;1&gt;</span></span>
-<span></span>
-<span><span class="va">con_tmp</span> <span class="op">&lt;-</span> <span class="fu">create_local_temp_db</span><span class="op">(</span><span class="op">)</span> <span class="co">#&lt;2&gt;</span></span>
-<span></span>
-<span><span class="va">diamonds_tbl</span> <span class="op">|&gt;</span>  <span class="co">#&lt;3&gt;</span></span>
-<span>    <span class="fu">md</span><span class="fu">::</span><span class="fu"><a href="../reference/create_or_replace_database.html">create_or_replace_database</a></span><span class="op">(</span> <span class="co">#&lt;4&gt;</span></span>
-<span>        .con <span class="op">=</span> <span class="va">con_tmp</span> <span class="co">#&lt;5&gt;</span></span>
-<span>        ,database_name <span class="op">=</span> <span class="st">"temp"</span> <span class="co">#&lt;6&gt;</span></span>
-<span>        ,schema_name <span class="op">=</span> <span class="st">"main"</span> <span class="co">#&lt;7&gt;</span></span>
-<span>        ,table_name <span class="op">=</span> <span class="st">"diamonds"</span> <span class="co">#&lt;8&gt;</span></span>
-<span>        ,overwrite<span class="op">=</span><span class="cn">FALSE</span>  <span class="co">#&lt;9&gt;</span></span>
-<span>        <span class="op">)</span></span></code></pre></div>
-<p>Notice that we don’t assing this object to anything, this just
-silently writes our data to our database, to validate the data is in our
-dtabase, we can do the following:</p>
-<p>DBI::xxxx</p>
-<p>MD::list_tables()</p>
-<p>After running these functions, we can see our table - ready for us to
-query it.</p>
-<p>to query, you can simply leverage dplyr::tbl() function to pull it
-and from there leverage the fantastic dbplyr package to use tidy verbs
-to perform additional functions</p>
-<p>Let’s say we want to filter and summarize this table and save it to a
-new schema with a new name – no problem, we can repeat the steps above
-this time with a new schema and reference name.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb_register.html" class="external-link">duckdb_register</a></span><span class="op">(</span><span class="va">con_tmp</span>,name <span class="op">=</span> <span class="st">"diamonds"</span>,<span class="va">diamonds_tbl</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">tbl</span><span class="op">(</span><span class="va">con_tmp</span>,<span class="st">"diamonds"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">tbl</span><span class="op">(</span><span class="va">con_tmp</span>,<span class="fu">sql</span><span class="op">(</span><span class="st">"select * from file1dbc839ef04b6.raw.diamonds"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">dbGetQuery</a></span><span class="op">(</span><span class="va">con_tmp</span>,<span class="st">"select * from file1dbc839ef04b6.raw.diamonds"</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="fu">create_or_replace_schema</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="fu">create_or_replace_table</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>What if we want to delete or move a database, schema or table?</p>
-<p>Now that the basics are covered, let us explore</p>
-</div>
-  </main>
-</div>
 
+
+
+
+
+    <section class="level2"><h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>Before we get into how to use the package, lets quickly review the three things you will need to load data into a database:</p>
+<p><strong>Database name (Catalog Name)</strong></p>
+<ul>
+<li>This is object that will hold your schemas, tables or views</li>
+<li>Different databases have their own naming convention, in motherduck, this is called Catalog</li>
+</ul>
+<p><strong>Schema name</strong></p>
+<ul>
+<li>This is fancy name for the location that classifies and organizes your tables, functions, procedures, etc</li>
+</ul>
+<p><strong>Table or view name</strong></p>
+<ul>
+<li>This is the name of the actual table or view that holds your data</li>
+<li>Table can be a physical table of data that persists whereas a view is a stored procedures that queries underlying tables when needed</li>
+</ul>
+<p>To save or reference data, you need to either fully qualify the name with <code>database_name.schema_name.table_name</code> or you need to be “in” your database and schema and reference the table name.</p>
+<p>If you uploaded data without creating a table or schema first then duckdb will assign “temp” and “main” as the default names for your database and schema respectively.</p>
+<div id="nte-md">
+<blockquote>
+<p><strong>Note 1: Teminology: Duckdb vs. Motherduck</strong></p>
+<p>While not technically correct explanation; motherduck is a cloud based deployment of duckdb where you can have multiple databases, control access / permissions, and scale compute / storage as needed</p>
+<p>Duckdb is a essentially a single database instance in your local computer where you can save the database to a file or create it in memory.</p>
+<p>Through out these write ups, I tend to use duckdb &amp; motherduck interchangeably however all functions will work motherduck database and most will still work with a duckdb database.</p>
+<p>If you are using a local duckdb database you can leave the database argument blank.</p>
+</blockquote>
+</div>
+</section><section class="level2"><h2 id="lets-upload-some-data">Let’s upload some data<a class="anchor" aria-label="anchor" href="#lets-upload-some-data"></a>
+</h2>
+<p>Later on we will show examples of how to read data from a source file, eg. csv, parquet, or even excel directly into motherduck without loading the data into memory but for now let’s assume you want to upload some data that you already have loaded in your R environment.</p>
+<p>First let us connect to our motherduck database. In order to connect, you will need:</p>
+<ul>
+<li>motherduck account</li>
+<li>access token</li>
+<li>motherduck extension for duckdb</li>
+</ul>
+<p>The <code><a href="../reference/connect_to_motherduck.html">connect_to_motherduck()</a></code> function will take your access token that is your environment file<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Use &lt;code&gt;&lt;a href="https://usethis.r-lib.org/reference/edit.html" class="external-link"&gt;usethis::edit_r_environ()&lt;/a&gt;&lt;/code&gt; to save your access token to a variable name&lt;/p&gt;'><sup>1</sup></a>, install and load the extensions and then finally connect to your motherduck instance.</p>
+<div id="cau-con">
+<blockquote>
+<p><strong>Caution 1: connect-to-motherduck</strong></p>
+<p>One limitation of the connecting to motherduck from R is that you first need to create a local motherduck instance which then allows the connection to motherduck.</p>
+<p>This means you have access to both local (temporary) duckdb database and your cloud based motherduck databases.</p>
+<p>Check which database you are “in” with the <code><a href="../reference/pwd.html">pwd()</a></code> command</p>
+</blockquote>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a>con_md <span class="ot">&lt;-</span> <span class="fu">connect_to_motherduck</span>(<span class="at">motherduck_token =</span> <span class="st">"MOTHERDUCK_TOKEN"</span>)</span><div class="code-annotation-gutter-bg"></div>
+<div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">Pass your token name from your R environment file</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code><span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Extension Load &amp; Install Report</span> <span style="color: #00BBBB;">─────────────────────────────────────────────</span>
+</code></pre>
+<pre class="fansi fansi-message"><code>Installed and loaded <span style="color: #BBBB00;">1</span> extension: <span style="color: #0000BB;">motherduck</span>
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Use `list_extensions()` to list extensions, status and their descriptions</code></pre>
+</div>
+<pre class="fansi fansi-message"><code>Use `install_extensions()` to install new <span style="color: #BB0000;">duckdb</span> extensions
+</code></pre>
+<pre class="fansi fansi-message"><code>See <span style="color: #0000BB; font-style: italic;">&lt;https://duckdb.org/docs/stable/extensions/overview.html&gt;</span> for more
+information
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code>── <span style="font-weight: bold;">Connection Status Report:</span> ──
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code><span style="color: #00BB00;">✔</span> You are connected to MotherDuck
+</code></pre>
+</div>
+<p>You will get a message that prints out that actions the package took and information about your connection</p>
+<p>Before uploading new data, it can be helpful to check “where” you are in your database</p>
+<p>You can do this with the <code><a href="../reference/pwd.html">pwd()</a></code><a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Naming convention is inspired by linux commands&lt;/p&gt;"><sup>2</sup></a> function that will print out the current database &amp; schema that you are in.</p>
+<p>This would be the default location that you save your database unless you clarified a different database and schema.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/pwd.html">pwd</a></span><span class="op">(</span><span class="va">con_md</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>→ Current role: `duckdb`</code></pre>
+</div>
+<pre class="fansi fansi-output"><code><span style="color: #555555;"># A tibble: 1 × 2</span>
+  current_database  current_schema
+  <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>
+<span style="color: #555555;">1</span> file62afb24dfdf2f main
+</code></pre>
+</div>
+<p>By default, you will be in your local duckdb database even though you are connected to motherduck</p>
+<p>See <a href="#cau-con" class="quarto-xref">Caution 1</a> to understand why we start in a local database vs. motherduck</p>
+<p>If we want to we can also navigate to your motherduck database with the <code><a href="../reference/cd.html">cd()</a></code> command</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cd.html">cd</a></span><span class="op">(</span><span class="va">con_md</span>,database <span class="op">=</span> <span class="st">"contoso"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>I am now in motherduck based <a href="github.com/usrbinr/contoso">contoso</a> database and any reference to schema or table would be relative to this database.</p>
+<p>Let’s verify that by list the all the tables in this database. We can do that with the <code><a href="../reference/list_all_tables.html">list_all_tables()</a></code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/list_all_tables.html">list_all_tables</a></span><span class="op">(</span><span class="va">con_md</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="sppxnlhmua" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#sppxnlhmua table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#sppxnlhmua thead, #sppxnlhmua tbody, #sppxnlhmua tfoot, #sppxnlhmua tr, #sppxnlhmua td, #sppxnlhmua th {
+  border-style: none;
+}
+
+#sppxnlhmua p {
+  margin: 0;
+  padding: 0;
+}
+
+#sppxnlhmua .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#sppxnlhmua .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#sppxnlhmua .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#sppxnlhmua .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#sppxnlhmua .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#sppxnlhmua .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#sppxnlhmua .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#sppxnlhmua .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#sppxnlhmua .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#sppxnlhmua .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#sppxnlhmua .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#sppxnlhmua .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#sppxnlhmua .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#sppxnlhmua .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#sppxnlhmua .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sppxnlhmua .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#sppxnlhmua .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#sppxnlhmua .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#sppxnlhmua .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sppxnlhmua .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#sppxnlhmua .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sppxnlhmua .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#sppxnlhmua .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sppxnlhmua .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#sppxnlhmua .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sppxnlhmua .gt_left {
+  text-align: left;
+}
+
+#sppxnlhmua .gt_center {
+  text-align: center;
+}
+
+#sppxnlhmua .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#sppxnlhmua .gt_font_normal {
+  font-weight: normal;
+}
+
+#sppxnlhmua .gt_font_bold {
+  font-weight: bold;
+}
+
+#sppxnlhmua .gt_font_italic {
+  font-style: italic;
+}
+
+#sppxnlhmua .gt_super {
+  font-size: 65%;
+}
+
+#sppxnlhmua .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#sppxnlhmua .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#sppxnlhmua .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#sppxnlhmua .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#sppxnlhmua .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#sppxnlhmua .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#sppxnlhmua .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#sppxnlhmua .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#sppxnlhmua div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<div id="sppxnlhmua" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="sppxnlhmua">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"table_catalog":["contoso","contoso","contoso","contoso","test_db","test_db","contoso","contoso","contoso","contoso","md_information_schema","contoso","contoso","test_db","vignette","md_information_schema","contoso","test_db","contoso","contoso","contoso","contoso","contoso","contoso","new_db","test_db","tsa","md_information_schema","contoso","contoso","contoso","contoso","contoso","contoso","new_vignette","new_vignette","test_db","md_information_schema","contoso","contoso","contoso","vignette","md_information_schema","contoso","contoso","contoso","test_db","test_db","md_information_schema","contoso","vignette","contoso","new_vignette","tsa","contoso","new_vignette","tsa","vignette","contoso","md_information_schema"],"table_schema":["large","large","large","small","hn","who","medium","mega","mega","mega","main","medium","small","stackoverflow_survey","main","main","large","nyc","medium","medium","medium","medium","medium","mega","test","kaggle","main","main","large","small","small","small","small","small","test_schema","test_schema","nyc","main","large","large","mega","main","main","large","mega","mega","nyc","stackoverflow_survey","main","medium","test","small","test_schema","main","mega","test_schema","main","raw","small","main"],"table_name":["sales","orderrows","fx","orders","hacker_news","ambient_air_quality","store","sales","orderrows","fx","storage_info_history","customer","diamonds","survey_results","mtcars","storage_info","store","service_requests","product","date","sales","orderrows","fx","store","mtcars_tbl","movies","current_year","query_history","orders","orderrows","fx","sales","product","date","starwars","mtcars","rideshare","database_snapshots","product","date","customer","starwars","databases","customer","product","date","taxi","survey_schemas","shared_with_me","orders","mtcars_tbl","store","mtcars_tbl","historical","orders","diamonds","full_data","diamonds","customer","owned_shares"]},"columns":[{"id":"table_catalog","name":"table_catalog","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"},{"id":"table_schema","name":"table_schema","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"},{"id":"table_name","name":"table_name","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"}],"defaultPageSize":5,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"compact":true,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"16px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"sppxnlhmua","dataKey":"dcaa083a3552d7cb28db65319e1665fd"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style"],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<p>Now that we knwo how to navigate to our various databaes, lets finally load data somee existing data into a new database and schema. <code><a href="../reference/create_table.html">create_table()</a></code> function will create a new database / schema and save then load the data into a table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode r code-annotation-code code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span>diamonds <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>    md<span class="sc">::</span><span class="fu">create_table</span>(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-5-3" class="code-annotation-target"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">.con =</span> con_md</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-5-4" class="code-annotation-target"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">database_name =</span> <span class="st">"vignette"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-5-5" class="code-annotation-target"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">schema_name =</span> <span class="st">"raw"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="5" onclick="event.preventDefault();" href="">5</a><span id="annotated-cell-5-6" class="code-annotation-target"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">table_name =</span> <span class="st">"diamonds"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="6" onclick="event.preventDefault();" href="">6</a><span id="annotated-cell-5-7" class="code-annotation-target"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">write_type=</span><span class="st">"overwrite"</span></span>
+<span id="annotated-cell-5-8"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a>        )</span><div class="code-annotation-gutter-bg"></div>
+<div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="1" data-code-annotation="1">Pass your data into the function</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="3" data-code-annotation="2">List your motherduck connection</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="4" data-code-annotation="3">database name (either new or existing)</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="5" data-code-annotation="4">schema name (either new or existing)</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="6" data-code-annotation="5">table name</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="7" data-code-annotation="6">Either overwrite or append the data</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code><span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Status:</span> <span style="color: #00BBBB;">─────────────────────────────────────────────────────────────────────</span>
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code>── <span style="font-weight: bold;">Connection Status Report:</span> ──
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code><span style="color: #00BB00;">✔</span> You are connected to MotherDuck
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code>── <span style="font-weight: bold;">User Report:</span> ──
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code>• User Name: <span style="color: #0000BB;">"alejandro_hagan"</span>
+</code></pre>
+<pre class="fansi fansi-message"><code>• Role: <span style="color: #0000BB;">"duckdb"</span>
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code>── <span style="font-weight: bold;">Catalog Report:</span> ──
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code>• Current Database: <span style="color: #0000BB;">"vignette"</span>
+</code></pre>
+<pre class="fansi fansi-message"><code>• Current Schema: <span style="color: #0000BB;">"raw"</span>
+</code></pre>
+<pre class="fansi fansi-message"><code>• # Total Catalogs you have access to: <span style="color: #0000BB;">13</span>
+</code></pre>
+<pre class="fansi fansi-message"><code>• # Total Tables you have access to: <span style="color: #0000BB;">60</span>
+</code></pre>
+<pre class="fansi fansi-message"><code>• # Total Shares you have access to: <span style="color: #0000BB;">2</span>
+</code></pre>
+<pre class="fansi fansi-message"><code>• # Tables in this catalog you have access to: <span style="color: #0000BB;">4</span>
+</code></pre>
+<pre class="fansi fansi-message"><code>• # Tables in this catalog &amp; schema you have access to: <span style="color: #0000BB;">1</span>
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code>── <span style="font-weight: bold;">Action Report:</span> ──
+</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<pre class="fansi fansi-message"><code>✔ Inserted into existing database <span style="color: #0000BB;">"vignette"</span>
+</code></pre>
+<pre class="fansi fansi-message"><code>✔ Using existing schema <span style="color: #0000BB;">"raw"</span>
+</code></pre>
+</div>
+<p>Notice that we don’t assign this object to anything, this just silently writes our data to our database and prints a message confirming the performed actions as well as some summary of catalogs, schemas, tables and shares that you haves access</p>
+<p>To validate the data is in our database, we can do the following:</p>
+<p>We can validate if we have successfully saved the table in our database by running <code><a href="../reference/list_all_tables.html">list_all_tables()</a></code>.</p>
+<p>If you want to access your motherduck data, you can simply leverage <code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">dplyr::tbl()</a></code> or <code><a href="https://dbi.r-dbi.org/reference/dbGetQuery.html" class="external-link">DBI::dbGetQuery()</a></code> functions with your motherduck connection to pull your data.</p>
+</section><section class="level2"><h2 id="organizing-our-data">Organizing our data<a class="anchor" aria-label="anchor" href="#organizing-our-data"></a>
+</h2>
+<p>Let’s say we want to filter and summarize this table and save it to our database with a new table name – no problem, we can repeat the steps and this time we will upload a DBI object instead of tibble.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a>id_name <span class="ot">&lt;-</span> DBI<span class="sc">::</span><span class="fu">Id</span>(<span class="st">"vignette"</span>,<span class="st">"raw"</span>,<span class="st">"diamonds"</span>)</span>
+<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>diamonds_summary_tbl <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">tbl</span>(con_md,id_name) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">.by=</span><span class="fu">c</span>(color,cut,clarity)</span>
+<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a>        ,<span class="at">mean_price=</span><span class="fu">mean</span>(price,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="annotated-cell-6-7"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-6-9"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-6-10" class="code-annotation-target"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a>diamonds_summary_tbl <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-6-11"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">create_table</span>(   </span>
+<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.con =</span> con_md</span>
+<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">database_name =</span> <span class="st">"vignette"</span></span>
+<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">schema_name =</span> <span class="st">"raw"</span></span>
+<span id="annotated-cell-6-15"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">table_name =</span> <span class="st">"diamonds_summary"</span> </span>
+<span id="annotated-cell-6-16"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">write_type =</span> <span class="st">"overwrite"</span></span>
+<span id="annotated-cell-6-17"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div>
+<div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="1" data-code-annotation="1">You can directly call the full name or if you are already in your database / schema you can just call the table</span>
+</dd>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="3" data-code-annotation="2">Perform your additional cleaning, transformation, or summarization steps</span>
+</dd>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="10" data-code-annotation="3">Pass the DBI object to create_table and it will still save the table!</span>
+</dd>
+</dl>
+</div>
+</div>
+<p>While its the same syntax, <code><a href="../reference/create_table.html">create_table()</a></code> will work with an R object, duckplyr or DBI object to save that table into your database.</p>
+</section><section class="level2"><h2 id="create-new-schema">Create new schema<a class="anchor" aria-label="anchor" href="#create-new-schema"></a>
+</h2>
+<p>Let’s say we want to organize these existing tables into a different schema, we can do this by first creating a new schema and then moving that table or alternatively loading a table directly with a new schema and table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span>    <span class="fu"><a href="../reference/create_schema.html">create_schema</a></span><span class="op">(</span></span>
+<span>        .con<span class="op">=</span><span class="va">con_md</span></span>
+<span>        ,database_name <span class="op">=</span> <span class="st">"vignette"</span></span>
+<span>        ,schema_name <span class="op">=</span> <span class="st">"curated"</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
+</div>
+<p>This will create a new schema if it doesn’t exist but won’t load any data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">list_schemas</span><span class="op">(</span><span class="va">con_md</span><span class="op">)</span></span></code></pre></div>
+<pre class="fansi fansi-output"><code><span style="color: #555555;"># Source:   SQL [?? x 2]</span>
+<span style="color: #555555;"># Database: DuckDB 1.4.1 [hagan@Linux 6.16.3-76061603-generic:R 4.5.1//tmp/RtmpN1Lid9/file62afb24dfdf2f.duckdb]</span>
+  catalog_name schema_name
+  <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>
+<span style="color: #555555;">1</span> vignette     raw
+<span style="color: #555555;">2</span> vignette     main
+<span style="color: #555555;">3</span> vignette     test
+</code></pre>
+</div>
+<div>
+<blockquote>
+<p><strong>Default schemas</strong></p>
+<p>When you create a database it will have a default schema “main”, so even though we only created “raw” and “curated” schemas we see three schemas due to the default (that you can’t delete)</p>
+</blockquote>
+</div>
+<p>We can copy one of a series of tables to our new schema with <code>copy_tables_to_new_location</code>. This accepts a tibble or DBI object of objects with table_catalog,table_schema, table_name headers and will copy them into your new location.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/list_all_tables.html">list_all_tables</a></span><span class="op">(</span><span class="va">con_md</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">table_catalog</span><span class="op">==</span><span class="st">"vignette"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="fu">md</span><span class="fu">::</span><span class="fu"><a href="../reference/copy_tables_to_new_location.html">copy_tables_to_new_location</a></span><span class="op">(</span></span>
+<span>    .con <span class="op">=</span> <span class="va">con_md</span></span>
+<span>    ,from_table_names <span class="op">=</span> <span class="va">_</span></span>
+<span>    ,to_database_name <span class="op">=</span> <span class="st">"vignette"</span></span>
+<span>    ,to_schema_name <span class="op">=</span> <span class="st">"curated"</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
+</div>
+<p>There’s a complimentary function called <code>create_or_repalce_schema</code> which will also create a schema the different is if there is already a schema with that name it will delete that schema and any tables saved under it.</p>
+</section><section class="level2"><h2 id="drop-databaes-schemas-or-tables">Drop databaes, schemas or tables<a class="anchor" aria-label="anchor" href="#drop-databaes-schemas-or-tables"></a>
+</h2>
+<p>Sometimes we need to delete databases, schemas or tables.</p>
+<p>Be careful when you do this as its irreversible – there is no CTRL+Z to undo this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/delete_schema.html">delete_schema</a></span><span class="op">(</span><span class="va">con_md</span>,database_name <span class="op">=</span> <span class="st">"vignette"</span>,schema_name <span class="op">=</span> <span class="st">"curated"</span>,cascade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
+</section><section class="level2"><h2 id="how-to-load-data-directly-into-motherduck">How to load data directly into motherduck<a class="anchor" aria-label="anchor" href="#how-to-load-data-directly-into-motherduck"></a>
+</h2>
+<p>For csv files we can leverage the existing duckdb function <code><a href="https://r.duckdb.org/reference/deprecated.html" class="external-link">duckdb::read_csv_duckdb()</a></code> to directly read the a csv file or a series of csv files<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;as long as they have the same header structure&lt;/p&gt;"><sup>3</sup></a> into your duckdb or motherduck database</p>
+<p>This will read the files from their source location directly into your database without loading the files into memory which is helpful when you are dealing with larger than memory data.</p>
+<p>Underneath the hood the duckdb function is using the <code>read_csv_auto</code> and you can pass the configuration options directly through the the read_csv function if you need configuration.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">mtcars</span>,<span class="st">"mtcars.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># cd(schema = "raw")</span></span>
+<span></span>
+<span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb_read_csv.html" class="external-link">duckdb_read_csv</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">con_md</span>,files <span class="op">=</span> <span class="st">"mtcars.csv"</span>,name <span class="op">=</span> <span class="st">"mtcars"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>For or excel, parquet or httpfs file formats, we can leverage md read_excel_duckdb, read_parquet_duckdb() or read_httpfs_duckdb() form the <code>md</code> package.</p>
+<p>Similar to the <code>read_csv_auto</code> function, these leverage underlying duckdb extensions to read these diffrent file formatas.</p>
+<p>You can view the default configuration tables with the md::config_* family of tables</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-12"><pre class="sourceCode r code-annotation-code code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-12-1" class="code-annotation-target"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(starwars,<span class="st">"starwars.xlsx"</span>)</span>
+<span id="annotated-cell-12-2"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-3"><a href="#annotated-cell-12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-4"><a href="#annotated-cell-12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">read_excel</span>(</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-12-5" class="code-annotation-target"><a href="#annotated-cell-12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.con=</span>con_md</span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-12-6" class="code-annotation-target"><a href="#annotated-cell-12-6" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_database_name =</span> <span class="st">"vignette"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-12-7" class="code-annotation-target"><a href="#annotated-cell-12-7" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_schema_name =</span> <span class="st">"main"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="5" onclick="event.preventDefault();" href="">5</a><span id="annotated-cell-12-8" class="code-annotation-target"><a href="#annotated-cell-12-8" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">to_table_name =</span> <span class="st">"starwars"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="6" onclick="event.preventDefault();" href="">6</a><span id="annotated-cell-12-9" class="code-annotation-target"><a href="#annotated-cell-12-9" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">file_path =</span> <span class="st">"starwars.xlsx"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="7" onclick="event.preventDefault();" href="">7</a><span id="annotated-cell-12-10" class="code-annotation-target"><a href="#annotated-cell-12-10" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">header =</span> <span class="cn">TRUE</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="8" onclick="event.preventDefault();" href="">8</a><span id="annotated-cell-12-11" class="code-annotation-target"><a href="#annotated-cell-12-11" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">sheet =</span> <span class="st">"Sheet 1"</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="9" onclick="event.preventDefault();" href="">9</a><span id="annotated-cell-12-12" class="code-annotation-target"><a href="#annotated-cell-12-12" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">all_varchar  =</span> <span class="cn">TRUE</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="10" onclick="event.preventDefault();" href="">10</a><span id="annotated-cell-12-13" class="code-annotation-target"><a href="#annotated-cell-12-13" aria-hidden="true" tabindex="-1"></a>    ,<span class="at">write_type =</span> <span class="st">"overwrite"</span></span>
+<span id="annotated-cell-12-14"><a href="#annotated-cell-12-14" aria-hidden="true" tabindex="-1"></a>)</span><div class="code-annotation-gutter-bg"></div>
+<div class="code-annotation-gutter"></div></code></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="1" data-code-annotation="1">Create a excel file</span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="5" data-code-annotation="2">Pass through our connection</span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="6" data-code-annotation="3">Select the database we want the table to be saved in</span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="7" data-code-annotation="4">Select the schema we want the table to be saved in</span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="8" data-code-annotation="5">Select the table name</span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="9" data-code-annotation="6">Select the filepath to the excel file<br></span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="10" data-code-annotation="7">Clarify if we want the first line to be used as headers</span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="11" data-code-annotation="8">Clarify the sheet name to read</span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="12" data-code-annotation="9">Clarify if all columns types be read in as characters</span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="10">10</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="13" data-code-annotation="10">Select if we should overwrite to an existing table or append</span>
+</dd>
+</dl>
+</div>
+</div>
+<p>Below are the list of configuration options available to be passed through to respective read_* functions.</p>
+<div>
+<blockquote>
+<p><strong>Configuration options</strong></p>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-1-1">CSV</a></li>
+<li><a href="#tabset-1-2">Excel</a></li>
+<li><a href="#tabset-1-3">Parquet</a></li>
+</ul>
+<ul class="nav nav-tabs" id="NA" role="tablist"><li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#NA" id="NA-tab" type="button" role="tab" aria-controls="NA" aria-selected="true" class="active nav-link">
+<div class="cell">
+<div class="cell-output-display">
+<div id="sgpebnmphh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#sgpebnmphh table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#sgpebnmphh thead, #sgpebnmphh tbody, #sgpebnmphh tfoot, #sgpebnmphh tr, #sgpebnmphh td, #sgpebnmphh th {
+  border-style: none;
+}
+
+#sgpebnmphh p {
+  margin: 0;
+  padding: 0;
+}
+
+#sgpebnmphh .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#sgpebnmphh .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#sgpebnmphh .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#sgpebnmphh .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#sgpebnmphh .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#sgpebnmphh .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#sgpebnmphh .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#sgpebnmphh .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#sgpebnmphh .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#sgpebnmphh .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#sgpebnmphh .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#sgpebnmphh .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#sgpebnmphh .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#sgpebnmphh .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#sgpebnmphh .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sgpebnmphh .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#sgpebnmphh .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#sgpebnmphh .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#sgpebnmphh .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sgpebnmphh .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#sgpebnmphh .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sgpebnmphh .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#sgpebnmphh .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sgpebnmphh .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#sgpebnmphh .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#sgpebnmphh .gt_left {
+  text-align: left;
+}
+
+#sgpebnmphh .gt_center {
+  text-align: center;
+}
+
+#sgpebnmphh .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#sgpebnmphh .gt_font_normal {
+  font-weight: normal;
+}
+
+#sgpebnmphh .gt_font_bold {
+  font-weight: bold;
+}
+
+#sgpebnmphh .gt_font_italic {
+  font-style: italic;
+}
+
+#sgpebnmphh .gt_super {
+  font-size: 65%;
+}
+
+#sgpebnmphh .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#sgpebnmphh .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#sgpebnmphh .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#sgpebnmphh .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#sgpebnmphh .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#sgpebnmphh .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#sgpebnmphh .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#sgpebnmphh .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#sgpebnmphh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings header">
+<th id="name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">name</th>
+<th id="description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">description</th>
+<th id="type" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">type</th>
+<th id="default" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">default</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">all_varchar</td>
+<td class="gt_row gt_left" headers="description">Skip type detection and assume all columns are of type VARCHAR. This option is only supported by the read_csv function.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">false</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">allow_quoted_nulls</td>
+<td class="gt_row gt_left" headers="description">Allow the conversion of quoted values to NULL values</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">true</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">auto_detect</td>
+<td class="gt_row gt_left" headers="description">Auto detect CSV parameters.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">true</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">auto_type_candidates</td>
+<td class="gt_row gt_left" headers="description">Types that the sniffer uses when detecting column types. The VARCHAR type is always included as a fallback option. See example.</td>
+<td class="gt_row gt_left" headers="type">TYPE[]</td>
+<td class="gt_row gt_left" headers="default">default types</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">buffer_size</td>
+<td class="gt_row gt_left" headers="description">Size of the buffers used to read files, in bytes. Must be large enough to hold four lines and can significantly impact performance.</td>
+<td class="gt_row gt_left" headers="type">BIGINT</td>
+<td class="gt_row gt_left" headers="default">16 * max_line_size</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">columns</td>
+<td class="gt_row gt_left" headers="description">Column names and types, as a struct (e.g., {'col1': 'INTEGER', 'col2': 'VARCHAR'}). Using this option disables auto detection of the schema.</td>
+<td class="gt_row gt_left" headers="type">STRUCT</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">comment</td>
+<td class="gt_row gt_left" headers="description">Character used to initiate comments. Lines starting with a comment character (optionally preceded by space characters) are completely ignored; other lines containing a comment character are parsed only up to that point.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">compression</td>
+<td class="gt_row gt_left" headers="description">Method used to compress CSV files. By default this is detected automatically from the file extension (e.g., t.csv.gz will use gzip, t.csv will use none). Options are none, gzip, zstd.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">auto</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">dateformat</td>
+<td class="gt_row gt_left" headers="description">Date format used when parsing and writing dates.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">date_format</td>
+<td class="gt_row gt_left" headers="description">Alias for dateformat; only available in the COPY statement.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">decimal_separator</td>
+<td class="gt_row gt_left" headers="description">Decimal separator for numbers.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">delim</td>
+<td class="gt_row gt_left" headers="description">Delimiter character used to separate columns within each line, e.g., , ; \t. The delimiter character can be up to 4 bytes, e.g., 🦆. Alias for sep.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">,</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">delimiter</td>
+<td class="gt_row gt_left" headers="description">Alias for delim; only available in the COPY statement.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">,</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">escape</td>
+<td class="gt_row gt_left" headers="description">String used to escape the quote character within quoted values.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">"</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">encoding</td>
+<td class="gt_row gt_left" headers="description">Encoding used by the CSV file. Options are utf-8, utf-16, latin-1. Not available in the COPY statement (which always uses utf-8).</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">utf-8</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">filename</td>
+<td class="gt_row gt_left" headers="description">Add path of the containing file to each row, as a string column named filename. Relative or absolute paths are returned depending on the path or glob pattern provided to read_csv, not just filenames. Since DuckDB v1.3.0, the filename column is added automatically as a virtual column and this option is only kept for compatibility reasons.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">false</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">force_not_null</td>
+<td class="gt_row gt_left" headers="description">Do not match values in the specified columns against the NULL string. In the default case where the NULL string is empty, this means that empty values are read as zero-length strings instead of NULLs.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR[]</td>
+<td class="gt_row gt_left" headers="default">[]</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">header</td>
+<td class="gt_row gt_left" headers="description">First line of each file contains the column names.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">false</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">hive_partitioning</td>
+<td class="gt_row gt_left" headers="description">Interpret the path as a Hive partitioned path.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">(auto-detected)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">ignore_errors</td>
+<td class="gt_row gt_left" headers="description">Ignore any parsing errors encountered.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">false</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">max_line_size or maximum_line_size</td>
+<td class="gt_row gt_left" headers="description">Maximum line size, in bytes. Not available in the COPY statement.</td>
+<td class="gt_row gt_left" headers="type">BIGINT</td>
+<td class="gt_row gt_left" headers="default">2000000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">names or column_names</td>
+<td class="gt_row gt_left" headers="description">Column names, as a list. See example.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR[]</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">new_line</td>
+<td class="gt_row gt_left" headers="description">New line character(s). Options are '\r','\n', or '\r\n'. The CSV parser only distinguishes between single-character and double-character line delimiters. Therefore, it does not differentiate between '\r' and '\n'.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">normalize_names</td>
+<td class="gt_row gt_left" headers="description">Normalize column names. This removes any non-alphanumeric characters from them. Column names that are reserved SQL keywords are prefixed with an underscore character (_).</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">false</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">null_padding</td>
+<td class="gt_row gt_left" headers="description">Pad the remaining columns on the right with NULL values when a line lacks columns.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">false</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">nullstr or null</td>
+<td class="gt_row gt_left" headers="description">Strings that represent a NULL value.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR or VARCHAR[]</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">parallel</td>
+<td class="gt_row gt_left" headers="description">Use the parallel CSV reader.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">true</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">quote</td>
+<td class="gt_row gt_left" headers="description">String used to quote values.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">"</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">rejects_scan</td>
+<td class="gt_row gt_left" headers="description">Name of the temporary table where information on faulty scans is stored.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">reject_scans</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">rejects_table</td>
+<td class="gt_row gt_left" headers="description">Name of the temporary table where information on faulty lines is stored.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">reject_errors</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">rejects_limit</td>
+<td class="gt_row gt_left" headers="description">Upper limit on the number of faulty lines per file that are recorded in the rejects table. Setting this to 0 means that no limit is applied.</td>
+<td class="gt_row gt_left" headers="type">BIGINT</td>
+<td class="gt_row gt_left" headers="default">0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">sample_size</td>
+<td class="gt_row gt_left" headers="description">Number of sample lines for auto detection of parameters.</td>
+<td class="gt_row gt_left" headers="type">BIGINT</td>
+<td class="gt_row gt_left" headers="default">20480</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">sep</td>
+<td class="gt_row gt_left" headers="description">Delimiter character used to separate columns within each line, e.g., , ; \t. The delimiter character can be up to 4 bytes, e.g., 🦆. Alias for delim.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">,</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">skip</td>
+<td class="gt_row gt_left" headers="description">Number of lines to skip at the start of each file.</td>
+<td class="gt_row gt_left" headers="type">BIGINT</td>
+<td class="gt_row gt_left" headers="default">0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">store_rejects</td>
+<td class="gt_row gt_left" headers="description">Skip any lines with errors and store them in the rejects table.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">false</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">strict_mode</td>
+<td class="gt_row gt_left" headers="description">Enforces the strictness level of the CSV Reader. When set to true, the parser will throw an error upon encountering any issues. When set to false, the parser will attempt to read structurally incorrect files. It is important to note that reading structurally incorrect files can cause ambiguity; therefore, this option should be used with caution.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">true</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">thousands</td>
+<td class="gt_row gt_left" headers="description">Character used to identify thousands separators in numeric values. It must be a single character and different from the decimal_separator option.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">timestampformat</td>
+<td class="gt_row gt_left" headers="description">Timestamp format used when parsing and writing timestamps.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">timestamp_format</td>
+<td class="gt_row gt_left" headers="description">Alias for timestampformat; only available in the COPY statement.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="name">types or dtypes or column_types</td>
+<td class="gt_row gt_left" headers="description">Column types, as either a list (by position) or a struct (by name). See example.</td>
+<td class="gt_row gt_left" headers="type">VARCHAR[] or STRUCT</td>
+<td class="gt_row gt_left" headers="default">(empty)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="name">union_by_name</td>
+<td class="gt_row gt_left" headers="description">Align columns from different files by column name instead of position. Using this option increases memory consumption.</td>
+<td class="gt_row gt_left" headers="type">BOOL</td>
+<td class="gt_row gt_left" headers="default">false</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</button></li></ul>
+<div class="tab-content"><div class="active  tab-pane" id="NA" role="tabpanel" aria-labelledby="NA-tab">
+
+<div id="tabset-1-2">
+<div class="cell">
+<div class="cell-output-display">
+<div id="bbbzhvotqt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bbbzhvotqt table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#bbbzhvotqt thead, #bbbzhvotqt tbody, #bbbzhvotqt tfoot, #bbbzhvotqt tr, #bbbzhvotqt td, #bbbzhvotqt th {
+  border-style: none;
+}
+
+#bbbzhvotqt p {
+  margin: 0;
+  padding: 0;
+}
+
+#bbbzhvotqt .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bbbzhvotqt .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bbbzhvotqt .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bbbzhvotqt .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bbbzhvotqt .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bbbzhvotqt .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bbbzhvotqt .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bbbzhvotqt .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bbbzhvotqt .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#bbbzhvotqt .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#bbbzhvotqt .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bbbzhvotqt .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bbbzhvotqt .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bbbzhvotqt .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bbbzhvotqt .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bbbzhvotqt .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bbbzhvotqt .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bbbzhvotqt .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#bbbzhvotqt .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bbbzhvotqt .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bbbzhvotqt .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bbbzhvotqt .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bbbzhvotqt .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bbbzhvotqt .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bbbzhvotqt .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bbbzhvotqt .gt_left {
+  text-align: left;
+}
+
+#bbbzhvotqt .gt_center {
+  text-align: center;
+}
+
+#bbbzhvotqt .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bbbzhvotqt .gt_font_normal {
+  font-weight: normal;
+}
+
+#bbbzhvotqt .gt_font_bold {
+  font-weight: bold;
+}
+
+#bbbzhvotqt .gt_font_italic {
+  font-style: italic;
+}
+
+#bbbzhvotqt .gt_super {
+  font-size: 65%;
+}
+
+#bbbzhvotqt .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#bbbzhvotqt .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bbbzhvotqt .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bbbzhvotqt .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bbbzhvotqt .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bbbzhvotqt .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bbbzhvotqt .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#bbbzhvotqt .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#bbbzhvotqt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings header">
+<th id="Option" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Option</th>
+<th id="Type" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Type</th>
+<th id="Default" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Default</th>
+<th id="Description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Description</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Option">header</td>
+<td class="gt_row gt_left" headers="Type">BOOLEAN</td>
+<td class="gt_row gt_left" headers="Default">automatically inferred</td>
+<td class="gt_row gt_left" headers="Description">Whether to treat the first row as containing the names of the resulting columns.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Option">sheet</td>
+<td class="gt_row gt_left" headers="Type">VARCHAR</td>
+<td class="gt_row gt_left" headers="Default">automatically inferred</td>
+<td class="gt_row gt_left" headers="Description">The name of the sheet in the xlsx file to read. Default is the first sheet.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Option">all_varchar</td>
+<td class="gt_row gt_left" headers="Type">BOOLEAN</td>
+<td class="gt_row gt_left" headers="Default">false</td>
+<td class="gt_row gt_left" headers="Description">Whether to read all cells as containing VARCHARs.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Option">ignore_errors</td>
+<td class="gt_row gt_left" headers="Type">BOOLEAN</td>
+<td class="gt_row gt_left" headers="Default">false</td>
+<td class="gt_row gt_left" headers="Description">Whether to ignore errors and silently replace cells that cant be cast to the corresponding inferred column type with NULL's.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Option">range</td>
+<td class="gt_row gt_left" headers="Type">VARCHAR</td>
+<td class="gt_row gt_left" headers="Default">automatically inferred</td>
+<td class="gt_row gt_left" headers="Description">The range of cells to read, in spreadsheet notation. For example, A1:B2 reads the cells from A1 to B2. If not specified the resulting range will be inferred as rectangular region of cells between the first row of consecutive non-empty cells and the first empty row spanning the same columns.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Option">stop_at_empty</td>
+<td class="gt_row gt_left" headers="Type">BOOLEAN</td>
+<td class="gt_row gt_left" headers="Default">automatically inferred</td>
+<td class="gt_row gt_left" headers="Description">Whether to stop reading the file when an empty row is encountered. If an explicit range option is provided, this is false by default, otherwise true.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Option">empty_as_varchar</td>
+<td class="gt_row gt_left" headers="Type">BOOLEAN</td>
+<td class="gt_row gt_left" headers="Default">false</td>
+<td class="gt_row gt_left" headers="Description">Whether to treat empty cells as VARCHAR instead of DOUBLE when trying to automatically infer column types.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3">
+<div class="cell">
+<div class="cell-output-display">
+<div id="ttjeahzueh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ttjeahzueh table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ttjeahzueh thead, #ttjeahzueh tbody, #ttjeahzueh tfoot, #ttjeahzueh tr, #ttjeahzueh td, #ttjeahzueh th {
+  border-style: none;
+}
+
+#ttjeahzueh p {
+  margin: 0;
+  padding: 0;
+}
+
+#ttjeahzueh .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ttjeahzueh .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ttjeahzueh .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ttjeahzueh .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ttjeahzueh .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ttjeahzueh .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ttjeahzueh .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ttjeahzueh .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ttjeahzueh .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ttjeahzueh .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ttjeahzueh .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ttjeahzueh .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ttjeahzueh .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ttjeahzueh .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ttjeahzueh .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ttjeahzueh .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ttjeahzueh .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ttjeahzueh .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ttjeahzueh .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ttjeahzueh .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ttjeahzueh .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ttjeahzueh .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ttjeahzueh .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ttjeahzueh .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ttjeahzueh .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ttjeahzueh .gt_left {
+  text-align: left;
+}
+
+#ttjeahzueh .gt_center {
+  text-align: center;
+}
+
+#ttjeahzueh .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ttjeahzueh .gt_font_normal {
+  font-weight: normal;
+}
+
+#ttjeahzueh .gt_font_bold {
+  font-weight: bold;
+}
+
+#ttjeahzueh .gt_font_italic {
+  font-style: italic;
+}
+
+#ttjeahzueh .gt_super {
+  font-size: 65%;
+}
+
+#ttjeahzueh .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ttjeahzueh .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ttjeahzueh .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ttjeahzueh .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ttjeahzueh .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ttjeahzueh .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ttjeahzueh .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ttjeahzueh .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ttjeahzueh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table caption-top" data-quarto-bootstrap="false">
+<thead><tr class="gt_col_headings header">
+<th id="Name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Name</th>
+<th id="Description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Description</th>
+<th id="Type" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Type</th>
+<th id="Default" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Default</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">binary_as_string</td>
+<td class="gt_row gt_left" headers="Description">Parquet files generated by legacy writers do not correctly set the UTF8 flag for strings, causing string columns to be loaded as BLOB instead. Set this to true to load binary columns as strings.</td>
+<td class="gt_row gt_left" headers="Type">BOOL</td>
+<td class="gt_row gt_left" headers="Default">false</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">encryption_config</td>
+<td class="gt_row gt_left" headers="Description">Configuration for Parquet encryption.</td>
+<td class="gt_row gt_left" headers="Type">STRUCT</td>
+<td class="gt_row gt_left" headers="Default">-</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">filename</td>
+<td class="gt_row gt_left" headers="Description">Whether or not an extra filename column should be included in the result. Since DuckDB v1.3.0, the filename column is added automatically as a virtual column and this option is only kept for compatibility reasons.</td>
+<td class="gt_row gt_left" headers="Type">BOOL</td>
+<td class="gt_row gt_left" headers="Default">false</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">file_row_number</td>
+<td class="gt_row gt_left" headers="Description">Whether or not to include the file_row_number column.</td>
+<td class="gt_row gt_left" headers="Type">BOOL</td>
+<td class="gt_row gt_left" headers="Default">false</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">hive_partitioning</td>
+<td class="gt_row gt_left" headers="Description">Whether or not to interpret the path as a Hive partitioned path.</td>
+<td class="gt_row gt_left" headers="Type">BOOL</td>
+<td class="gt_row gt_left" headers="Default">(auto-detected)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">union_by_name</td>
+<td class="gt_row gt_left" headers="Description">Whether the columns of multiple schemas should be unified by name, rather than by position.</td>
+<td class="gt_row gt_left" headers="Type">BOOL</td>
+<td class="gt_row gt_left" headers="Default">false</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</blockquote>
+</div>
+</section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
+</div>
 
 
     <footer><div class="pkgdown-footer-left">
@@ -148,7 +2859,7 @@ this time with a new schema and reference name.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

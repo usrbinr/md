@@ -22,6 +22,11 @@ schemas or tables were affected. If the object does not exist, it will not delet
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/How-to-connect-to-motherduck.html">How to connect to motherduck</a></li>
+    <li><a class="dropdown-item" href="../articles/How-to-load-data-in-motherduck.html">How to load data into Motherduck</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -55,7 +60,7 @@ schemas or tables were affected. If the object does not exist, it will not delet
 
 
 <dl><dt id="arg--con">.con<a class="anchor" aria-label="anchor" href="#arg--con"></a></dt>
-<dd><p>A connection object to the database.</p></dd>
+<dd><p>A valid <code>DBI</code> connection (DuckDB / MotherDuck).</p></dd>
 
 
 <dt id="arg-database-name">database_name<a class="anchor" aria-label="anchor" href="#arg-database-name"></a></dt>
@@ -73,8 +78,8 @@ schemas or tables were affected. If the object does not exist, it will not delet
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>This function does not return any values. It prints a message indicating
-         the deleted objects (database, schema, or table) and the number of schemas/tables
-         affected by the deletion.</p>
+the deleted objects (database, schema, or table) and the number of schemas/tables
+affected by the deletion.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -86,7 +91,7 @@ schemas or tables were affected. If the object does not exist, it will not delet
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

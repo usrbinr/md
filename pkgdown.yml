@@ -1,8 +1,10 @@
-pandoc: 3.1.11
-pkgdown: 2.1.3
+pandoc: 3.6.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
-articles: {}
-last_built: 2025-10-26T00:07Z
+articles:
+  How-to-connect-to-motherduck: How-to-connect-to-motherduck.html
+  How-to-load-data-in-motherduck: How-to-load-data-in-motherduck.html
+last_built: 2025-11-10T00:41Z
 urls:
-  reference: https://alejandrohagan.github.io/md/reference
-  article: https://alejandrohagan.github.io/md/articles
+  reference: https://usrbinr.github.io/md/reference
+  article: https://usrbinr.github.io/md/articles

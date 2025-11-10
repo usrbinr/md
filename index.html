@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Motherduck Utilities • md</title>
+<title>Collection of Utilities to Manage a "Motherduck" Database • md</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Motherduck Utilities">
-<meta name="description" content="Collection of database utilites for Motherduck platform This provides utilites and metadata function support to simplify the management, connection, uploading and management of a motherduck database platform. This package requires an account www.motherduck.com to apply its functions.">
-<meta property="og:description" content="Collection of database utilites for Motherduck platform This provides utilites and metadata function support to simplify the management, connection, uploading and management of a motherduck database platform. This package requires an account www.motherduck.com to apply its functions.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Collection of Utilities to Manage a " motherduck database>
+<meta name="description" content='Collection of database utilities for "Motherduck" database This provides utilities and metadata function support to simplify the management, connection, uploading and management of a Motherduck database platform. This package requires an account www.motherduck.com to apply its functions.'>
+<meta property="og:description" content='Collection of database utilities for "Motherduck" database This provides utilities and metadata function support to simplify the management, connection, uploading and management of a Motherduck database platform. This package requires an account www.motherduck.com to apply its functions.'>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -32,6 +32,13 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/How-to-connect-to-motherduck.html">How to connect to motherduck</a></li>
+    <li><a class="dropdown-item" href="articles/How-to-load-data-in-motherduck.html">How to load data into Motherduck</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -46,8 +53,9 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="my-project">My Project<a class="anchor" aria-label="anchor" href="#my-project"></a>
+<div class="page-header"><h1 id="motherduck">Motherduck<a class="anchor" aria-label="anchor" href="#motherduck"></a>
 </h1></div>
+<p><img src="reference/figures/md_logo.png"></p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -63,220 +71,17 @@
 <p>Please create an issue if you have any comments or requests or reach out if you have any feedback.</p>
 </div>
 <div class="section level2">
-<h2 id="overview-of-functions">Overview of functions<a class="anchor" aria-label="anchor" href="#overview-of-functions"></a>
-</h2>
-<p>Below is a quick overview of the functions available in the package.</p>
-<div class="section level3">
-<h3 id="functions-that-help-you-manage-your-connection-and-duckdb-specific-extensions">Functions that help you manage your connection and duckdb specific extensions<a class="anchor" aria-label="anchor" href="#functions-that-help-you-manage-your-connection-and-duckdb-specific-extensions"></a>
-</h3>
-<ul>
-<li>
-<code><a href="reference/connect_to_motherduck.html">connect_to_motherduck()</a></code> will leverage your motherduck token to connect you to your motherduck instance (it will install the motherduck extension if not already present)</li>
-<li>
-<code><a href="reference/install_extensions.html">install_extensions()</a></code> will install various duckdb extensions from the official repository</li>
-<li>
-<code><a href="reference/load_extensions.html">load_extensions()</a></code> will load a duckdb extensions either from an official repository</li>
-<li>
-<code>validate_md_connection_statu()</code> will validate your motherduck connection status</li>
-<li>
-<code><a href="reference/validate_extension_install_status.html">validate_extension_install_status()</a></code> will validate if an extension has been successfully installed</li>
-<li>
-<code><a href="reference/validate_extension_load_status.html">validate_extension_load_status()</a></code> will validate if an extension has been successfully loaded</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="functions-that-help-you-see-what-is-in-your-databases">Functions that help you see what is in your databases<a class="anchor" aria-label="anchor" href="#functions-that-help-you-see-what-is-in-your-databases"></a>
-</h3>
-<ul>
-<li>
-<code><a href="reference/pwd.html">pwd()</a></code> prints the current database that you are “in”</li>
-<li>
-<code><a href="reference/cd.html">cd()</a></code> will change your “root” database so any execution functions are relative to that database (eg. CREATE SCHEMA)</li>
-<li>
-<code>list_database()</code> list the databases and their metadata</li>
-<li>
-<code>list_schema()</code>list the schemas and their metadata</li>
-<li>
-<code>list_table()</code>list the tables and their metadata</li>
-<li>
-<code>list_all_table()</code>list all tables across all databases</li>
-<li>
-<code>list_view()</code>list the views and their metadata</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="functions-that-will-help-you-read-data-into-duckdb-or-motherduck">Functions that will help you read data into duckdb or motherduck<a class="anchor" aria-label="anchor" href="#functions-that-will-help-you-read-data-into-duckdb-or-motherduck"></a>
-</h3>
-<ul>
-<li>
-<code><a href="reference/read_httpfs.html">read_httpfs()</a></code> will read httpfs file formats</li>
-<li>
-<code><a href="reference/read_parquet.html">read_parquet()</a></code> will read parquet file formats</li>
-<li>
-<code>read_excel()</code> will read excel files formats</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="functions-that-will-help-you-create-or-replace-databases-scehems-tables-or-views">Functions that will help you create or replace databases, scehems, tables or views<a class="anchor" aria-label="anchor" href="#functions-that-will-help-you-create-or-replace-databases-scehems-tables-or-views"></a>
-</h3>
-<ul>
-<li>
-<code>create_or_replace_database()</code> will take R data and create a database with your data</li>
-<li>
-<code>create_or_replace_schemas()</code> will take R data and create a schema with your data</li>
-<li>
-<code>create_or_replace_view()</code> will take R data and create a views with your data</li>
-<li>
-<code>create_or_replace_table()</code> will take R data and create a tables with your data</li>
-<li>
-<code>drop_table()</code> will delete a table from your databases</li>
-<li>
-<code>drop_database()</code> will delete a database</li>
-</ul>
-</div>
-</div>
-<div class="section level2">
-<h2 id="functions-to-help-you-manage-motherduck-users-tokens-and-instance-settings">Functions to help you manage motherduck users, tokens, and instance settings<a class="anchor" aria-label="anchor" href="#functions-to-help-you-manage-motherduck-users-tokens-and-instance-settings"></a>
-</h2>
-<ul>
-<li>
-<code><a href="reference/list_md_active_accounts.html">list_md_active_accounts()</a></code> list users with active duckling instances (note: will not list inactive users)</li>
-<li>
-<code><a href="reference/list_md_user_instance.html">list_md_user_instance()</a></code> list a user’s instance settings</li>
-<li>
-<code><a href="reference/list_md_user_tokens.html">list_md_user_tokens()</a></code> list user’s tokens</li>
-<li>
-<code><a href="reference/show_current_user.html">show_current_user()</a></code> show your current user name</li>
-<li>
-<code><a href="reference/create_md_user.html">create_md_user()</a></code> create user or service account in your organization</li>
-<li>
-<code><a href="reference/delete_md_user.html">delete_md_user()</a></code> delete a user or service account</li>
-<li>
-<code><a href="reference/create_md_access_token.html">create_md_access_token()</a></code> create an access token for a user</li>
-<li>
-<code><a href="reference/delete_md_access_token.html">delete_md_access_token()</a></code> delete an access token for a user</li>
-<li>
-<code><a href="reference/configure_md_user_settings.html">configure_md_user_settings()</a></code> configure a user’s instance settings</li>
-</ul>
-<div class="section level3">
-<h3 id="functions-to-help-you-understand-your-data">Functions to help you understand your data<a class="anchor" aria-label="anchor" href="#functions-to-help-you-understand-your-data"></a>
-</h3>
-<ul>
-<li>
-<code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> will summarize your table or view’s data</li>
-</ul>
-</div>
-</div>
-<div class="section level2">
 <h2 id="what-do-i-need-to-use-this">What do I need to use this?<a class="anchor" aria-label="anchor" href="#what-do-i-need-to-use-this"></a>
 </h2>
 <ul>
 <li>
 <a href="https://duckdb.org/" class="external-link">duckdb</a> R package installed on your computer</li>
 <li>A <a href="https://motherduck.com/" class="external-link">motherduck</a> account</li>
-<li>A motherduck access token which you you can be saved to your R environment file with <code>usethis::edit_r_environ()</code>
+<li>A motherduck access token which you you can be saved to your R environment file with <code><a href="https://usethis.r-lib.org/reference/edit.html" class="external-link">usethis::edit_r_environ()</a></code>
 </li>
 </ul>
-<blockquote>
-<p>[!NOTE]</p>
-<h3 id="whats-the-difference-between-motherduck-and-duckdb">Whats the difference between Motherduck and Duckdb?</h3>
-<ul>
-<li><p>Duckdb is a database that you can deploy and run either temporary or permanently in your computer. If you run it via your local computer, it is only available on your computer</p></li>
-<li><p>Motherduck is a cloud based deployment of duckdb which means you can save your data in the cloud or access it locally</p></li>
-<li><p>Most core functions in this package work for both motherduck or duckdb database</p></li>
-<li><p>It is more of a question if you want you data to be access only locally on your computer or if you want to be able to access it remotely via the cloud</p></li>
-</ul>
-</blockquote>
-</div>
-<div class="section level2">
-<h2 id="lets-see-the-package-in-action">Lets see the package in action<a class="anchor" aria-label="anchor" href="#lets-see-the-package-in-action"></a>
-</h2>
-<div class="section level3">
-<h3 id="create-a-duckdb-instance-and-connect-to-your-motherduck-account">Create a duckdb instance and Connect to your motherduck account<a class="anchor" aria-label="anchor" href="#create-a-duckdb-instance-and-connect-to-your-motherduck-account"></a>
-</h3>
-<p>When creating a duckdb database, you have three options</p>
-<ol style="list-style-type: decimal">
-<li>A in-memory based instance that exists in your local computer</li>
-<li>A file based instance that exists in your local computer</li>
-<li>A cloud-based instance through <a href="https://motherduck.com/" class="external-link">motherduck</a>
-</li>
-</ol>
-<p>To create options 1 or 2 you can simply use either the <a href="https://duckdb.org/" class="external-link">duckdb</a> or the <a href="https://duckplyr.tidyverse.org/index.html" class="external-link">duckplyr</a> packages.</p>
-<p>To use option 3, you will need to create a motherudck account and generate an access token. Once created, save your access token to an your R enviorment with <code>usethis::edit_r_environ()</code>. I recommend using <code>MOTHERDUCK_TOKEN</code> as your variable name.</p>
-<p>Once completed, you can simply use the <code><a href="reference/connect_to_motherduck.html">connect_to_motherduck()</a></code> function and pass through your token variable name and optional configuration options.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">con_md</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect_to_motherduck.html">connect_to_motherduck</a></span><span class="op">(</span><span class="st">"MOTHERDUCK_TOKEN"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>── Extension Load <span class="sc">&amp;</span> Install Report ─────────────────────────────────────────────</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>Installed and loaded <span class="dv">1</span> extension<span class="sc">:</span> motherduck</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>Use <span class="st">`</span><span class="at">list_extensions()</span><span class="st">`</span> to list extensions, status and their descriptions</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>Use <span class="st">`</span><span class="at">install_extensions()</span><span class="st">`</span> to install new duckdb extensions</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>See <span class="sc">&lt;</span>https<span class="sc">:</span><span class="er">//</span>duckdb.org<span class="sc">/</span>docs<span class="sc">/</span>stable<span class="sc">/</span>extensions<span class="sc">/</span>overview.html<span class="sc">&gt;</span> <span class="cf">for</span> more</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>information</span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>── Connection Status Report<span class="sc">:</span> ──</span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>✔ You are connected to MotherDuck</span></code></pre></div>
-<p>This will return a connection and print statement indicating if connection status.</p>
-<p>At any time you can validate your connection status with <code><a href="reference/validate_md_connection_status.html">validate_md_connection_status()</a></code></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/validate_md_connection_status.html">validate_md_connection_status</a></span><span class="op">(</span><span class="va">con_md</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>── Connection Status Report<span class="sc">:</span> ──</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>✔ You are connected to MotherDuck</span></code></pre></div>
-<blockquote>
-<p>[!NOTE]</p>
-<h3 id="how-to-create-a-motherduck-account-and-access-token">how to create a motherduck account and access token?</h3>
-<ol style="list-style-type: decimal">
-<li>Go to <a href="https://motherduck.com/" class="external-link">motherduck</a> and create an account, free options are available</li>
-<li>Go to your user name in the top right, click settings then click access tokens</li>
-<li>Click create token and then name your token and copy the token code</li>
-<li>You will need this token to access your account</li>
-<li>If you want to access it via R then simplest way is to save your access code as a variable in your r environment</li>
-<li>Simply leverage the <a href="https://usethis.r-lib.org/" class="external-link">usethis</a> function <code>edit_r_environ()</code> to set your access code to a variable and save it – this is one time activity</li>
-<li>To check if your correctly saved your variable then you can use the Sys.getenv(“var_name”) with “var_name” the named you assigned your access token to</li>
-<li>Going forward, if you want to access your token you don’t need to re-type the access token, simply remember your variable name</li>
-</ol>
-<ul>
-<li><p>First you will need a motherduck account, which has both free and paid tiers</p></li>
-<li><p>Once you’ve created an account, simply, go to your settings and click ‘Access Tokens’ under your ‘Integrations’</p></li>
-<li><p>Keep this secure and safe as this lets you connect to your online database to read or write data</p></li>
-<li>
-<p>Open R and use the <code>usethis::edit_r_environ()</code> function to put your motherduck token as a variable in your enviornment profile</p>
-<ul>
-<li>MOTHERDUCK_TOKEN=‘tokenID’</li>
-</ul>
-</li>
-<li><p>From there you can use the <code>connect_to_motherduck("MOTHERDUCK_TOKEN")</code></p></li>
-<li><p>This will use the <a href="https://dbi.r-dbi.org/" class="external-link">DBI</a> library to create a connection to your mother duck instance</p></li>
-</ul>
-</blockquote>
-<p>When connecting to motherduck there are a number of configuration options available, you can reference them via the <code>md::db_config</code> which will pull a list of options and their default values</p>
-<p>To change these, simply edit the configuration options you want and then pass the list as an argument <code><a href="reference/connect_to_motherduck.html">connect_to_motherduck()</a></code> or <code>duckdb()</code> if connecting locally</p>
-<p>You can see the full list of duckdb configuration options <a href="https://duckdb.org/docs/stable/configuration/overview.html" class="external-link">here</a> or alternatively you can use <code><a href="reference/list_settings.html">list_settings()</a></code> to see your current configuration options.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">config</span> <span class="op">&lt;-</span> <span class="fu">md</span><span class="fu">::</span><span class="va">db_config</span> <span class="co"># &lt;1&gt; get list of default configuration options</span></span>
-<span></span>
-<span></span>
-<span><span class="va">config</span><span class="op">$</span><span class="va">allow_community_extensions</span> <span class="op">&lt;-</span> <span class="st">"true"</span> <span class="co"># &lt;2&gt; change a default option</span></span>
-<span></span>
-<span><span class="va">con_md</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect_to_motherduck.html">connect_to_motherduck</a></span><span class="op">(</span><span class="st">"MOTHERDUCK_TOKEN"</span>,config <span class="op">=</span> <span class="va">config</span><span class="op">)</span> <span class="co"># &lt;3&gt; pass the modified list to your connection</span></span></code></pre></div>
-<p>At any time you can see what configuration arguments are for your connection with <code><a href="reference/list_settings.html">md::list_settings()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/list_settings.html">list_setting</a></span><span class="op">(</span><span class="va">con_md</span><span class="op">)</span></span></code></pre></div>
-<p>Congratulations, you’ve set connected to your motherduck database from R!</p>
-<p>If you’re new to databases, it will be helpful to have a basic understanding of database management - don’t worry the basics are straight forward and won’t overwhelm you, below are a list of resources I found helpful.</p>
-<ul>
-<li><a href="https://solutions.posit.co/connections/db/" class="external-link">Posit solutions guide to working with databases</a></li>
-<li><a href="https://dbplyr.tidyverse.org/articles/dbplyr.html" class="external-link">dbplyr package page</a></li>
-<li><a href="https://motherduck.com/docs/key-tasks/authenticating-and-connecting-to-motherduck/" class="external-link">Motherduck how to guide</a></li>
-<li><a href="https://duckdb.org/docs/stable/sql/introduction" class="external-link">duckdb documentation guide</a></li>
-</ul>
-<p>Please see the {md} package down website to see additional documentation on how to use the functions and motherduck</p>
-</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -320,7 +125,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
