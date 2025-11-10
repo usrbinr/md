@@ -372,7 +372,7 @@ describe("read_csv",{
 
     md::read_csv(.con = con_db,to_database_name = "memory",to_schema_name = "main",to_table_name = "mtcars_csv",file_path = "mtcars.csv",write_type = "overwrite")
 
-    fs::file_delete("mtcars.csv")
+    file.remove("mtcars.csv")
     list_of_tables <- list_all_tables(con_db) |> dplyr::collect()
 
     testthat::expect_true(all(list_of_tables[["table_name"]] %in% "mtcars_csv"))
@@ -400,7 +400,7 @@ describe("read_csv",{
 
       md::read_excel(.con = con_db,to_database_name = "memory",to_schema_name = "main",to_table_name = "mtcars_excel",file_path = "mtcars.xlsx",write_type = "overwrite")
 
-      fs::file_delete("mtcars.xlsx")
+      file.remove("mtcars.xlsx")
       list_of_tables <- list_all_tables(con_db) |> dplyr::collect()
 
       testthat::expect_true(all(list_of_tables[["table_name"]] %in% "mtcars_excel"))

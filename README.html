@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>My Project</title>
+<title>Motherduck</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">My Project</h1>
+<h1 class="title">Motherduck</h1>
 </div>
 
 
@@ -99,6 +99,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><img src="man/figures/md_logo.png" class="img-fluid"></p>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>This is a collection of utilities to help with the management, administration and navigation of <a href="https://duckdb.org/">duckdb</a> database either locally on your computer or in the cloud via <a href="https://motherduck.com/">motherduck</a></p>
@@ -111,72 +112,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This is very much work in progress – I’ll eventually transition to the <a href="https://rconsortium.github.io/S7/articles/S7.html">R7</a> object system but just want to get some usage first before deciding on the architecture and structure.</p>
 <p>Please create an issue if you have any comments or requests or reach out if you have any feedback.</p>
 </section>
-<section id="overview-of-functions" class="level2">
-<h2 class="anchored" data-anchor-id="overview-of-functions">Overview of functions</h2>
-<p>Below is a quick overview of the functions available in the package.</p>
-<section id="functions-that-help-you-manage-your-connection-and-duckdb-specific-extensions" class="level3">
-<h3 class="anchored" data-anchor-id="functions-that-help-you-manage-your-connection-and-duckdb-specific-extensions">Functions that help you manage your connection and duckdb specific extensions</h3>
-<ul>
-<li><code>connect_to_motherduck()</code> will leverage your motherduck token to connect you to your motherduck instance (it will install the motherduck extension if not already present)</li>
-<li><code>install_extensions()</code> will install various duckdb extensions from the official repository</li>
-<li><code>load_extensions()</code> will load a duckdb extensions either from an official repository</li>
-<li><code>validate_md_connection_status()</code> will validate your motherduck connection status</li>
-<li><code>validate_extension_install_status()</code> will validate if an extension has been successfully installed</li>
-<li><code>validate_extension_load_status()</code> will validate if an extension has been successfully loaded</li>
-</ul>
-</section>
-<section id="functions-that-help-you-see-what-is-in-your-databases" class="level3">
-<h3 class="anchored" data-anchor-id="functions-that-help-you-see-what-is-in-your-databases">Functions that help you see what is in your databases</h3>
-<ul>
-<li><code>pwd()</code> prints the current database that you are “in”</li>
-<li><code>cd()</code> will change your “root” database so any execution functions are relative to that database (eg. CREATE SCHEMA)</li>
-<li><code>list_database()</code> list the databases and their metadata</li>
-<li><code>list_schema()</code>list the schemas and their metadata</li>
-<li><code>list_table()</code>list the tables and their metadata</li>
-<li><code>list_all_table()</code>list all tables across all databases</li>
-<li><code>list_view()</code>list the views and their metadata</li>
-</ul>
-</section>
-<section id="functions-that-will-help-you-read-data-into-duckdb-or-motherduck" class="level3">
-<h3 class="anchored" data-anchor-id="functions-that-will-help-you-read-data-into-duckdb-or-motherduck">Functions that will help you read data into duckdb or motherduck</h3>
-<ul>
-<li><code>read_httpfs()</code> will read httpfs file formats</li>
-<li><code>read_parquet()</code> will read parquet file formats</li>
-<li><code>read_excel()</code> will read excel files formats</li>
-</ul>
-</section>
-<section id="functions-that-will-help-you-create-or-replace-databases-scehems-tables-or-views" class="level3">
-<h3 class="anchored" data-anchor-id="functions-that-will-help-you-create-or-replace-databases-scehems-tables-or-views">Functions that will help you create or replace databases, scehems, tables or views</h3>
-<ul>
-<li><code>create_or_replace_database()</code> will take R data and create a database with your data</li>
-<li><code>create_or_replace_schemas()</code> will take R data and create a schema with your data</li>
-<li><code>create_or_replace_view()</code> will take R data and create a views with your data</li>
-<li><code>create_or_replace_table()</code> will take R data and create a tables with your data</li>
-<li><code>drop_table()</code> will delete a table from your databases</li>
-<li><code>drop_database()</code> will delete a database</li>
-</ul>
-</section>
-</section>
-<section id="functions-to-help-you-manage-motherduck-users-tokens-and-instance-settings" class="level2">
-<h2 class="anchored" data-anchor-id="functions-to-help-you-manage-motherduck-users-tokens-and-instance-settings">Functions to help you manage motherduck users, tokens, and instance settings</h2>
-<ul>
-<li><code>list_md_active_accounts()</code> list users with active duckling instances (note: will not list inactive users)</li>
-<li><code>list_md_user_instance()</code> list a user’s instance settings</li>
-<li><code>list_md_user_tokens()</code> list user’s tokens</li>
-<li><code>show_current_user()</code> show your current user name</li>
-<li><code>create_md_user()</code> create user or service account in your organization</li>
-<li><code>delete_md_user()</code> delete a user or service account</li>
-<li><code>create_md_access_token()</code> create an access token for a user</li>
-<li><code>delete_md_access_token()</code> delete an access token for a user</li>
-<li><code>configure_md_user_settings()</code> configure a user’s instance settings</li>
-</ul>
-<section id="functions-to-help-you-understand-your-data" class="level3">
-<h3 class="anchored" data-anchor-id="functions-to-help-you-understand-your-data">Functions to help you understand your data</h3>
-<ul>
-<li><code>summary()</code> will summarize your table or view’s data</li>
-</ul>
-</section>
-</section>
 <section id="what-do-i-need-to-use-this" class="level2">
 <h2 class="anchored" data-anchor-id="what-do-i-need-to-use-this">What do I need to use this?</h2>
 <ul>
@@ -184,156 +119,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>A <a href="https://motherduck.com/">motherduck</a> account</li>
 <li>A motherduck access token which you you can be saved to your R environment file with <code>usethis::edit_r_environ()</code></li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Whats the difference between Motherduck and Duckdb?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ul>
-<li><p>Duckdb is a database that you can deploy and run either temporary or permanently in your computer. If you run it via your local computer, it is only available on your computer</p></li>
-<li><p>Motherduck is a cloud based deployment of duckdb which means you can save your data in the cloud or access it locally</p></li>
-<li><p>Most core functions in this package work for both motherduck or duckdb database</p></li>
-<li><p>It is more of a question if you want you data to be access only locally on your computer or if you want to be able to access it remotely via the cloud</p></li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="lets-see-the-package-in-action" class="level2">
-<h2 class="anchored" data-anchor-id="lets-see-the-package-in-action">Lets see the package in action</h2>
-<section id="create-a-duckdb-instance-and-connect-to-your-motherduck-account" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-duckdb-instance-and-connect-to-your-motherduck-account">Create a duckdb instance and Connect to your motherduck account</h3>
-<p>When creating a duckdb database, you have three options</p>
-<ol type="1">
-<li>A in-memory based instance that exists in your local computer</li>
-<li>A file based instance that exists in your local computer</li>
-<li>A cloud-based instance through <a href="https://motherduck.com/">motherduck</a></li>
-</ol>
-<p>To create options 1 or 2 you can simply use either the <a href="https://duckdb.org/">duckdb</a> or the <a href="https://duckplyr.tidyverse.org/index.html">duckplyr</a> packages.</p>
-<p>To use option 3, you will need to create a motherudck account and generate an access token. Once created, save your access token to an your R enviorment with <code>usethis::edit_r_environ()</code>. I recommend using <code>MOTHERDUCK_TOKEN</code> as your variable name.</p>
-<p>Once completed, you can simply use the <code>connect_to_motherduck()</code> function and pass through your token variable name and optional configuration options.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>con_md <span class="ot">&lt;-</span> <span class="fu">connect_to_motherduck</span>(<span class="st">"MOTHERDUCK_TOKEN"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Extension Load &amp; Install Report ─────────────────────────────────────────────</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Installed and loaded 1 extension: motherduck</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Use `list_extensions()` to list extensions, status and their descriptions</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Use `install_extensions()` to install new duckdb extensions</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>See &lt;https://duckdb.org/docs/stable/extensions/overview.html&gt; for more
-information</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Connection Status Report: ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ You are connected to MotherDuck</code></pre>
-</div>
-</div>
-<p>This will return a connection and print statement indicating if connection status.</p>
-<p>At any time you can validate your connection status with <code>validate_md_connection_status()</code></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">validate_md_connection_status</span>(con_md)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Connection Status Report: ──</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>✔ You are connected to MotherDuck</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>how to create a motherduck account and access token?
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li>Go to <a href="https://motherduck.com/">motherduck</a> and create an account, free options are available</li>
-<li>Go to your user name in the top right, click settings then click access tokens</li>
-<li>Click create token and then name your token and copy the token code</li>
-<li>You will need this token to access your account</li>
-<li>If you want to access it via R then simplest way is to save your access code as a variable in your r environment</li>
-<li>Simply leverage the <a href="https://usethis.r-lib.org/">usethis</a> function <code>edit_r_environ()</code> to set your access code to a variable and save it – this is one time activity</li>
-<li>To check if your correctly saved your variable then you can use the Sys.getenv(“var_name”) with “var_name” the named you assigned your access token to</li>
-<li>Going forward, if you want to access your token you don’t need to re-type the access token, simply remember your variable name</li>
-</ol>
-<ul>
-<li><p>First you will need a motherduck account, which has both free and paid tiers</p></li>
-<li><p>Once you’ve created an account, simply, go to your settings and click ‘Access Tokens’ under your ‘Integrations’</p></li>
-<li><p>Keep this secure and safe as this lets you connect to your online database to read or write data</p></li>
-<li><p>Open R and use the <code>usethis::edit_r_environ()</code> function to put your motherduck token as a variable in your enviornment profile</p>
-<ul>
-<li>MOTHERDUCK_TOKEN=‘tokenID’</li>
-</ul></li>
-<li><p>From there you can use the <code>connect_to_motherduck("MOTHERDUCK_TOKEN")</code></p></li>
-<li><p>This will use the <a href="https://dbi.r-dbi.org/">DBI</a> library to create a connection to your mother duck instance</p></li>
-</ul>
-</div>
-</div>
-</div>
-<p>When connecting to motherduck there are a number of configuration options available, you can reference them via the <code>md::db_config</code> which will pull a list of options and their default values</p>
-<p>To change these, simply edit the configuration options you want and then pass the list as an argument <code>connect_to_motherduck()</code> or <code>duckdb()</code> if connecting locally</p>
-<p>You can see the full list of duckdb configuration options <a href="https://duckdb.org/docs/stable/configuration/overview.html">here</a> or alternatively you can use <code>list_settings()</code> to see your current configuration options.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>config <span class="ot">&lt;-</span> md<span class="sc">::</span>db_config <span class="co"># &lt;1&gt; get list of default configuration options</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>config<span class="sc">$</span>allow_community_extensions <span class="ot">&lt;-</span> <span class="st">"true"</span> <span class="co"># &lt;2&gt; change a default option</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>con_md <span class="ot">&lt;-</span> <span class="fu">connect_to_motherduck</span>(<span class="st">"MOTHERDUCK_TOKEN"</span>,<span class="at">config =</span> config) <span class="co"># &lt;3&gt; pass the modified list to your connection</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>At any time you can see what configuration arguments are for your connection with <code>md::list_settings()</code>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list_setting</span>(con_md)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Congratulations, you’ve set connected to your motherduck database from R!</p>
-<p>If you’re new to databases, it will be helpful to have a basic understanding of database management - don’t worry the basics are straight forward and won’t overwhelm you, below are a list of resources I found helpful.</p>
-<ul>
-<li><a href="https://solutions.posit.co/connections/db/">Posit solutions guide to working with databases</a></li>
-<li><a href="https://dbplyr.tidyverse.org/articles/dbplyr.html">dbplyr package page</a></li>
-<li><a href="https://motherduck.com/docs/key-tasks/authenticating-and-connecting-to-motherduck/">Motherduck how to guide</a></li>
-<li><a href="https://duckdb.org/docs/stable/sql/introduction">duckdb documentation guide</a></li>
-</ul>
-<p>Please see the {md} package down website to see additional documentation on how to use the functions and motherduck</p>
-</section>
 </section>
 
 </main>

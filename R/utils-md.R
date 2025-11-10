@@ -885,8 +885,6 @@ list_setting <- function(.con){
 }
 
 
-
-
 #' @title List MotherDuck Shares
 #' @name list_shares
 #'
@@ -940,11 +938,55 @@ list_shares <- function(.con){
 }
 
 
-#' @importFrom contoso launch_ui
+
+#' @title Launch the DuckDB UI in your browser
+#'
+#' @name launch_ui
+#'
+#' @description
+#' The `launch_ui()` function installs and launches the DuckDB UI extension
+#' for an active DuckDB database connection. This allows users to interact
+#' with the database via a web-based graphical interface.
+#'
+#' The function will check that the connection is valid before proceeding.
+#'
+#' @details
+#' The function performs the following steps:
+#'
+#' * Checks that the provided DuckDB connection is valid.
+#'    If the connection is invalid, it aborts with a descriptive error message.
+#' * Installs the `ui` extension into the connected DuckDB instance.
+#' * Calls the `start_ui()` procedure to launch the DuckDB UI in your browser.
+#'
+#' This provides a convenient way to explore and manage DuckDB databases
+#' interactively without needing to leave the R environment.
+#' @inheritParams validate_con
+#' @return
+#' The function is called for its side effects and does not return a value.
+#' It launches the DuckDB UI and opens it in your default web browser.
+#' @family db-meta
+#' @examples
+#' \dontrun{
+#' # Connect to DuckDB
+#' con_db <- DBI::dbConnect(duckdb::duckdb())
+#'
+#' # Launch the DuckDB UI
+#' launch_ui(con_db)
+#'
+#' # Clean up
+#' DBI::dbDisconnect(con_db, shutdown = TRUE)
+#' }
+#'
 #' @export
-contoso::launch_ui
+launch_ui <- function(.con){
 
+  validate_con(.con)
 
+  DBI::dbExecute(.con,"install ui;")
+
+  DBI::dbExecute(.con,"CALL start_ui()")
+
+}
 
 
 utils::globalVariables(c("con", "extension_name", "installed", "loaded","current_role"))

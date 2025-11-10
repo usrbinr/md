@@ -1,23 +1,9 @@
 ---
-title: "My Project"
+title: "Motherduck"
 ---
 
 
-```{r}
-#| label: load-packages
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-#| include: true
-
-library(md)
-library(tidyverse)
-library(DBI)
-library(duckdb)
-
-
-```
+![](man/figures/md_logo.png)    
 
 ## Overview
 
@@ -36,56 +22,6 @@ This is very much work in progress -- I'll eventually transition to the [R7](htt
 
 Please create an issue if you have any comments or requests or reach out if you have any feedback.
 
-## Overview of functions
-
-Below is a quick overview of the functions available in the package.
-
-### Functions that help you manage your connection and duckdb specific extensions
-
--   `connect_to_motherduck()` will leverage your motherduck token to connect you to your motherduck instance (it will install the motherduck extension if not already present)
--   `install_extensions()` will install various duckdb extensions from the official repository
--   `load_extensions()` will load a duckdb extensions either from an official repository 
--   `validate_md_connection_status()` will validate your motherduck connection status
--   `validate_extension_install_status()` will validate if an extension has been successfully installed
--   `validate_extension_load_status()` will validate if an extension has been successfully loaded
-
-### Functions that help you see what is in your databases
--   `pwd()` prints the current database that you are "in" 
--   `cd()` will change your "root" database so any execution functions are relative to that database (eg. CREATE SCHEMA)
--   `list_database()` list the databases and their metadata
--   `list_schema()`list the schemas and their metadata
--   `list_table()`list the tables and their metadata
--   `list_all_table()`list all tables across all databases
--   `list_view()`list the views and their metadata
-
-### Functions that will help you read data into duckdb or motherduck 
--   `read_httpfs()` will read httpfs file formats 
--   `read_parquet()` will read parquet file formats
--   `read_excel()` will read excel files formats 
-
-### Functions that will help you create or replace databases, scehems, tables or views 
--   `create_or_replace_database()` will take R data and create a database with your data
--   `create_or_replace_schemas()` will take R data and create a schema with your data
--   `create_or_replace_view()` will take R data and create a views with your data
--   `create_or_replace_table()` will take R data and create a tables with your data
--   `drop_table()` will delete a table from your databases
--   `drop_database()` will delete a database
-
-
-## Functions to help you manage motherduck users, tokens, and instance settings
--   `list_md_active_accounts()` list users with active duckling instances (note: will not list inactive users)
--   `list_md_user_instance()` list a user's instance settings
--   `list_md_user_tokens()` list user's tokens
--   `show_current_user()` show your current user name
--   `create_md_user()` create user or service account in your organization
--   `delete_md_user()` delete a user or service account
--   `create_md_access_token()` create an access token for a user
--   `delete_md_access_token()` delete an access token for a user
--   `configure_md_user_settings()` configure a user's instance settings
-
-### Functions to help you understand your data
--   `summary()` will summarize your table or view's data
-
 ## What do I need to use this?
 
 -   [duckdb](https://duckdb.org/) R package installed on your computer
@@ -97,7 +33,7 @@ Below is a quick overview of the functions available in the package.
 ```{r}
 #| label: connection-example
 #| echo: true
-#| eval: true
+#| eval: false
 #| warning: true
 #| message: true
 #| include: true

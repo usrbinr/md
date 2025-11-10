@@ -9,7 +9,7 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: Collection of database utilities for "Motherduck"" database
+Description: Collection of database utilities for "Motherduck" database
     This provides utilities and metadata function support to simplify the management, connection,
     uploading and management of a Motherduck database platform.
     This package requires an account www.motherduck.com to apply its functions.
@@ -31,17 +31,14 @@ Imports:
     httr2,
     rlang,
     janitor,
-    tibble,
-    openxlsx,
-    fs
+    tibble
 Suggests: 
     testthat (>= 3.0.0),
     quarto,
     knitr,
-    rmarkdown
+    openxlsx
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 Depends: 
     R (>= 3.5)
 URL: https://usrbinr.github.io/md/
-Config/Needs/website: rmarkdown
-VignetteBuilder: quarto, knitr

@@ -38,6 +38,7 @@ pwd(con)
 }
 \seealso{
 Other db-meta: 
-\code{\link{cd}()}
+\code{\link{cd}()},
+\code{\link{launch_ui}()}
 }
 \concept{db-meta}
