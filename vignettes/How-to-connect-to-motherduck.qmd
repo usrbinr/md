@@ -1,8 +1,13 @@
 ---
-title: "How-to-connect-to-motherduck"
+title: "How to connect to motherduck"
+vignette: >
+  %\VignetteIndexEntry{How to Connect to Motherduck}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r}
+#| label: load
 #| eval: true
 #| echo: false
 #| message: false
@@ -38,7 +43,7 @@ To use option 3, you will need to create a motherudck account and generate an ac
 Once completed, you can simply use the `connect_to_motherduck()` function and pass through your token variable name and optional configuration options.
 
 
-::: {.callout-note collapse="true"}
+::: {.callout-note}
 ## Whats the difference between Motherduck and Duckdb?
 
 - Duckdb is a database that you can deploy and run either temporary or permanently in your computer. If you run it via your local computer, it is only available on your computer
@@ -86,7 +91,7 @@ validate_md_connection_status(con_md)
 ```
 
 
-::: {.callout-note collapse="true"}
+::: {.callout-note}
 ## how to create a motherduck account and access token?
 
 1. Go to [motherduck](https://motherduck.com/) and create an account, free options are available

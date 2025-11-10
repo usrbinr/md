@@ -1,9 +1,9 @@
 ---
-title: "How to load data into motherduck"
+title: "How to load data into Motherduck"
 code-annotations: below
 vignette: >
-  %\VignetteIndexEntry{How to load data in MotherDuck}
-  %\VignetteEngine{quarto::quarto}
+  %\VignetteIndexEntry{How to load data into Motherduck}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -380,7 +380,7 @@ Similar to the `read_csv_auto` function, these leverage underlying duckdb extens
 You can view the default configuration tables with the md::config_* family of tables 
 
 ```{r}
-#| label: delete
+#| label: delete-csv
 #| echo: false
 #| eval: true
 #| warning: false
@@ -413,6 +413,7 @@ read_excel(
     ,write_type = "overwrite"  #<10>
 )
 
+
 ```
 
 1. Create a excel file
@@ -431,7 +432,7 @@ Below are the list of configuration options available to be passed through to re
 ```{r}
 #| label: delete-excel
 #| echo: false
-#| eval: false
+#| eval: true
 #| warning: false
 #| message: false
 #| include: false
