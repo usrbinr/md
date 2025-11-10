@@ -197,8 +197,7 @@ read_excel <- function(
                 "CREATE TABLE IF NOT EXISTS {`to_table_name`} AS SELECT * FROM read_xlsx({file_path}",range_vec,stop_at_empty_vec,all_varchar_vec,header_vec,sheet_vec,ignore_errors_vec,empty_as_varchar_vec,");"
             )
             ,.con = .con
-        )
-    }
+        )}
 
     if(write_type=="append"){
 
@@ -208,9 +207,7 @@ read_excel <- function(
                 "CREATE TABLE IF NOT EXISTS {`to_table_name`}; INSERT INTO {`to_table_name`} SELECT * FROM read_xlsx({file_path}",range_vec,stop_at_empty_vec,all_varchar_vec,header_vec,sheet_vec,ignore_errors_vec,empty_as_varchar_vec,");"
             )
             ,.con = .con
-        )
-
-    }
+        )}
 
     cli_create_obj(.con,database_name = to_database_name,schema_name = to_schema_name,table_name = to_table_name,write_type = write_type)
 }
@@ -468,14 +465,11 @@ read_csv <- function(
                     "CREATE TABLE IF NOT EXISTS {`to_table_name`} AS SELECT * FROM read_csv_auto({file_path}",header_vec,all_varchar_vec,sample_size_vec,names_vec,types_vec,skip_vec,union_by_name_vec,normalize_names_vec,allow_quoted_nulls_vec,ignore_errors_vec,");"
                 )
                 ,.con = .con
-            )
-
-
-        }
+            )}
 
 
     }
-
     cli_create_obj(.con,database_name = to_database_name,schema_name = to_schema_name,table_name = to_table_name,write_type = write_type)
-}
+
+    }
 

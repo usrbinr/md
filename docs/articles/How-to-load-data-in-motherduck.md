@@ -1,4 +1,4 @@
-# How to load data into motherduck
+# How to load data into Motherduck
 
 ## Introduction
 
@@ -61,8 +61,7 @@ you will need:
 - access token
 - motherduck extension for duckdb
 
-The
-[`connect_to_motherduck()`](https://usrbinr.github.io/md/reference/connect_to_motherduck.md)
+The [`connect_to_motherduck()`](../reference/connect_to_motherduck.md)
 function will take your access token that is your environment file[^1],
 install and load the extensions and then finally connect to your
 motherduck instance.
@@ -77,7 +76,7 @@ motherduck instance.
 > and your cloud based motherduck databases.
 >
 > Check which database you are “in” with the
-> [`pwd()`](https://usrbinr.github.io/md/reference/pwd.md) command
+> [`pwd()`](../reference/pwd.md) command
 
 ``` r
 1con_md <- connect_to_motherduck(motherduck_token = "MOTHERDUCK_TOKEN")
@@ -87,41 +86,13 @@ motherduck instance.
 
   Pass your token name from your R environment file
 
-``` fansi
-── Extension Load & Install Report ─────────────────────────────────────────────
-```
-
-``` fansi
-Installed and loaded 1 extension: motherduck
-```
-
-    Use `list_extensions()` to list extensions, status and their descriptions
-
-``` fansi
-Use `install_extensions()` to install new duckdb extensions
-```
-
-``` fansi
-See <https://duckdb.org/docs/stable/extensions/overview.html> for more
-information
-```
-
-``` fansi
-── Connection Status Report: ──
-```
-
-``` fansi
-✔ You are connected to MotherDuck
-```
-
 You will get a message that prints out that actions the package took and
 information about your connection
 
 Before uploading new data, it can be helpful to check “where” you are in
 your database
 
-You can do this with the
-[`pwd()`](https://usrbinr.github.io/md/reference/pwd.md)[^2] function
+You can do this with the [`pwd()`](../reference/pwd.md)[^2] function
 that will print out the current database & schema that you are in.
 
 This would be the default location that you save your database unless
@@ -131,15 +102,6 @@ you clarified a different database and schema.
 pwd(con_md)
 ```
 
-    → Current role: `duckdb`
-
-``` fansi
-# A tibble: 1 × 2
-  current_database  current_schema
-  <chr>             <chr>
-1 file5db7f78aab7b7 main
-```
-
 By default, you will be in your local duckdb database even though you
 are connected to motherduck
 
@@ -147,20 +109,18 @@ See [Caution 1](#cau-con) to understand why we start in a local database
 vs. motherduck
 
 If we want to we can also navigate to your motherduck database with the
-[`cd()`](https://usrbinr.github.io/md/reference/cd.md) command
+[`cd()`](../reference/cd.md) command
 
 ``` r
 cd(con_md,database = "contoso")
 ```
 
-I am now in motherduck based
-[contoso](https://usrbinr.github.io/md/articles/github.com/usrbinr/contoso)
+I am now in motherduck based [contoso](github.com/usrbinr/contoso)
 database and any reference to schema or table would be relative to this
 database.
 
 Let’s verify that by list the all the tables in this database. We can do
-that with the
-[`list_all_tables()`](https://usrbinr.github.io/md/reference/list_all_tables.md)
+that with the [`list_all_tables()`](../reference/list_all_tables.md)
 function.
 
 ``` r
@@ -169,9 +129,8 @@ list_all_tables(con_md)
 
 Now that we knwo how to navigate to our various databaes, lets finally
 load data somee existing data into a new database and schema.
-[`create_table()`](https://usrbinr.github.io/md/reference/create_table.md)
-function will create a new database / schema and save then load the data
-into a table.
+[`create_table()`](../reference/create_table.md) function will create a
+new database / schema and save then load the data into a table.
 
 ``` r
 1ggplot2::diamonds |>
@@ -208,74 +167,6 @@ into a table.
 
   Either overwrite or append the data
 
-``` fansi
-── Status: ─────────────────────────────────────────────────────────────────────
-```
-
-``` fansi
-── Connection Status Report: ──
-```
-
-``` fansi
-✔ You are connected to MotherDuck
-```
-
-``` fansi
-── User Report: ──
-```
-
-``` fansi
-• User Name: "alejandro_hagan"
-```
-
-``` fansi
-• Role: "duckdb"
-```
-
-``` fansi
-── Catalog Report: ──
-```
-
-``` fansi
-• Current Database: "vignette"
-```
-
-``` fansi
-• Current Schema: "raw"
-```
-
-``` fansi
-• # Total Catalogs you have access to: 13
-```
-
-``` fansi
-• # Total Tables you have access to: 60
-```
-
-``` fansi
-• # Total Shares you have access to: 2
-```
-
-``` fansi
-• # Tables in this catalog you have access to: 4
-```
-
-``` fansi
-• # Tables in this catalog & schema you have access to: 1
-```
-
-``` fansi
-── Action Report: ──
-```
-
-``` fansi
-✔ Inserted into existing database "vignette"
-```
-
-``` fansi
-✔ Using existing schema "raw"
-```
-
 Notice that we don’t assign this object to anything, this just silently
 writes our data to our database and prints a message confirming the
 performed actions as well as some summary of catalogs, schemas, tables
@@ -284,8 +175,7 @@ and shares that you haves access
 To validate the data is in our database, we can do the following:
 
 We can validate if we have successfully saved the table in our database
-by running
-[`list_all_tables()`](https://usrbinr.github.io/md/reference/list_all_tables.md).
+by running [`list_all_tables()`](../reference/list_all_tables.md).
 
 If you want to access your motherduck data, you can simply leverage
 [`dplyr::tbl()`](https://dplyr.tidyverse.org/reference/tbl.html) or
@@ -333,9 +223,8 @@ this time we will upload a DBI object instead of tibble.
   Pass the DBI object to create_table and it will still save the table!
 
 While its the same syntax,
-[`create_table()`](https://usrbinr.github.io/md/reference/create_table.md)
-will work with an R object, duckplyr or DBI object to save that table
-into your database.
+[`create_table()`](../reference/create_table.md) will work with an R
+object, duckplyr or DBI object to save that table into your database.
 
 ## Create new schema
 
@@ -357,16 +246,6 @@ data.
 
 ``` r
 list_schemas(con_md)
-```
-
-``` fansi
-# Source:   SQL [?? x 2]
-# Database: DuckDB 1.4.1 [hagan@Linux 6.16.3-76061603-generic:R 4.5.1//tmp/Rtmp2yTjzC/file5db7f78aab7b7.duckdb]
-  catalog_name schema_name
-  <chr>        <chr>
-1 vignette     raw
-2 vignette     main
-3 vignette     test
 ```
 
 > **Default schemas**
@@ -509,68 +388,7 @@ through to respective read\_\* functions.
 >
 > &nbsp;
 >
-> - | name | description | type | default |
->   |----|----|----|----|
->   | all_varchar | Skip type detection and assume all columns are of type VARCHAR. This option is only supported by the read_csv function. | BOOL | false |
->   | allow_quoted_nulls | Allow the conversion of quoted values to NULL values | BOOL | true |
->   | auto_detect | Auto detect CSV parameters. | BOOL | true |
->   | auto_type_candidates | Types that the sniffer uses when detecting column types. The VARCHAR type is always included as a fallback option. See example. | TYPE\[\] | default types |
->   | buffer_size | Size of the buffers used to read files, in bytes. Must be large enough to hold four lines and can significantly impact performance. | BIGINT | 16 \* max_line_size |
->   | columns | Column names and types, as a struct (e.g., {'col1': 'INTEGER', 'col2': 'VARCHAR'}). Using this option disables auto detection of the schema. | STRUCT | (empty) |
->   | comment | Character used to initiate comments. Lines starting with a comment character (optionally preceded by space characters) are completely ignored; other lines containing a comment character are parsed only up to that point. | VARCHAR | (empty) |
->   | compression | Method used to compress CSV files. By default this is detected automatically from the file extension (e.g., t.csv.gz will use gzip, t.csv will use none). Options are none, gzip, zstd. | VARCHAR | auto |
->   | dateformat | Date format used when parsing and writing dates. | VARCHAR | (empty) |
->   | date_format | Alias for dateformat; only available in the COPY statement. | VARCHAR | (empty) |
->   | decimal_separator | Decimal separator for numbers. | VARCHAR | . |
->   | delim | Delimiter character used to separate columns within each line, e.g., , ; \t. The delimiter character can be up to 4 bytes, e.g., 🦆. Alias for sep. | VARCHAR | , |
->   | delimiter | Alias for delim; only available in the COPY statement. | VARCHAR | , |
->   | escape | String used to escape the quote character within quoted values. | VARCHAR | " |
->   | encoding | Encoding used by the CSV file. Options are utf-8, utf-16, latin-1. Not available in the COPY statement (which always uses utf-8). | VARCHAR | utf-8 |
->   | filename | Add path of the containing file to each row, as a string column named filename. Relative or absolute paths are returned depending on the path or glob pattern provided to read_csv, not just filenames. Since DuckDB v1.3.0, the filename column is added automatically as a virtual column and this option is only kept for compatibility reasons. | BOOL | false |
->   | force_not_null | Do not match values in the specified columns against the NULL string. In the default case where the NULL string is empty, this means that empty values are read as zero-length strings instead of NULLs. | VARCHAR\[\] | \[\] |
->   | header | First line of each file contains the column names. | BOOL | false |
->   | hive_partitioning | Interpret the path as a Hive partitioned path. | BOOL | (auto-detected) |
->   | ignore_errors | Ignore any parsing errors encountered. | BOOL | false |
->   | max_line_size or maximum_line_size | Maximum line size, in bytes. Not available in the COPY statement. | BIGINT | 2000000 |
->   | names or column_names | Column names, as a list. See example. | VARCHAR\[\] | (empty) |
->   | new_line | New line character(s). Options are '\r','\n', or '\r\n'. The CSV parser only distinguishes between single-character and double-character line delimiters. Therefore, it does not differentiate between '\r' and '\n'. | VARCHAR | (empty) |
->   | normalize_names | Normalize column names. This removes any non-alphanumeric characters from them. Column names that are reserved SQL keywords are prefixed with an underscore character (\_). | BOOL | false |
->   | null_padding | Pad the remaining columns on the right with NULL values when a line lacks columns. | BOOL | false |
->   | nullstr or null | Strings that represent a NULL value. | VARCHAR or VARCHAR\[\] | (empty) |
->   | parallel | Use the parallel CSV reader. | BOOL | true |
->   | quote | String used to quote values. | VARCHAR | " |
->   | rejects_scan | Name of the temporary table where information on faulty scans is stored. | VARCHAR | reject_scans |
->   | rejects_table | Name of the temporary table where information on faulty lines is stored. | VARCHAR | reject_errors |
->   | rejects_limit | Upper limit on the number of faulty lines per file that are recorded in the rejects table. Setting this to 0 means that no limit is applied. | BIGINT | 0 |
->   | sample_size | Number of sample lines for auto detection of parameters. | BIGINT | 20480 |
->   | sep | Delimiter character used to separate columns within each line, e.g., , ; \t. The delimiter character can be up to 4 bytes, e.g., 🦆. Alias for delim. | VARCHAR | , |
->   | skip | Number of lines to skip at the start of each file. | BIGINT | 0 |
->   | store_rejects | Skip any lines with errors and store them in the rejects table. | BOOL | false |
->   | strict_mode | Enforces the strictness level of the CSV Reader. When set to true, the parser will throw an error upon encountering any issues. When set to false, the parser will attempt to read structurally incorrect files. It is important to note that reading structurally incorrect files can cause ambiguity; therefore, this option should be used with caution. | BOOL | true |
->   | thousands | Character used to identify thousands separators in numeric values. It must be a single character and different from the decimal_separator option. | VARCHAR | (empty) |
->   | timestampformat | Timestamp format used when parsing and writing timestamps. | VARCHAR | (empty) |
->   | timestamp_format | Alias for timestampformat; only available in the COPY statement. | VARCHAR | (empty) |
->   | types or dtypes or column_types | Column types, as either a list (by position) or a struct (by name). See example. | VARCHAR\[\] or STRUCT | (empty) |
->   | union_by_name | Align columns from different files by column name instead of position. Using this option increases memory consumption. | BOOL | false |
->
-> | Option | Type | Default | Description |
-> |----|----|----|----|
-> | header | BOOLEAN | automatically inferred | Whether to treat the first row as containing the names of the resulting columns. |
-> | sheet | VARCHAR | automatically inferred | The name of the sheet in the xlsx file to read. Default is the first sheet. |
-> | all_varchar | BOOLEAN | false | Whether to read all cells as containing VARCHARs. |
-> | ignore_errors | BOOLEAN | false | Whether to ignore errors and silently replace cells that cant be cast to the corresponding inferred column type with NULL's. |
-> | range | VARCHAR | automatically inferred | The range of cells to read, in spreadsheet notation. For example, A1:B2 reads the cells from A1 to B2. If not specified the resulting range will be inferred as rectangular region of cells between the first row of consecutive non-empty cells and the first empty row spanning the same columns. |
-> | stop_at_empty | BOOLEAN | automatically inferred | Whether to stop reading the file when an empty row is encountered. If an explicit range option is provided, this is false by default, otherwise true. |
-> | empty_as_varchar | BOOLEAN | false | Whether to treat empty cells as VARCHAR instead of DOUBLE when trying to automatically infer column types. |
->
-> | Name | Description | Type | Default |
-> |----|----|----|----|
-> | binary_as_string | Parquet files generated by legacy writers do not correctly set the UTF8 flag for strings, causing string columns to be loaded as BLOB instead. Set this to true to load binary columns as strings. | BOOL | false |
-> | encryption_config | Configuration for Parquet encryption. | STRUCT | \- |
-> | filename | Whether or not an extra filename column should be included in the result. Since DuckDB v1.3.0, the filename column is added automatically as a virtual column and this option is only kept for compatibility reasons. | BOOL | false |
-> | file_row_number | Whether or not to include the file_row_number column. | BOOL | false |
-> | hive_partitioning | Whether or not to interpret the path as a Hive partitioned path. | BOOL | (auto-detected) |
-> | union_by_name | Whether the columns of multiple schemas should be unified by name, rather than by position. | BOOL | false |
+> - 
 
 [^1]: Use
     [`usethis::edit_r_environ()`](https://usethis.r-lib.org/reference/edit.html)
