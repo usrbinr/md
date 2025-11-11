@@ -16,4 +16,5 @@
 ^README_files/
 ^access_token_md.png
 test.R
+^vignettes/.*\.qmd$
 ^vignettes/*_files$

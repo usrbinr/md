@@ -8,7 +8,7 @@
 #' as `<database>.<schema>.<table>`. Only the options you supply are forwarded
 #' to `read_xlsx()` (e.g., `sheet`, `header`, `all_varchar`, `ignore_errors`,
 #' `range`, `stop_at_empty`, `empty_as_varchar`).
-#' See 'duckdb extension [read_csv](https://duckdb.org/docs/stable/core_extensions/excel) for more information
+#' See 'duckdb extension [read_excel](https://duckdb.org/docs/stable/core_extensions/excel) for more information
 #'
 #' @inheritParams validate_con
 #' @param to_database_name Target database name (new or existing)
