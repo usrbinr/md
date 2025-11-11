@@ -80,7 +80,7 @@
 </li>
 </ol>
 <p>To create options 1 or 2 you can simply use either the <a href="https://duckdb.org/" class="external-link">duckdb</a> or the <a href="https://duckplyr.tidyverse.org/index.html" class="external-link">duckplyr</a> packages.</p>
-<p>To use option 3, you will need to create a motherudck account and generate an access token. Once created, save your access token to an your R enviorment with <code><a href="https://usethis.r-lib.org/reference/edit.html" class="external-link">usethis::edit_r_environ()</a></code>. I recommend using <code>MOTHERDUCK_TOKEN</code> as your variable name.</p>
+<p>To use option 3, you will need to create a motherudck account and generate an access token. Once created, save your access token to an your R enviorment with <code>usethis::edit_r_environ()</code>. I recommend using <code>MOTHERDUCK_TOKEN</code> as your variable name.</p>
 <p>Once completed, you can simply use the <code><a href="../reference/connect_to_motherduck.html">connect_to_motherduck()</a></code> function and pass through your token variable name and optional configuration options.</p>
 <div>
 <blockquote>
@@ -95,7 +95,7 @@
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://alejandrohagan.github.io/md/" class="external-link">md</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usrbinr.github.io/md/">md</a></span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="va">con_md</span> <span class="op">&lt;-</span> <span class="fu">md</span><span class="fu">::</span><span class="fu"><a href="../reference/connect_to_motherduck.html">connect_to_motherduck</a></span><span class="op">(</span><span class="st">"MOTHERDUCK_TOKEN"</span><span class="op">)</span></span></code></pre></div>
@@ -104,7 +104,7 @@
 <p>At any time you can validate your connection status with <code><a href="../reference/validate_md_connection_status.html">validate_md_connection_status()</a></code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://alejandrohagan.github.io/md/" class="external-link">md</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usrbinr.github.io/md/">md</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/validate_md_connection_status.html">validate_md_connection_status</a></span><span class="op">(</span><span class="va">con_md</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -126,7 +126,7 @@
 <li><p>Once you’ve created an account, simply, go to your settings and click ‘Access Tokens’ under your ‘Integrations’</p></li>
 <li><p>Keep this secure and safe as this lets you connect to your online database to read or write data</p></li>
 <li>
-<p>Open R and use the <code><a href="https://usethis.r-lib.org/reference/edit.html" class="external-link">usethis::edit_r_environ()</a></code> function to put your motherduck token as a variable in your enviornment profile</p>
+<p>Open R and use the <code>usethis::edit_r_environ()</code> function to put your motherduck token as a variable in your enviornment profile</p>
 <ul>
 <li>MOTHERDUCK_TOKEN=‘tokenID’</li>
 </ul>

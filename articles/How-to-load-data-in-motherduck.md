@@ -63,9 +63,9 @@ you will need:
 
 The
 [`connect_to_motherduck()`](https://usrbinr.github.io/md/reference/connect_to_motherduck.md)
-function will take your access token that is your environment file[^1],
-install and load the extensions and then finally connect to your
-motherduck instance.
+function will take your access token that is your environment
+file[¹](#fn1), install and load the extensions and then finally connect
+to your motherduck instance.
 
 > **Caution 1: connect-to-motherduck**
 >
@@ -94,8 +94,9 @@ Before uploading new data, it can be helpful to check “where” you are in
 your database
 
 You can do this with the
-[`pwd()`](https://usrbinr.github.io/md/reference/pwd.md)[^2] function
-that will print out the current database & schema that you are in.
+[`pwd()`](https://usrbinr.github.io/md/reference/pwd.md)[²](#fn2)
+function that will print out the current database & schema that you are
+in.
 
 This would be the default location that you save your database unless
 you clarified a different database and schema.
@@ -298,8 +299,8 @@ delete_schema(con_md,database_name = "vignette",schema_name = "curated",cascade 
 
 For csv files we can leverage the existing duckdb function
 [`duckdb::read_csv_duckdb()`](https://r.duckdb.org/reference/deprecated.html)
-to directly read the a csv file or a series of csv files[^3] into your
-duckdb or motherduck database
+to directly read the a csv file or a series of csv files[³](#fn3) into
+your duckdb or motherduck database
 
 This will read the files from their source location directly into your
 database without loading the files into memory which is helpful when you
@@ -397,10 +398,11 @@ through to respective read\_\* functions.
 >
 > - 
 
-[^1]: Use
-    [`usethis::edit_r_environ()`](https://usethis.r-lib.org/reference/edit.html)
-    to save your access token to a variable name
+------------------------------------------------------------------------
 
-[^2]: Naming convention is inspired by linux commands
+1.  Use `usethis::edit_r_environ()` to save your access token to a
+    variable name
 
-[^3]: as long as they have the same header structure
+2.  Naming convention is inspired by linux commands
+
+3.  as long as they have the same header structure

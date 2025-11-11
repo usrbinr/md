@@ -16,9 +16,8 @@ To create options 1 or 2 you can simply use either the
 
 To use option 3, you will need to create a motherudck account and
 generate an access token. Once created, save your access token to an
-your R enviorment with
-[`usethis::edit_r_environ()`](https://usethis.r-lib.org/reference/edit.html).
-I recommend using `MOTHERDUCK_TOKEN` as your variable name.
+your R enviorment with `usethis::edit_r_environ()`. I recommend using
+`MOTHERDUCK_TOKEN` as your variable name.
 
 Once completed, you can simply use the
 [`connect_to_motherduck()`](https://usrbinr.github.io/md/reference/connect_to_motherduck.md)
@@ -89,10 +88,8 @@ validate_md_connection_status(con_md)
 > - Keep this secure and safe as this lets you connect to your online
 >   database to read or write data
 >
-> - Open R and use the
->   [`usethis::edit_r_environ()`](https://usethis.r-lib.org/reference/edit.html)
->   function to put your motherduck token as a variable in your
->   enviornment profile
+> - Open R and use the `usethis::edit_r_environ()` function to put your
+>   motherduck token as a variable in your enviornment profile
 >
 >   - MOTHERDUCK_TOKEN=‘tokenID’
 >
